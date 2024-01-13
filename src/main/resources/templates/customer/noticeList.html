@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<h1>게시글 목록</h1>
+<table border="1">
+    <tr>
+        <th>제목</th>
+        <th>내용</th>
+        <th>조회수</th>
+        <th>등록일</th>
+    </tr>
+    <tr th:each="notice, noticeStat : ${noticeList}">
+        <td th:text="${notice.title}">title</td>
+        <td th:text="${notice.content}">content</td>
+        <td th:text="${notice.hits}">hits</td>
+        <td th:text="${notice.regDt}">regDt</td>
+    </tr>
+</table>
+</body>
+</html>
