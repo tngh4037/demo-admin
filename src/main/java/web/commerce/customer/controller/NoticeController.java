@@ -23,7 +23,7 @@ public class NoticeController {
     }
 
     @GetMapping("/detail")
-    public String detail(@RequestParam Integer noticeNo, Model model) {
+    public String detail(@RequestParam(value = "noticeNo") Integer noticeNo, Model model) {
         model.addAttribute("noticeDetail", noticeService.getDetail(noticeNo));
         return ViewConstant.CUSTOMER_NOTICE_DETAIL;
     }

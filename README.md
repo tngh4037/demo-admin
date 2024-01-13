@@ -14,3 +14,4 @@
 > ![](https://img.shields.io/badge/H2%20Databae-red)
 > ![](https://img.shields.io/badge/thymeleaf-00A1E9)
 > ![](https://img.shields.io/badge/Gradle-yellow)
+> ![](https://img.shields.io/badge/CoreUI-blue)

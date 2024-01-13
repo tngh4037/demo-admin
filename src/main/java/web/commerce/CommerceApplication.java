@@ -15,7 +15,7 @@ public class CommerceApplication {
 
 	@Bean
 	@Profile("local")
-	public DataInit dataInit2(NoticeRepository noticeRepository) {
+	public DataInit dataInit(NoticeRepository noticeRepository) {
 		return new DataInit(noticeRepository);
 	}
 }
