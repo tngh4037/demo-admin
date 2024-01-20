@@ -11,4 +11,9 @@ public class HomeController {
     public String getHome() {
         return ViewConstant.MAIN;
     }
+
+    @GetMapping("/layout")
+    public String getLayout() {
+        return ViewConstant.LAYOUT;
+    }
 }
