@@ -1,4 +1,4 @@
-package web.commerce.customer.define;
+package web.commerce.domain.customer.define;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

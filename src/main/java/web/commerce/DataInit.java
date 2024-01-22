@@ -3,9 +3,9 @@ package web.commerce;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
-import web.commerce.customer.define.NoticeType;
-import web.commerce.customer.domain.Notice;
-import web.commerce.customer.repository.NoticeRepository;
+import web.commerce.domain.customer.define.NoticeType;
+import web.commerce.domain.customer.domain.Notice;
+import web.commerce.domain.customer.repository.NoticeRepository;
 
 @Slf4j
 public class DataInit {

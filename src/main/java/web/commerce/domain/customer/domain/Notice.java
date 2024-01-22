@@ -1,7 +1,7 @@
-package web.commerce.customer.domain;
+package web.commerce.domain.customer.domain;
 
 import lombok.*;
-import web.commerce.customer.define.NoticeType;
+import web.commerce.domain.customer.define.NoticeType;
 
 import java.time.LocalDateTime;
 

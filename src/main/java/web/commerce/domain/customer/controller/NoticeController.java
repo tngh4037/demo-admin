@@ -1,4 +1,4 @@
-package web.commerce.customer.controller;
+package web.commerce.domain.customer.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -6,8 +6,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import web.commerce.constant.ViewConstant;
-import web.commerce.customer.service.NoticeService;
+import web.commerce.global.constant.ViewConstant;
+import web.commerce.domain.customer.service.NoticeService;
 
 @Controller
 @RequestMapping("/customer/notice")

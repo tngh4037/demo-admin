@@ -4,7 +4,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Profile;
-import web.commerce.customer.repository.NoticeRepository;
+import web.commerce.domain.customer.repository.NoticeRepository;
 
 @SpringBootApplication
 public class CommerceApplication {

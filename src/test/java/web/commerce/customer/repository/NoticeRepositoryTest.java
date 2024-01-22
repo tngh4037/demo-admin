@@ -5,8 +5,9 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import web.commerce.customer.define.NoticeType;
-import web.commerce.customer.domain.Notice;
+import web.commerce.domain.customer.define.NoticeType;
+import web.commerce.domain.customer.domain.Notice;
+import web.commerce.domain.customer.repository.NoticeRepository;
 
 @Slf4j
 class NoticeRepositoryTest {

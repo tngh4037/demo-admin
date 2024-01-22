@@ -1,9 +1,9 @@
-package web.commerce.customer.service;
+package web.commerce.domain.customer.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import web.commerce.customer.domain.Notice;
-import web.commerce.customer.repository.NoticeRepository;
+import web.commerce.domain.customer.domain.Notice;
+import web.commerce.domain.customer.repository.NoticeRepository;
 
 import java.util.List;
 
