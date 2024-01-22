@@ -1,16 +1,16 @@
-package web.commerce;
+package com.example.demo;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Profile;
-import web.commerce.domain.customer.repository.NoticeRepository;
+import com.example.demo.domain.customer.repository.NoticeRepository;
 
 @SpringBootApplication
-public class CommerceApplication {
+public class DemoApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(CommerceApplication.class, args);
+		SpringApplication.run(DemoApplication.class, args);
 	}
 
 	@Bean

@@ -55,7 +55,7 @@
             </svg>
         </div>
         <ul class="sidebar-nav" data-coreui="navigation" data-simplebar="">
-            <li class="nav-item"><a class="nav-link" href="/layout">
+            <li class="nav-item"><a class="nav-link" href="/sample/list">
                 <svg class="nav-icon">
                     <use xlink:href="/coreui/vendors/@coreui/icons/svg/free.svg#cil-speedometer"></use>
                 </svg> 공통 레이아웃</a>
@@ -202,6 +202,135 @@
                     </div>
                 </div>
                 <!-- // search end -->
+                <!-- result start -->
+                <div class="card mb-4">
+                    <div class="card-header"><i class="icon icon-2xl cil-check-alt"></i><span class="small ms-1">검색 결과: </span><strong>2,024</strong>건</div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered text-center align-middle">
+                                <thead>
+                                <tr style="background-color: #f5f5f5">
+                                    <th scope="col">No.</th>
+                                    <th scope="col">제목</th>
+                                    <th scope="col">내용</th>
+                                    <th scope="col">조회수</th>
+                                    <th scope="col">등록일</th>
+                                    <th scope="col">상태</th>
+                                    <th scope="col">삭제 / 더보기</th>
+                                    <th scope="col">상세 보기</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>제목입니다.</td>
+                                    <td>내용1입니다.</td>
+                                    <td>내용2입니다.</td>
+                                    <td>2024-01-01 00:00:00</td>
+                                    <td>
+                                        <h5><span class="badge me-1 bg-success">정상</span></h5>
+                                        <!-- <h5><span class="badge me-1 rounded-pill bg-success">정상</span></h5> -->
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-danger"><span class="cil-trash" style="color: white;"></span></button>
+                                        <button type="button" class="btn btn-success"><span class="cil-search" style="color: white;"></span></button>
+                                    </td>
+                                    <td>
+                                        <div class="d-grid gap-2">
+                                            <button class="btn btn-outline-info" type="button" onclick="window.location.href='/sample/detail'">상세 보기</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>제목입니다.</td>
+                                    <td>내용1입니다.</td>
+                                    <td>내용2입니다.</td>
+                                    <td>2024-01-01 00:00:00</td>
+                                    <td>
+                                        <h5><span class="badge me-1 bg-danger">중지</span></h5>
+                                        <!-- <h5><span class="badge me-1 rounded-pill bg-danger">중지</span></h5> -->
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-danger"><span class="cil-trash" style="color: white;"></span></button>
+                                        <button type="button" class="btn btn-success"><span class="cil-search" style="color: white;"></span></button>
+                                    </td>
+                                    <td>
+                                        <div class="d-grid gap-2">
+                                            <button class="btn btn-outline-info" type="button" onclick="window.location.href='/sample/detail'">상세 보기</button>
+                                        </div>
+                                    </td>
+                                 </tr>
+                                 <tr>
+                                     <td>3</td>
+                                     <td>제목입니다.</td>
+                                     <td>내용1입니다.</td>
+                                     <td>내용2입니다.</td>
+                                     <td>2024-01-01 00:00:00</td>
+                                     <td>
+                                         <h5><span class="badge me-1 bg-warning">휴면</span></h5>
+                                         <!-- <h5><span class="badge me-1 rounded-pill bg-warning">휴면</span></h5> -->
+                                     </td>
+                                     <td>
+                                         <button type="button" class="btn btn-danger"><span class="cil-trash" style="color: white;"></span></button>
+                                         <button type="button" class="btn btn-success"><span class="cil-search" style="color: white;"></span></button>
+                                     </td>
+                                     <td>
+                                         <div class="d-grid gap-2">
+                                             <button class="btn btn-outline-info" type="button" onclick="window.location.href='/sample/detail'">상세 보기</button>
+                                         </div>
+                                     </td>
+                                </tr>
+                                <tr>
+                                    <td>4</td>
+                                    <td>제목입니다.</td>
+                                    <td>내용1입니다.</td>
+                                    <td>내용2입니다.</td>
+                                    <td>2024-01-01 00:00:00</td>
+                                    <td>
+                                        <h5><span class="badge me-1 bg-secondary">잠금</span></h5>
+                                        <!-- <h5><span class="badge me-1 rounded-pill bg-secondary">잠금</span></h5> -->
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-danger"><span class="cil-trash" style="color: white;"></span></button>
+                                        <button type="button" class="btn btn-success"><span class="cil-search" style="color: white;"></span></button>
+                                    </td>
+                                    <td>
+                                        <div class="d-grid gap-2">
+                                            <button class="btn btn-outline-info" type="button" onclick="window.location.href='/sample/detail'">상세 보기</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="8">조회된 데이터가 없습니다.</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <nav aria-label="Page navigation example" class="mt-3" style="overflow-x: auto;-webkit-overflow-scrolling: touch;">
+                            <ul class="pagination justify-content-lg-center">
+                                <li class="page-item disabled">
+                                    <a class="page-link">Previous</a>
+                                </li>
+                                <li class="page-item"><a class="page-link" href="/sample/list">1</a></li>
+                                <li class="page-item"><a class="page-link" href="/sample/list">2</a></li>
+                                <li class="page-item"><a class="page-link" href="/sample/list">3</a></li>
+                                <li class="page-item"><a class="page-link" href="/sample/list">4</a></li>
+                                <li class="page-item"><a class="page-link" href="/sample/list">5</a></li>
+                                <li class="page-item"><a class="page-link" href="/sample/list">6</a></li>
+                                <li class="page-item"><a class="page-link" href="/sample/list">7</a></li>
+                                <li class="page-item"><a class="page-link" href="/sample/list">8</a></li>
+                                <li class="page-item"><a class="page-link" href="/sample/list">9</a></li>
+                                <li class="page-item"><a class="page-link" href="/sample/list">10</a></li>
+                                <li class="page-item">
+                                    <a class="page-link" href="#">Next</a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+                <!-- // result end -->
             </div>
         </div>
         <!-- // container end -->

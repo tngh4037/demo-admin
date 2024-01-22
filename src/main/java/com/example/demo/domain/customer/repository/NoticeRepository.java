@@ -1,7 +1,7 @@
-package web.commerce.domain.customer.repository;
+package com.example.demo.domain.customer.repository;
 
+import com.example.demo.domain.customer.domain.Notice;
 import org.springframework.stereotype.Repository;
-import web.commerce.domain.customer.domain.Notice;
 
 import java.util.ArrayList;
 import java.util.HashMap;
