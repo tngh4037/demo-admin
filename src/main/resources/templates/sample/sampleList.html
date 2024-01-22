@@ -145,13 +145,13 @@
                                 <label class="col-sm-2 col-form-label" for="searchVal3">가격:</label>
                                 <div class="col-sm-4">
                                     <div class="input-group">
-                                        <input class="form-control" id="searchVal3" type="text" placeholder="숫자를 입력해주세요." aria-label="숫자를 입력해주세요." aria-describedby="basic-addon2">
+                                        <input class="form-control" id="searchVal3" type="text" placeholder="숫자를 입력해주세요." aria-describedby="basic-addon2">
                                         <span class="input-group-text" id="basic-addon2">원</span>
                                     </div>
                                 </div>
                                 <label class="col-sm-2 col-form-label" for="selectVal">유형1:</label>
                                 <div class="col-sm-4">
-                                    <select class="form-select" aria-label="Default select example" id="selectVal">
+                                    <select class="form-select" id="selectVal">
                                         <option selected="">유형을 선택해주세요.</option>
                                         <option value="1">One</option>
                                         <option value="2">Two</option>
@@ -202,6 +202,12 @@
                     </div>
                 </div>
                 <!-- // search end -->
+
+                <div class="d-grid gap-2 d-md-flex justify-content-lg-end mb-3">
+                    <button class="btn btn-danger me-md-1" style="color: white" type="button">선택삭제</button>
+                    <button class="btn btn-info" style="color: white" type="button" onclick="window.location.href='/sample/detail'">등록하기</button>
+                </div>
+
                 <!-- result start -->
                 <div class="card mb-4">
                     <div class="card-header"><i class="icon icon-2xl cil-check-alt"></i><span class="small ms-1">검색 결과: </span><strong>2,024</strong>건</div>
@@ -210,6 +216,10 @@
                             <table class="table table-bordered text-center align-middle">
                                 <thead>
                                 <tr style="background-color: #f5f5f5">
+                                    <th scope="col">
+                                        <input class="form-check-input" type="checkbox" value="" id="chkAll">
+                                        <label class="form-check-label" for="chkAll"></label>
+                                    </th>
                                     <th scope="col">No.</th>
                                     <th scope="col">제목</th>
                                     <th scope="col">내용</th>
@@ -222,6 +232,10 @@
                                 </thead>
                                 <tbody>
                                 <tr>
+                                    <td>
+                                        <input class="form-check-input" type="checkbox" value="" id="chkEle1">
+                                        <label class="form-check-label" for="chkEle1"></label>
+                                    </td>
                                     <td>1</td>
                                     <td>제목입니다.</td>
                                     <td>내용1입니다.</td>
@@ -242,6 +256,10 @@
                                     </td>
                                 </tr>
                                 <tr>
+                                    <td>
+                                        <input class="form-check-input" type="checkbox" value="" id="chkEle2">
+                                        <label class="form-check-label" for="chkEle2"></label>
+                                    </td>
                                     <td>2</td>
                                     <td>제목입니다.</td>
                                     <td>내용1입니다.</td>
@@ -262,6 +280,10 @@
                                     </td>
                                  </tr>
                                  <tr>
+                                     <td>
+                                         <input class="form-check-input" type="checkbox" value="" id="chkEle3">
+                                         <label class="form-check-label" for="chkEle3"></label>
+                                     </td>
                                      <td>3</td>
                                      <td>제목입니다.</td>
                                      <td>내용1입니다.</td>
@@ -282,6 +304,10 @@
                                      </td>
                                 </tr>
                                 <tr>
+                                    <td>
+                                        <input class="form-check-input" type="checkbox" value="" id="chkEle4">
+                                        <label class="form-check-label" for="chkEle4"></label>
+                                    </td>
                                     <td>4</td>
                                     <td>제목입니다.</td>
                                     <td>내용1입니다.</td>
@@ -302,13 +328,13 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td colspan="8">조회된 데이터가 없습니다.</td>
+                                    <td colspan="9">조회된 데이터가 없습니다.</td>
                                 </tr>
                                 </tbody>
                             </table>
                         </div>
 
-                        <nav aria-label="Page navigation example" class="mt-3" style="overflow-x: auto;-webkit-overflow-scrolling: touch;">
+                        <nav class="mt-3" style="overflow-x: auto;-webkit-overflow-scrolling: touch;">
                             <ul class="pagination justify-content-lg-center">
                                 <li class="page-item disabled">
                                     <a class="page-link">Previous</a>
