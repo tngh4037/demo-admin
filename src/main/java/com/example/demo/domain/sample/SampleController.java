@@ -2,7 +2,6 @@ package com.example.demo.domain.sample;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import com.example.demo.global.constant.ViewConstant;
 
 /**
  * 화면 구성을 위한 샘플 페이지
@@ -11,18 +10,18 @@ import com.example.demo.global.constant.ViewConstant;
 public class SampleController {
 
     /**
-     * 리스트 페이지
+     * list page
      */
     @GetMapping("/sample/list")
     public String getSampleList() {
-        return ViewConstant.SAMPLE_LIST;
+        return "sample/sampleList";
     }
 
     /**
-     * 상세보기 페이지
+     * detail page
      */
     @GetMapping("/sample/detail")
     public String getSampleDetail() {
-        return ViewConstant.SAMPLE_DETAIL;
+        return "sample/sampleDetail";
     }
 }
