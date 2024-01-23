@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org">
+
+<header th:fragment="HeaderFragment" class="header header-sticky mb-4">
+    <div class="container-fluid">
+        <button class="header-toggler px-md-0 me-md-3" type="button" onclick="coreui.Sidebar.getInstance(document.querySelector('#sidebar')).toggle()">
+            <svg class="icon icon-lg">
+                <use th:attr="'xlink:href'=@{/coreui/vendors/@coreui/icons/svg/free.svg#cil-menu}"></use>
+            </svg>
+        </button>
+        <a class="header-brand d-md-none" href="#" style="margin-left: 0;margin-right: 0;">
+            <svg width="118" height="46" alt="CoreUI Logo">
+                <use th:attr="'xlink:href'=@{/coreui/assets/brand/coreui.svg#full}"></use>
+            </svg>
+        </a>
+        <ul class="header-nav"> <!-- remove: ms-3 -->
+            <li class="nav-item dropdown">
+                <a class="nav-link py-0" data-coreui-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                    <div class="avatar avatar-md">
+                        <img class="avatar-img" src="/coreui/assets/img/avatars/setting.png">
+                    </div>
+                </a>
+                <div class="dropdown-menu dropdown-menu-end pt-0">
+                    <div class="dropdown-header bg-light py-2">
+                        <div class="fw-semibold">Account</div>
+                    </div>
+                    <a class="dropdown-item" href="#">
+                        <svg class="icon me-2">
+                            <use th:attr="'xlink:href'=@{/coreui/vendors/@coreui/icons/svg/free.svg#cil-user}"></use>
+                        </svg> 내 정보 수정</a>
+                    <a class="dropdown-item" href="#">
+                        <svg class="icon me-2">
+                            <use th:attr="'xlink:href'=@{/coreui/vendors/@coreui/icons/svg/free.svg#cil-settings}"></use>
+                        </svg> 비밀번호 변경</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#">
+                        <svg class="icon me-2">
+                            <use th:attr="'xlink:href'=@{/coreui/vendors/@coreui/icons/svg/free.svg#cil-account-logout}"></use>
+                        </svg> 로그아웃</a>
+                </div>
+            </li>
+        </ul>
+    </div>
+</header>
+
+</html>

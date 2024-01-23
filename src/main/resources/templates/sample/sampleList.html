@@ -1,387 +1,250 @@
-<!DOCTYPE html><!--
-* CoreUI - Free Bootstrap Admin Template
-* @version v4.2.2
-* @link https://coreui.io/product/free-bootstrap-admin-template/
-* Copyright (c) 2023 creativeLabs Łukasz Holeczek
-* Licensed under MIT (https://github.com/coreui/coreui-free-bootstrap-admin-template/blob/main/LICENSE)
---><!-- Breadcrumb-->
-<html lang="en">
-<head>
-    <base href="./">
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <!-- <meta name="description" content="CoreUI - Open Source Bootstrap Admin Template"> -->
-    <!-- <meta name="author" content="Łukasz Holeczek"> -->
-    <!-- <meta name="keyword" content="Bootstrap,Admin,Template,Open,Source,jQuery,CSS,HTML,RWD,Dashboard"> -->
-    <title>현실에서 한 발자국</title>
-    <link rel="apple-touch-icon" sizes="57x57" href="/coreui/assets/favicon/apple-icon-57x57.png">
-    <link rel="apple-touch-icon" sizes="60x60" href="/coreui/assets/favicon/apple-icon-60x60.png">
-    <link rel="apple-touch-icon" sizes="72x72" href="/coreui/assets/favicon/apple-icon-72x72.png">
-    <link rel="apple-touch-icon" sizes="76x76" href="/coreui/assets/favicon/apple-icon-76x76.png">
-    <link rel="apple-touch-icon" sizes="114x114" href="/coreui/assets/favicon/apple-icon-114x114.png">
-    <link rel="apple-touch-icon" sizes="120x120" href="/coreui/assets/favicon/apple-icon-120x120.png">
-    <link rel="apple-touch-icon" sizes="144x144" href="/coreui/assets/favicon/apple-icon-144x144.png">
-    <link rel="apple-touch-icon" sizes="152x152" href="/coreui/assets/favicon/apple-icon-152x152.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="/coreui/assets/favicon/apple-icon-180x180.png">
-    <link rel="icon" type="image/png" sizes="192x192" href="/coreui/assets/favicon/android-icon-192x192.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/coreui/assets/favicon/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="96x96" href="/coreui/assets/favicon/favicon-96x96.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/coreui/assets/favicon/favicon-16x16.png">
-    <link rel="manifest" href="/coreui/assets/favicon/manifest.json">
-    <meta name="msapplication-TileColor" content="#ffffff">
-    <meta name="msapplication-TileImage" content="/coreui/assets/favicon/ms-icon-144x144.png">
-    <meta name="theme-color" content="#ffffff">
-    <!-- Vendors styles-->
-    <link rel="stylesheet" href="/coreui/vendors/simplebar/css/simplebar.css">
-    <link rel="stylesheet" href="/coreui/css/vendors/simplebar.css">
-    <!-- Main styles for this application-->
-    <link href="/coreui/css/style.css" rel="stylesheet">
-    <link href="/coreui/vendors/@coreui/icons/css/free.min.css" rel="stylesheet">
-    <!-- We use those styles to show code examples, you should remove them in your application.-->
-    <!--  <link href="/coreui/css/examples.css" rel="stylesheet"> -->
-    <!--  <link href="/coreui/vendors/@coreui/chartjs/css/coreui-chartjs.css" rel="stylesheet"> -->
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/default}">
 
-    <script src="/js/jquery-3.7.1.min.js"></script>
-</head>
+<th:block layout:fragment="css">
+</th:block>
 
-<body>
-    <!-- sidebar start -->
-    <div class="sidebar sidebar-dark sidebar-fixed" id="sidebar">
-        <div class="sidebar-brand d-none d-md-flex">
-            <svg class="sidebar-brand-full" width="118" height="46" alt="CoreUI Logo">
-                <use xlink:href="/coreui/assets/brand/coreui.svg#full"></use>
-            </svg>
-            <svg class="sidebar-brand-narrow" width="46" height="46" alt="CoreUI Logo">
-                <use xlink:href="/coreui/assets/brand/coreui.svg#signet"></use>
-            </svg>
-        </div>
-        <ul class="sidebar-nav" data-coreui="navigation" data-simplebar="">
-            <li class="nav-item"><a class="nav-link" href="/sample/list">
-                <svg class="nav-icon">
-                    <use xlink:href="/coreui/vendors/@coreui/icons/svg/free.svg#cil-speedometer"></use>
-                </svg> 공통 레이아웃</a>
-            </li>
-            <li class="nav-group">
-                <a class="nav-link nav-group-toggle" href="#">
-                <svg class="nav-icon">
-                    <use xlink:href="/coreui/vendors/@coreui/icons/svg/free.svg#cil-notes"></use>
-                </svg> 고객센터</a>
-                <ul class="nav-group-items">
-                    <li class="nav-item"><a class="nav-link" href="/customer/notice/list"><span class="nav-icon"></span> 공지사항</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#"><span class="nav-icon"></span> 자주하는질문</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#"><span class="nav-icon"></span> 1:1문의</a></li>
-                </ul>
-            </li>
-        </ul>
-        <button class="sidebar-toggler" type="button" data-coreui-toggle="unfoldable"></button>
-    </div>
-    <!-- // sidebar end -->
-
-    <!-- contents start -->
-    <div class="wrapper d-flex flex-column min-vh-100 bg-light">
-        <!-- header start -->
-        <header class="header header-sticky mb-4">
-            <div class="container-fluid">
-                <button class="header-toggler px-md-0 me-md-3" type="button" onclick="coreui.Sidebar.getInstance(document.querySelector('#sidebar')).toggle()">
-                    <svg class="icon icon-lg">
-                        <use xlink:href="/coreui/vendors/@coreui/icons/svg/free.svg#cil-menu"></use>
-                    </svg>
-                </button>
-                <a class="header-brand d-md-none" href="#" style="margin-left: 0;margin-right: 0;">
-                    <svg width="118" height="46" alt="CoreUI Logo">
-                        <use xlink:href="/coreui/assets/brand/coreui.svg#full"></use>
-                    </svg>
-                </a>
-                <ul class="header-nav"> <!-- remove: ms-3 -->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link py-0" data-coreui-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                            <div class="avatar avatar-md">
-                                <img class="avatar-img" src="/coreui/assets/img/avatars/setting.png">
-                            </div>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-end pt-0">
-                            <div class="dropdown-header bg-light py-2">
-                                <div class="fw-semibold">Account</div>
-                            </div>
-                            <a class="dropdown-item" href="#">
-                                <svg class="icon me-2">
-                                    <use xlink:href="/coreui/vendors/@coreui/icons/svg/free.svg#cil-user"></use>
-                                </svg> 내 정보 수정</a>
-                            <a class="dropdown-item" href="#">
-                                <svg class="icon me-2">
-                                    <use xlink:href="/coreui/vendors/@coreui/icons/svg/free.svg#cil-settings"></use>
-                                </svg> 비밀번호 변경</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">
-                                <svg class="icon me-2">
-                                    <use xlink:href="/coreui/vendors/@coreui/icons/svg/free.svg#cil-account-logout"></use>
-                                </svg> 로그아웃</a>
+<div layout:fragment="Content" class="body flex-grow-1 px-3">
+    <div class="container-fluid">
+        <!-- 검색 영역 start -->
+        <div class="card mb-4">
+            <div class="card-header"><i class="icon icon-2xl cil-check-alt"></i><span class="small ms-1">검색 폼</span></div>
+            <div class="card-body">
+                <form>
+                    <div class="row mb-3">
+                        <label class="col-sm-2 col-form-label" for="searchVal1">아이디:</label>
+                        <div class="col-sm-4">
+                            <input class="form-control" id="searchVal1" autocomplete="off" placeholder="아이디를 입력해주세요.">
                         </div>
-                    </li>
-                </ul>
-            </div>
-        </header>
-        <!-- // header end -->
-
-        <!-- container start -->
-        <div class="body flex-grow-1 px-3">
-            <div class="container-fluid">
-                <!-- search start -->
-                <div class="card mb-4">
-                    <div class="card-header"><i class="icon icon-2xl cil-check-alt"></i><span class="small ms-1">검색 폼</span></div>
-                    <div class="card-body">
-                        <form>
-                            <div class="row mb-3">
-                                <label class="col-sm-2 col-form-label" for="searchVal1">아이디:</label>
-                                <div class="col-sm-4">
-                                    <input class="form-control" id="searchVal1" autocomplete="off" placeholder="아이디를 입력해주세요.">
-                                </div>
-                                <label class="col-sm-2 col-form-label" for="searchVal2">이름:</label>
-                                <div class="col-sm-4">
-                                    <input class="form-control" id="searchVal2" autocomplete="off" placeholder="이름을 입력해주세요.">
-                                </div>
-                            </div>
-
-                            <div class="row mb-3">
-                                <label class="col-sm-2 col-form-label" for="searchVal3">가격:</label>
-                                <div class="col-sm-4">
-                                    <div class="input-group">
-                                        <input class="form-control" id="searchVal3" type="text" placeholder="숫자를 입력해주세요." aria-describedby="basic-addon2">
-                                        <span class="input-group-text" id="basic-addon2">원</span>
-                                    </div>
-                                </div>
-                                <label class="col-sm-2 col-form-label" for="selectVal">유형1:</label>
-                                <div class="col-sm-4">
-                                    <select class="form-select" id="selectVal">
-                                        <option selected="">유형을 선택해주세요.</option>
-                                        <option value="1">One</option>
-                                        <option value="2">Two</option>
-                                        <option value="3">Three</option>
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="row mb-3">
-                                <label class="col-sm-2 col-form-label">유형2:</label>
-                                <div class="col-sm-4">
-                                    <div class="form-check form-check-inline mt-2">
-                                        <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
-                                        <label class="form-check-label" for="inlineCheckbox1">1</label>
-                                    </div>
-                                    <div class="form-check form-check-inline mt-2">
-                                        <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
-                                        <label class="form-check-label" for="inlineCheckbox2">2</label>
-                                    </div>
-                                    <div class="form-check form-check-inline mt-2">
-                                        <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="option3" disabled>
-                                        <label class="form-check-label" for="inlineCheckbox3">3 (disabled)</label>
-                                    </div>
-                                </div>
-                                <label class="col-sm-2 col-form-label">유형3:</label>
-                                <div class="col-sm-4">
-                                    <div class="form-check form-check-inline mt-2">
-                                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
-                                        <label class="form-check-label" for="inlineRadio1">1</label>
-                                    </div>
-                                    <div class="form-check form-check-inline mt-2">
-                                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
-                                        <label class="form-check-label" for="inlineRadio2">2</label>
-                                    </div>
-                                    <div class="form-check form-check-inline mt-2">
-                                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3" disabled>
-                                        <label class="form-check-label" for="inlineRadio3">3 (disabled)</label>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="pt-3"></div>
-                            <div class="d-grid gap-2 d-md-flex justify-content-lg-center">
-                                <button class="btn btn-success me-md-2" style="color: white" type="button"><i class="icon icon-2xl cil-spreadsheet"></i> 엑셀다운로드</button>
-                                <button class="btn btn-info" style="color: white" type="button"><i class="icon icon-2xl cil-zoom"></i> 검색하기</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-                <!-- // search end -->
-
-                <div class="d-grid gap-2 d-md-flex justify-content-lg-end mb-3">
-                    <button class="btn btn-danger me-md-1" style="color: white" type="button">선택삭제</button>
-                    <button class="btn btn-info" style="color: white" type="button" onclick="window.location.href='/sample/detail'">등록하기</button>
-                </div>
-
-                <!-- result start -->
-                <div class="card mb-4">
-                    <div class="card-header"><i class="icon icon-2xl cil-check-alt"></i><span class="small ms-1">검색 결과: </span><strong>2,024</strong>건</div>
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table table-bordered text-center align-middle">
-                                <thead>
-                                <tr style="background-color: #f5f5f5">
-                                    <th scope="col">
-                                        <input class="form-check-input" type="checkbox" value="" id="chkAll">
-                                        <label class="form-check-label" for="chkAll"></label>
-                                    </th>
-                                    <th scope="col">No.</th>
-                                    <th scope="col">제목</th>
-                                    <th scope="col">내용</th>
-                                    <th scope="col">조회수</th>
-                                    <th scope="col">등록일</th>
-                                    <th scope="col">상태</th>
-                                    <th scope="col">삭제 / 더보기</th>
-                                    <th scope="col">상세 보기</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <td>
-                                        <input class="form-check-input" type="checkbox" value="" id="chkEle1">
-                                        <label class="form-check-label" for="chkEle1"></label>
-                                    </td>
-                                    <td>1</td>
-                                    <td>제목입니다.</td>
-                                    <td>내용1입니다.</td>
-                                    <td>내용2입니다.</td>
-                                    <td>2024-01-01 00:00:00</td>
-                                    <td>
-                                        <h5><span class="badge me-1 bg-success">정상</span></h5>
-                                        <!-- <h5><span class="badge me-1 rounded-pill bg-success">정상</span></h5> -->
-                                    </td>
-                                    <td>
-                                        <button type="button" class="btn btn-danger"><span class="cil-trash" style="color: white;"></span></button>
-                                        <button type="button" class="btn btn-success"><span class="cil-search" style="color: white;"></span></button>
-                                    </td>
-                                    <td>
-                                        <div class="d-grid gap-2">
-                                            <button class="btn btn-outline-info" type="button" onclick="window.location.href='/sample/detail'">상세 보기</button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <input class="form-check-input" type="checkbox" value="" id="chkEle2">
-                                        <label class="form-check-label" for="chkEle2"></label>
-                                    </td>
-                                    <td>2</td>
-                                    <td>제목입니다.</td>
-                                    <td>내용1입니다.</td>
-                                    <td>내용2입니다.</td>
-                                    <td>2024-01-01 00:00:00</td>
-                                    <td>
-                                        <h5><span class="badge me-1 bg-danger">중지</span></h5>
-                                        <!-- <h5><span class="badge me-1 rounded-pill bg-danger">중지</span></h5> -->
-                                    </td>
-                                    <td>
-                                        <button type="button" class="btn btn-danger"><span class="cil-trash" style="color: white;"></span></button>
-                                        <button type="button" class="btn btn-success"><span class="cil-search" style="color: white;"></span></button>
-                                    </td>
-                                    <td>
-                                        <div class="d-grid gap-2">
-                                            <button class="btn btn-outline-info" type="button" onclick="window.location.href='/sample/detail'">상세 보기</button>
-                                        </div>
-                                    </td>
-                                 </tr>
-                                 <tr>
-                                     <td>
-                                         <input class="form-check-input" type="checkbox" value="" id="chkEle3">
-                                         <label class="form-check-label" for="chkEle3"></label>
-                                     </td>
-                                     <td>3</td>
-                                     <td>제목입니다.</td>
-                                     <td>내용1입니다.</td>
-                                     <td>내용2입니다.</td>
-                                     <td>2024-01-01 00:00:00</td>
-                                     <td>
-                                         <h5><span class="badge me-1 bg-warning">휴면</span></h5>
-                                         <!-- <h5><span class="badge me-1 rounded-pill bg-warning">휴면</span></h5> -->
-                                     </td>
-                                     <td>
-                                         <button type="button" class="btn btn-danger"><span class="cil-trash" style="color: white;"></span></button>
-                                         <button type="button" class="btn btn-success"><span class="cil-search" style="color: white;"></span></button>
-                                     </td>
-                                     <td>
-                                         <div class="d-grid gap-2">
-                                             <button class="btn btn-outline-info" type="button" onclick="window.location.href='/sample/detail'">상세 보기</button>
-                                         </div>
-                                     </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <input class="form-check-input" type="checkbox" value="" id="chkEle4">
-                                        <label class="form-check-label" for="chkEle4"></label>
-                                    </td>
-                                    <td>4</td>
-                                    <td>제목입니다.</td>
-                                    <td>내용1입니다.</td>
-                                    <td>내용2입니다.</td>
-                                    <td>2024-01-01 00:00:00</td>
-                                    <td>
-                                        <h5><span class="badge me-1 bg-secondary">잠금</span></h5>
-                                        <!-- <h5><span class="badge me-1 rounded-pill bg-secondary">잠금</span></h5> -->
-                                    </td>
-                                    <td>
-                                        <button type="button" class="btn btn-danger"><span class="cil-trash" style="color: white;"></span></button>
-                                        <button type="button" class="btn btn-success"><span class="cil-search" style="color: white;"></span></button>
-                                    </td>
-                                    <td>
-                                        <div class="d-grid gap-2">
-                                            <button class="btn btn-outline-info" type="button" onclick="window.location.href='/sample/detail'">상세 보기</button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td colspan="9">조회된 데이터가 없습니다.</td>
-                                </tr>
-                                </tbody>
-                            </table>
+                        <label class="col-sm-2 col-form-label" for="searchVal2">이름:</label>
+                        <div class="col-sm-4">
+                            <input class="form-control" id="searchVal2" autocomplete="off" placeholder="이름을 입력해주세요.">
                         </div>
-
-                        <nav class="mt-3" style="overflow-x: auto;-webkit-overflow-scrolling: touch;">
-                            <ul class="pagination justify-content-lg-center">
-                                <li class="page-item disabled">
-                                    <a class="page-link">Previous</a>
-                                </li>
-                                <li class="page-item"><a class="page-link" href="/sample/list">1</a></li>
-                                <li class="page-item"><a class="page-link" href="/sample/list">2</a></li>
-                                <li class="page-item"><a class="page-link" href="/sample/list">3</a></li>
-                                <li class="page-item"><a class="page-link" href="/sample/list">4</a></li>
-                                <li class="page-item"><a class="page-link" href="/sample/list">5</a></li>
-                                <li class="page-item"><a class="page-link" href="/sample/list">6</a></li>
-                                <li class="page-item"><a class="page-link" href="/sample/list">7</a></li>
-                                <li class="page-item"><a class="page-link" href="/sample/list">8</a></li>
-                                <li class="page-item"><a class="page-link" href="/sample/list">9</a></li>
-                                <li class="page-item"><a class="page-link" href="/sample/list">10</a></li>
-                                <li class="page-item">
-                                    <a class="page-link" href="#">Next</a>
-                                </li>
-                            </ul>
-                        </nav>
                     </div>
-                </div>
-                <!-- // result end -->
+
+                    <div class="row mb-3">
+                        <label class="col-sm-2 col-form-label" for="searchVal3">가격:</label>
+                        <div class="col-sm-4">
+                            <div class="input-group">
+                                <input class="form-control" id="searchVal3" type="text" placeholder="숫자를 입력해주세요." aria-describedby="basic-addon2">
+                                <span class="input-group-text" id="basic-addon2">원</span>
+                            </div>
+                        </div>
+                        <label class="col-sm-2 col-form-label" for="selectVal">유형1:</label>
+                        <div class="col-sm-4">
+                            <select class="form-select" id="selectVal">
+                                <option selected="">유형을 선택해주세요.</option>
+                                <option value="1">One</option>
+                                <option value="2">Two</option>
+                                <option value="3">Three</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <label class="col-sm-2 col-form-label">유형2:</label>
+                        <div class="col-sm-4">
+                            <div class="form-check form-check-inline mt-2">
+                                <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+                                <label class="form-check-label" for="inlineCheckbox1">1</label>
+                            </div>
+                            <div class="form-check form-check-inline mt-2">
+                                <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
+                                <label class="form-check-label" for="inlineCheckbox2">2</label>
+                            </div>
+                            <div class="form-check form-check-inline mt-2">
+                                <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="option3" disabled>
+                                <label class="form-check-label" for="inlineCheckbox3">3 (disabled)</label>
+                            </div>
+                        </div>
+                        <label class="col-sm-2 col-form-label">유형3:</label>
+                        <div class="col-sm-4">
+                            <div class="form-check form-check-inline mt-2">
+                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+                                <label class="form-check-label" for="inlineRadio1">1</label>
+                            </div>
+                            <div class="form-check form-check-inline mt-2">
+                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+                                <label class="form-check-label" for="inlineRadio2">2</label>
+                            </div>
+                            <div class="form-check form-check-inline mt-2">
+                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3" disabled>
+                                <label class="form-check-label" for="inlineRadio3">3 (disabled)</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pt-3"></div>
+                    <div class="d-grid gap-2 d-md-flex justify-content-lg-center">
+                        <button class="btn btn-success me-md-2" style="color: white" type="button"><i class="icon icon-2xl cil-spreadsheet"></i> 엑셀다운로드</button>
+                        <button class="btn btn-info" style="color: white" type="button"><i class="icon icon-2xl cil-zoom"></i> 검색하기</button>
+                    </div>
+                </form>
             </div>
         </div>
-        <!-- // container end -->
+        <!-- // 검색 영역 end -->
 
-        <!-- footer start -->
-        <footer class="footer">
-            <!--<div><a href="https://coreui.io">CoreUI </a><a href="https://coreui.io">Bootstrap Admin Template</a> © 2023 creativeLabs.</div>-->
-            <div class="ms-auto">현실에서 한 발자국</div>
-        </footer>
-        <!-- // footer end -->
+        <div class="d-grid gap-2 d-md-flex justify-content-lg-end mb-3">
+            <button class="btn btn-danger me-md-1" style="color: white" type="button">선택삭제</button>
+            <button class="btn btn-info" style="color: white" type="button" onclick="window.location.href='/sample/detail'">등록하기</button>
+        </div>
+
+        <!-- 검색 결과 영역 start -->
+        <div class="card mb-4">
+            <div class="card-header"><i class="icon icon-2xl cil-check-alt"></i><span class="small ms-1">검색 결과: </span><strong>2,024</strong>건</div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered text-center align-middle">
+                        <thead>
+                        <tr style="background-color: #f5f5f5">
+                            <th scope="col">
+                                <input class="form-check-input" type="checkbox" value="" id="chkAll">
+                                <label class="form-check-label" for="chkAll"></label>
+                            </th>
+                            <th scope="col">No.</th>
+                            <th scope="col">제목</th>
+                            <th scope="col">내용</th>
+                            <th scope="col">조회수</th>
+                            <th scope="col">등록일</th>
+                            <th scope="col">상태</th>
+                            <th scope="col">삭제 / 더보기</th>
+                            <th scope="col">상세 보기</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>
+                                <input class="form-check-input" type="checkbox" value="" id="chkEle1">
+                                <label class="form-check-label" for="chkEle1"></label>
+                            </td>
+                            <td>1</td>
+                            <td>제목입니다.</td>
+                            <td>내용1입니다.</td>
+                            <td>내용2입니다.</td>
+                            <td>2024-01-01 00:00:00</td>
+                            <td>
+                                <h5><span class="badge me-1 bg-success">정상</span></h5>
+                                <!-- <h5><span class="badge me-1 rounded-pill bg-success">정상</span></h5> -->
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-danger"><span class="cil-trash" style="color: white;"></span></button>
+                                <button type="button" class="btn btn-success"><span class="cil-search" style="color: white;"></span></button>
+                            </td>
+                            <td>
+                                <div class="d-grid gap-2">
+                                    <button class="btn btn-outline-info" type="button" onclick="window.location.href='/sample/detail'">상세 보기</button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input class="form-check-input" type="checkbox" value="" id="chkEle2">
+                                <label class="form-check-label" for="chkEle2"></label>
+                            </td>
+                            <td>2</td>
+                            <td>제목입니다.</td>
+                            <td>내용1입니다.</td>
+                            <td>내용2입니다.</td>
+                            <td>2024-01-01 00:00:00</td>
+                            <td>
+                                <h5><span class="badge me-1 bg-danger">중지</span></h5>
+                                <!-- <h5><span class="badge me-1 rounded-pill bg-danger">중지</span></h5> -->
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-danger"><span class="cil-trash" style="color: white;"></span></button>
+                                <button type="button" class="btn btn-success"><span class="cil-search" style="color: white;"></span></button>
+                            </td>
+                            <td>
+                                <div class="d-grid gap-2">
+                                    <button class="btn btn-outline-info" type="button" onclick="window.location.href='/sample/detail'">상세 보기</button>
+                                </div>
+                            </td>
+                         </tr>
+                         <tr>
+                             <td>
+                                 <input class="form-check-input" type="checkbox" value="" id="chkEle3">
+                                 <label class="form-check-label" for="chkEle3"></label>
+                             </td>
+                             <td>3</td>
+                             <td>제목입니다.</td>
+                             <td>내용1입니다.</td>
+                             <td>내용2입니다.</td>
+                             <td>2024-01-01 00:00:00</td>
+                             <td>
+                                 <h5><span class="badge me-1 bg-warning">휴면</span></h5>
+                                 <!-- <h5><span class="badge me-1 rounded-pill bg-warning">휴면</span></h5> -->
+                             </td>
+                             <td>
+                                 <button type="button" class="btn btn-danger"><span class="cil-trash" style="color: white;"></span></button>
+                                 <button type="button" class="btn btn-success"><span class="cil-search" style="color: white;"></span></button>
+                             </td>
+                             <td>
+                                 <div class="d-grid gap-2">
+                                     <button class="btn btn-outline-info" type="button" onclick="window.location.href='/sample/detail'">상세 보기</button>
+                                 </div>
+                             </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input class="form-check-input" type="checkbox" value="" id="chkEle4">
+                                <label class="form-check-label" for="chkEle4"></label>
+                            </td>
+                            <td>4</td>
+                            <td>제목입니다.</td>
+                            <td>내용1입니다.</td>
+                            <td>내용2입니다.</td>
+                            <td>2024-01-01 00:00:00</td>
+                            <td>
+                                <h5><span class="badge me-1 bg-secondary">잠금</span></h5>
+                                <!-- <h5><span class="badge me-1 rounded-pill bg-secondary">잠금</span></h5> -->
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-danger"><span class="cil-trash" style="color: white;"></span></button>
+                                <button type="button" class="btn btn-success"><span class="cil-search" style="color: white;"></span></button>
+                            </td>
+                            <td>
+                                <div class="d-grid gap-2">
+                                    <button class="btn btn-outline-info" type="button" onclick="window.location.href='/sample/detail'">상세 보기</button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="9">조회된 데이터가 없습니다.</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <nav class="mt-3" style="overflow-x: auto;-webkit-overflow-scrolling: touch;">
+                    <ul class="pagination justify-content-lg-center">
+                        <li class="page-item disabled">
+                            <a class="page-link">Previous</a>
+                        </li>
+                        <li class="page-item"><a class="page-link" href="/sample/list">1</a></li>
+                        <li class="page-item"><a class="page-link" href="/sample/list">2</a></li>
+                        <li class="page-item"><a class="page-link" href="/sample/list">3</a></li>
+                        <li class="page-item"><a class="page-link" href="/sample/list">4</a></li>
+                        <li class="page-item"><a class="page-link" href="/sample/list">5</a></li>
+                        <li class="page-item"><a class="page-link" href="/sample/list">6</a></li>
+                        <li class="page-item"><a class="page-link" href="/sample/list">7</a></li>
+                        <li class="page-item"><a class="page-link" href="/sample/list">8</a></li>
+                        <li class="page-item"><a class="page-link" href="/sample/list">9</a></li>
+                        <li class="page-item"><a class="page-link" href="/sample/list">10</a></li>
+                        <li class="page-item">
+                            <a class="page-link" href="#">Next</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        <!-- // 검색 결과 영역 end -->
     </div>
-    <!-- // contents end -->
+</div>
 
-    <!-- CoreUI and necessary plugins-->
-    <script src="/coreui/vendors/@coreui/coreui/js/coreui.bundle.min.js"></script>
-    <script src="/coreui/vendors/simplebar/js/simplebar.min.js"></script>
-    <!-- Plugins and scripts required by this view -->
-    <!-- <script src="/coreui/vendors/chart.js/js/chart.min.js"></script> -->
-    <!-- <script src="/coreui/vendors/@coreui/chartjs/js/coreui-chartjs.js"></script> -->
-    <script src="/coreui/vendors/@coreui/utils/js/coreui-utils.js"></script>
-    <!-- <script src="/coreui/js/main.js"></script> -->
-    <script>
-    </script>
+<th:block layout:fragment="script">
+</th:block>
 
-</body>
 </html>
