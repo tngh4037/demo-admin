@@ -13,7 +13,3 @@
 > ![](https://img.shields.io/badge/thymeleaf-00A1E9)
 > ![](https://img.shields.io/badge/Gradle-yellow)
 > ![](https://img.shields.io/badge/CoreUI-blue)
-
-## 3) 참고
-### :link: [개발 가이드](./docs/CodingRules.md)
-> - 구성원간 코드 스타일을 일원화 하기 위한 가이드 문서입니다.
