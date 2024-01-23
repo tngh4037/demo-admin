@@ -1,5 +1,6 @@
 package com.example.demo.domain.customer.controller;
 
+import com.example.demo.domain.customer.define.NoticeType;
 import com.example.demo.domain.customer.service.NoticeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -17,7 +18,9 @@ public class NoticeController {
 
     @GetMapping("/list")
     public String list(Model model) {
+        model.addAttribute("totalCount", noticeService.getList().size());
         model.addAttribute("noticeList", noticeService.getList());
+        model.addAttribute("noticeTypeList", NoticeType.values());
         return "customer/noticeList";
     }
 

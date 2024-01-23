@@ -1,25 +1,110 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/default}">
 
-<h1>게시글 목록</h1>
-<table border="1">
-    <tr>
-        <th>제목</th>
-        <th>내용</th>
-        <th>조회수</th>
-        <th>등록일</th>
-    </tr>
-    <tr th:each="notice, noticeStat : ${noticeList}">
-        <td th:text="${notice.title}">title</td>
-        <td th:text="${notice.content}">content</td>
-        <td th:text="${notice.hits}">hits</td>
-        <td th:text="${notice.regDt}">regDt</td>
-    </tr>
-</table>
-</body>
+<th:block layout:fragment="css">
+</th:block>
+
+<div layout:fragment="Content" class="body flex-grow-1 px-3">
+    <div class="container-fluid">
+        <!-- 검색 영역 start -->
+        <div class="card mb-4">
+            <div class="card-header"><i class="icon icon-2xl cil-check-alt"></i><span class="small ms-1">검색 폼</span></div>
+            <div class="card-body">
+                <form>
+                    <div class="row mb-3">
+                        <label class="col-sm-2 col-form-label" for="searchVal1">제목:</label>
+                        <div class="col-sm-4">
+                            <input class="form-control" id="searchVal1" autocomplete="off" maxlength="50" placeholder="아이디를 입력해주세요.">
+                        </div>
+                        <label class="col-sm-2 col-form-label" for="selectVal">공지 유형:</label>
+                        <div class="col-sm-4">
+                            <select class="form-select" id="selectVal">
+                                <option selected="">전체</option>
+                                <option th:each="type, typeStat : ${noticeTypeList}"
+                                        th:value="${type.code}"
+                                        th:text="${type.title}"></option>
+                            </select>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="card-footer">
+                <div class="d-grid gap-2 d-md-flex justify-content-lg-center">
+                    <button id="btnSearch" class="btn btn-info" style="color: white" type="button"><i class="icon icon-2xl cil-zoom"></i> 검색하기</button>
+                </div>
+            </div>
+        </div>
+        <!-- // 검색 영역 end -->
+
+        <div class="d-grid gap-2 d-md-flex justify-content-lg-end mb-3">
+            <button class="btn btn-danger me-md-1" style="color: white" type="button">선택삭제</button>
+            <button class="btn btn-info" style="color: white" type="button">등록하기</button>
+        </div>
+
+        <!-- 검색 결과 영역 start -->
+        <div class="card mb-4">
+            <div class="card-header">
+                <i class="icon icon-2xl cil-check-alt"></i>
+                <span class="small ms-1">검색 결과: </span><strong th:text="${#numbers.formatInteger(totalCount, 0, 'COMMA')}"></strong>건
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered text-center align-middle">
+                        <thead>
+                        <tr style="background-color: #f5f5f5">
+                            <th scope="col">
+                                <input class="form-check-input" type="checkbox" value="" id="chkAll">
+                                <label class="form-check-label" for="chkAll"></label>
+                            </th>
+                            <th scope="col">공지 유형</th>
+                            <th scope="col">제목</th>
+                            <th scope="col">노출 여부</th>
+                            <th scope="col">등록일</th>
+                            <th scope="col">상세 보기</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <th:block th:if="${noticeList.size() gt 0}">
+                            <tr th:each="notice, noticeStat : ${noticeList}">
+                                <td>
+                                    <input class="form-check-input" type="checkbox" value="" id="chkEle1">
+                                    <label class="form-check-label" for="chkEle1"></label>
+                                </td>
+                                <td th:text="${notice.noticeType.title}"></td>
+                                <td th:text="${notice.title}"></td>
+                                <td>
+                                    <h5>
+                                        <th:block th:if="${notice.displayYn eq 'Y'}"><span class="badge me-1 bg-success">노출</span></th:block>
+                                        <th:block th:unless="${notice.displayYn eq 'Y'}"><span class="badge me-1 bg-secondary">비노출</span></th:block>
+                                    </h5>
+                                </td>
+                                <td th:text="${#temporals.format(notice.regDt, 'yyyy-MM-dd HH:mm:ss')}"></td>
+                                <td>
+                                    <div class="d-grid gap-2">
+                                        <button class="btn btn-outline-info" type="button">상세 보기</button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </th:block>
+                        <th:block th:unless="${noticeList.size() gt 0}">
+                            <tr>
+                                <td colspan="6">조회된 데이터가 없습니다.</td>
+                            </tr>
+                        </th:block>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!-- // 검색 결과 영역 end -->
+    </div>
+</div>
+
+<th:block layout:fragment="script">
+    <script th:src="@{/js/customer/notice-list.js}"></script>
+</th:block>
+
 </html>
