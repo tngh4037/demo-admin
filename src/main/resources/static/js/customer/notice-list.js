@@ -4,6 +4,9 @@ $(function() {
 
 var NoticeListModule = (function() {
   var settings = {
+    $form: {
+      searchFrm: $('#searchFrm')
+    },
     $button: {
       search: $('#btnSearch')
     }
@@ -14,8 +17,13 @@ var NoticeListModule = (function() {
   }
 
   var bind = function() {
+
+    /**
+     * search
+     */
     settings.$button.search.on('click', function(event) {
       event.preventDefault()
+      settings.$form.searchFrm.submit();
     })
   }
 

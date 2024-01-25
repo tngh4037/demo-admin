@@ -19,10 +19,10 @@ public class DataInit {
     @EventListener(ApplicationReadyEvent.class)
     public void initData() {
         log.info("초기 데이터 세팅");
-        noticeRepository.register(Notice.register("제목1", "내용1", NoticeType.NOTICE));
-        noticeRepository.register(Notice.register("제목2", "내용2", NoticeType.EVENT));
-        noticeRepository.register(Notice.register("제목3", "내용3", NoticeType.GOODS));
-        noticeRepository.register(Notice.register("제목4", "내용4", NoticeType.USER));
-        noticeRepository.register(Notice.register("제목5", "내용5", NoticeType.ETC));
+        noticeRepository.save(Notice.register("제목1", "내용1", NoticeType.NOTICE));
+        noticeRepository.save(Notice.register("제목2", "내용2", NoticeType.EVENT));
+        noticeRepository.save(Notice.register("제목3", "내용3", NoticeType.GOODS));
+        noticeRepository.save(Notice.register("제목4", "내용4", NoticeType.USER));
+        noticeRepository.save(Notice.register("제목5", "내용5", NoticeType.ETC));
     }
 }

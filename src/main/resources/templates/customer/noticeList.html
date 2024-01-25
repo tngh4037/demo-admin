@@ -13,18 +13,20 @@
         <div class="card mb-4">
             <div class="card-header"><i class="icon icon-2xl cil-check-alt"></i><span class="small ms-1">검색 폼</span></div>
             <div class="card-body">
-                <form>
+                <form method="GET" th:action id="searchFrm" name="searchFrm">
                     <div class="row mb-3">
-                        <label class="col-sm-2 col-form-label" for="searchVal1">제목:</label>
+                        <label class="col-sm-2 col-form-label" for="title">제목:</label>
                         <div class="col-sm-4">
-                            <input class="form-control" id="searchVal1" autocomplete="off" maxlength="50" placeholder="아이디를 입력해주세요.">
+                            <input class="form-control" id="title" name="title" th:value="${searchDto.title}"
+                                   autocomplete="off" maxlength="50" placeholder="아이디를 입력해주세요.">
                         </div>
-                        <label class="col-sm-2 col-form-label" for="selectVal">공지 유형:</label>
+                        <label class="col-sm-2 col-form-label" for="noticeType">공지 유형:</label>
                         <div class="col-sm-4">
-                            <select class="form-select" id="selectVal">
-                                <option selected="">전체</option>
+                            <select class="form-select" id="noticeType" name="noticeType">
+                                <option value="">전체</option>
                                 <option th:each="type, typeStat : ${noticeTypeList}"
                                         th:value="${type.code}"
+                                        th:selected="${type eq searchDto.noticeType}"
                                         th:text="${type.title}"></option>
                             </select>
                         </div>
@@ -84,7 +86,8 @@
                                 <td th:text="${#temporals.format(notice.regDt, 'yyyy-MM-dd HH:mm:ss')}"></td>
                                 <td>
                                     <div class="d-grid gap-2">
-                                        <button class="btn btn-outline-info" type="button">상세 보기</button>
+                                        <button class="btn btn-outline-info" type="button"
+                                                th:onclick="|location.href='@{/customer/notice/detail/{noticeNo}(noticeNo=${notice.noticeNo})}'|">상세 보기</button>
                                     </div>
                                 </td>
                             </tr>

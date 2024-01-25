@@ -1,11 +1,13 @@
 package com.example.demo.domain.customer.service;
 
+import com.example.demo.domain.customer.dto.NoticeSearchDto;
+import com.example.demo.domain.customer.repository.NoticeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import com.example.demo.domain.customer.domain.Notice;
-import com.example.demo.domain.customer.repository.NoticeRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -13,15 +15,21 @@ public class NoticeService {
 
     private final NoticeRepository noticeRepository;
 
-    public List<Notice> getList() {
-        return noticeRepository.getList();
+    public List<Notice> findItems(NoticeSearchDto noticeSearchDto) {
+        return noticeRepository.findAll(noticeSearchDto);
     }
 
-    public Notice getDetail(Integer noticeNo) {
-        return noticeRepository.getDetail(noticeNo);
+    public Optional<Notice> findById(Integer noticeNo) {
+        return noticeRepository.findById(noticeNo);
     }
 
-    public void register(Notice notice) {
-        noticeRepository.register(notice);
+    public void save(Notice notice) {
+        noticeRepository.save(notice);
+    }
+
+    public void deleteByIds(Integer[] noticeNoList) {
+        for (Integer noticeNo : noticeNoList) {
+            noticeRepository.deleteById(noticeNo);
+        }
     }
 }
