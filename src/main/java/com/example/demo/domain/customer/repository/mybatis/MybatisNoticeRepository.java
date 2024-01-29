@@ -16,6 +16,11 @@ public class MybatisNoticeRepository implements NoticeRepository {
     private final NoticeMapper noticeMapper;
 
     @Override
+    public int count(NoticeSearchDto noticeSearchDto) {
+        return noticeMapper.count(noticeSearchDto);
+    }
+
+    @Override
     public List<Notice> findAll(NoticeSearchDto noticeSearchDto) {
         return noticeMapper.findAll(noticeSearchDto);
     }

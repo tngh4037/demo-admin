@@ -23,13 +23,22 @@ var NoticeListModule = (function() {
      */
     settings.$button.search.on('click', function(event) {
       event.preventDefault()
-      settings.$form.searchFrm.submit();
+      settings.$form.searchFrm.find('input[name=pageNo]').val(1)
+      settings.$form.searchFrm.submit()
     })
   }
 
   var API = {}
 
+  var Page = {
+    list: function(pageNo) {
+      settings.$form.searchFrm.find('input[name=pageNo]').val(pageNo)
+      settings.$form.searchFrm.submit()
+    }
+  }
+
   return {
-    init: init
+    init: init,
+    list: Page.list
   }
 })()

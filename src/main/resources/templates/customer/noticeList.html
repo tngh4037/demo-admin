@@ -14,6 +14,7 @@
             <div class="card-header"><i class="icon icon-2xl cil-check-alt"></i><span class="small ms-1">검색 폼</span></div>
             <div class="card-body">
                 <form method="GET" th:action id="searchFrm" name="searchFrm">
+                    <input type="hidden" name="pageNo" value="1" />
                     <div class="row mb-3">
                         <label class="col-sm-2 col-form-label" for="title">제목:</label>
                         <div class="col-sm-4">
@@ -22,7 +23,7 @@
                         </div>
                         <label class="col-sm-2 col-form-label" for="noticeType">공지 유형:</label>
                         <div class="col-sm-4">
-                            <select class="form-select" id="noticeType" name="noticeType">
+                            <select class="form-select" id="noticeType" name="noticeType"> <!-- TODO: NoticeType.values() 직접 호출 -->
                                 <option value="">전체</option>
                                 <option th:each="type, typeStat : ${noticeTypeList}"
                                         th:value="${type.code}"
@@ -100,6 +101,31 @@
                         </tbody>
                     </table>
                 </div>
+
+                <nav th:if="${searchDto.totalPageCount > 0}" class="mt-3" style="overflow-x: auto;-webkit-overflow-scrolling: touch;">
+                    <ul class="pagination justify-content-lg-center">
+                        <li class="page-item" th:classappend="${!searchDto.hasPreviousPage ? ' disabled' : ''}">
+                            <a href="javascript:void(0);" class="page-link" th:onclick="'javascript:NoticeListModule.list(1);'">&laquo;</a>
+                        </li>
+                        <li class="page-item" th:if="${searchDto.firstPage > 1}">
+                            <a href="javascript:void(0);" class="page-link" th:onclick="'javascript:NoticeListModule.list(' + ${searchDto.firstPage - 1} + ');'">&lt;</a>
+                        </li>
+                        <th:block th:if="${searchDto.firstPage > 0}" th:each="page: ${#numbers.sequence(searchDto.firstPage, searchDto.lastPage)}">
+                            <li class="page-item">
+                                <a href="javascript:void(0);" class="page-link"
+                                   th:text="${page}"
+                                   th:classappend="${searchDto.pageNo == page} ? ' active' : ''"
+                                   th:onclick="'javascript:NoticeListModule.list(' + ${page} + ');'"></a>
+                            </li>
+                        </th:block>
+                        <li class="page-item" th:if="${searchDto.lastPage != searchDto.totalPageCount}">
+                            <a href="javascript:void(0);" class="page-link" th:onclick="'javascript:NoticeListModule.list(' + ${searchDto.lastPage + 1} + ');'">&gt;</a>
+                        </li>
+                        <li class="page-item" th:classappend="${!searchDto.hasNextPage ? ' disabled' : ''}">
+                            <a href="javascript:void(0);" class="page-link" th:onclick="'javascript:NoticeListModule.list(' + ${searchDto.totalPageCount} + ');'">&raquo;</a>
+                        </li>
+                    </ul>
+                </nav>
             </div>
         </div>
         <!-- // 검색 결과 영역 end -->

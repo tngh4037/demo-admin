@@ -20,8 +20,15 @@ public class NoticeController {
 
     @GetMapping("/list")
     public String list(@ModelAttribute("searchDto") NoticeSearchDto noticeSearchDto, Model model) {
+        if (noticeSearchDto.getPageNo() < 1) {
+            noticeSearchDto.setPageNo(1);
+        }
+
+        noticeSearchDto.setRecordCount(10);
+        noticeSearchDto.setPageSize(10);
+
         List<Notice> noticeList = noticeService.findItems(noticeSearchDto);
-        model.addAttribute("totalCount", noticeList.size());
+        model.addAttribute("totalCount", noticeSearchDto.getTotalRecordCount());
         model.addAttribute("noticeList", noticeList);
         model.addAttribute("noticeTypeList", NoticeType.values());
         return "customer/noticeList";

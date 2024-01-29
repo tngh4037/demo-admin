@@ -4,6 +4,19 @@
 
 <mapper namespace="com.example.demo.domain.customer.repository.mybatis.NoticeMapper">
 
+    <select id="count" resultType="Integer">
+        SELECT  COUNT(*)
+        FROM    CUSTOMER_NOTICE
+        <where>
+            <if test="title != null and title != ''">
+                AND TITLE LIKE CONCAT('%', #{title}, '%')
+            </if>
+            <if test="noticeType != null">
+                AND NOTICE_TYPE = #{noticeType}
+            </if>
+        </where>
+    </select>
+
     <select id="findAll" resultType="Notice">
         SELECT  NOTICE_NO, TITLE, CONTENTS, NOTICE_TYPE, HITS, DISPLAY_YN, REG_DT, MOD_DT
         FROM    CUSTOMER_NOTICE
@@ -15,6 +28,7 @@
                 AND NOTICE_TYPE = #{noticeType}
             </if>
         </where>
+        LIMIT #{startNo}, #{recordCount}
     </select>
 
     <select id="findById" resultType="Notice">
