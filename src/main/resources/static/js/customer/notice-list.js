@@ -9,6 +9,9 @@ var NoticeListModule = (function() {
     },
     $button: {
       search: $('#btnSearch')
+    },
+    $nav: {
+      pageArea: $('#pageArea')
     }
   }
 
@@ -26,19 +29,20 @@ var NoticeListModule = (function() {
       settings.$form.searchFrm.find('input[name=pageNo]').val(1)
       settings.$form.searchFrm.submit()
     })
+
+    /**
+     * page
+     */
+    settings.$nav.pageArea.on('click', 'a.page-link', function(event) {
+      event.preventDefault()
+      settings.$form.searchFrm.find('input[name=pageNo]').val($(this).data('pageNo') || 1)
+      settings.$form.searchFrm.submit()
+    })
   }
 
   var API = {}
 
-  var Page = {
-    list: function(pageNo) {
-      settings.$form.searchFrm.find('input[name=pageNo]').val(pageNo)
-      settings.$form.searchFrm.submit()
-    }
-  }
-
   return {
     init: init,
-    list: Page.list
   }
 })()

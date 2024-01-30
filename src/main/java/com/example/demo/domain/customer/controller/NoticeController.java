@@ -1,6 +1,5 @@
 package com.example.demo.domain.customer.controller;
 
-import com.example.demo.domain.customer.define.NoticeType;
 import com.example.demo.domain.customer.domain.Notice;
 import com.example.demo.domain.customer.dto.NoticeSearchDto;
 import com.example.demo.domain.customer.service.NoticeService;
@@ -30,12 +29,39 @@ public class NoticeController {
         List<Notice> noticeList = noticeService.findItems(noticeSearchDto);
         model.addAttribute("totalCount", noticeSearchDto.getTotalRecordCount());
         model.addAttribute("noticeList", noticeList);
-        model.addAttribute("noticeTypeList", NoticeType.values());
+
         return "customer/noticeList";
     }
 
     /*
+    // DML 처리는 1차적으로 PRG(Post/Redirect/Get) 방식으로 해두기
     @GetMapping("/detail/{noticeNo}")
+    public String detail(@PathVariable("noticeNo") Integer noticeNo, Model model) {
+        model.addAttribute("notice", noticeService.findById(noticeNo).get());
+        return "customer/noticeDetail";
+    }
+
+    @GetMapping("/register")
+    public String detail() {
+        model.addAttribute("notice", noticeService.findById(noticeNo).get());
+        return "customer/noticeRegForm";
+    }
+
+    @PostMapping("/register")
+    @ResponseBody
+    public String detail(@PathVariable("noticeNo") Integer noticeNo, Model model) {
+        model.addAttribute("notice", noticeService.findById(noticeNo).get());
+        return "customer/noticeDetail";
+    }
+
+    @GetMapping("/modify/{noticeNo}")
+    public String detail(@PathVariable("noticeNo") Integer noticeNo, Model model) {
+        model.addAttribute("notice", noticeService.findById(noticeNo).get());
+        return "customer/noticeDetail";
+    }
+
+    @PostMapping("/modify/{noticeNo}")
+    @ResponseBody
     public String detail(@PathVariable("noticeNo") Integer noticeNo, Model model) {
         model.addAttribute("notice", noticeService.findById(noticeNo).get());
         return "customer/noticeDetail";

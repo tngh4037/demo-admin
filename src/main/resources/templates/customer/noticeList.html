@@ -23,12 +23,12 @@
                         </div>
                         <label class="col-sm-2 col-form-label" for="noticeType">공지 유형:</label>
                         <div class="col-sm-4">
-                            <select class="form-select" id="noticeType" name="noticeType"> <!-- TODO: NoticeType.values() 직접 호출 -->
+                            <select class="form-select" id="noticeType" name="noticeType">
                                 <option value="">전체</option>
-                                <option th:each="type, typeStat : ${noticeTypeList}"
-                                        th:value="${type.code}"
-                                        th:selected="${type eq searchDto.noticeType}"
-                                        th:text="${type.title}"></option>
+                                <option th:each="noticeType : ${T(com.example.demo.domain.customer.define.NoticeType).values()}"
+                                        th:value="${noticeType.code}"
+                                        th:text="${noticeType.title}"
+                                        th:selected="${noticeType eq searchDto.noticeType}"></option>
                             </select>
                         </div>
                     </div>
@@ -102,27 +102,25 @@
                     </table>
                 </div>
 
-                <nav th:if="${searchDto.totalPageCount > 0}" class="mt-3" style="overflow-x: auto;-webkit-overflow-scrolling: touch;">
+                <nav id="pageArea" th:if="${searchDto.totalPageCount > 0}" class="mt-3" style="overflow-x: auto;-webkit-overflow-scrolling: touch;">
                     <ul class="pagination justify-content-lg-center">
-                        <li class="page-item" th:classappend="${!searchDto.hasPreviousPage ? ' disabled' : ''}">
-                            <a href="javascript:void(0);" class="page-link" th:onclick="'javascript:NoticeListModule.list(1);'">&laquo;</a>
+                        <li class="page-item" th:classappend="${!searchDto.hasPreviousPage ? 'disabled' : ''}">
+                            <a href="javascript:void(0);" class="page-link" th:data-page-no="${1}">&laquo;</a>
                         </li>
                         <li class="page-item" th:if="${searchDto.firstPage > 1}">
-                            <a href="javascript:void(0);" class="page-link" th:onclick="'javascript:NoticeListModule.list(' + ${searchDto.firstPage - 1} + ');'">&lt;</a>
+                            <a href="javascript:void(0);" class="page-link" th:data-page-no="${searchDto.firstPage - 1}">&lt;</a>
                         </li>
-                        <th:block th:if="${searchDto.firstPage > 0}" th:each="page: ${#numbers.sequence(searchDto.firstPage, searchDto.lastPage)}">
-                            <li class="page-item">
-                                <a href="javascript:void(0);" class="page-link"
-                                   th:text="${page}"
-                                   th:classappend="${searchDto.pageNo == page} ? ' active' : ''"
-                                   th:onclick="'javascript:NoticeListModule.list(' + ${page} + ');'"></a>
+                        <th:block th:if="${searchDto.firstPage > 0}">
+                            <li class="page-item" th:each="page: ${#numbers.sequence(searchDto.firstPage, searchDto.lastPage)}">
+                                <a href="javascript:void(0);" class="page-link" th:data-page-no="${page}"
+                                   th:text="${page}" th:classappend="${searchDto.pageNo == page} ? 'active' : ''"></a>
                             </li>
                         </th:block>
                         <li class="page-item" th:if="${searchDto.lastPage != searchDto.totalPageCount}">
-                            <a href="javascript:void(0);" class="page-link" th:onclick="'javascript:NoticeListModule.list(' + ${searchDto.lastPage + 1} + ');'">&gt;</a>
+                            <a href="javascript:void(0);" class="page-link" th:data-page-no="${searchDto.lastPage + 1}">&gt;</a>
                         </li>
-                        <li class="page-item" th:classappend="${!searchDto.hasNextPage ? ' disabled' : ''}">
-                            <a href="javascript:void(0);" class="page-link" th:onclick="'javascript:NoticeListModule.list(' + ${searchDto.totalPageCount} + ');'">&raquo;</a>
+                        <li class="page-item" th:classappend="${!searchDto.hasNextPage ? 'disabled' : ''}">
+                            <a href="javascript:void(0);" class="page-link" th:data-page-no="${searchDto.totalPageCount}">&raquo;</a>
                         </li>
                     </ul>
                 </nav>
