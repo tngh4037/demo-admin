@@ -1,8 +1,8 @@
 $(function() {
-  NoticeAddModule.init()
+  NoticeAddFormModule.init()
 })
 
-var NoticeAddModule = (function() {
+var NoticeAddFormModule = (function() {
   var settings = {
     $form: {
       addForm: $('#addForm')

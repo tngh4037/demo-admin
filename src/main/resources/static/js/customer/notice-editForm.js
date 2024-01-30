@@ -1,8 +1,8 @@
 $(function() {
-  NoticeEditModule.init()
+  NoticeEditFormModule.init()
 })
 
-var NoticeEditModule = (function() {
+var NoticeEditFormModule = (function() {
   var settings = {
     $form: {
       editForm: $('#editForm')

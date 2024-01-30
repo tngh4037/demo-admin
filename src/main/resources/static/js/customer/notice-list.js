@@ -8,6 +8,7 @@ var NoticeListModule = (function() {
       searchForm: $('#searchForm')
     },
     $button: {
+      addForm: $('#btnAddForm'),
       search: $('#btnSearch')
     },
     $nav: {
@@ -31,6 +32,14 @@ var NoticeListModule = (function() {
     })
 
     /**
+     * addForm
+     */
+    settings.$button.addForm.on('click', function(event) {
+      event.preventDefault()
+      window.location.href = '/customer/notices/add'
+    })
+
+    /**
      * page
      */
     settings.$nav.pageArea.on('click', 'a.page-link', function(event) {
@@ -43,6 +52,6 @@ var NoticeListModule = (function() {
   var API = {}
 
   return {
-    init: init,
+    init: init
   }
 })()

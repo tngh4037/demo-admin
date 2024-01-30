@@ -12,30 +12,29 @@
         <div class="card mb-4">
             <div class="card-header"><i class="icon icon-2xl cil-check-alt"></i><span class="small ms-1">상세보기</span></div>
             <div class="card-body">
-                <form>
+                <form th:object="${notice}">
                     <div class="row mb-3">
                         <label for="title" class="col-sm-2 col-form-label"><span style="color: red">*</span> 제목:</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="title" th:value="${notice?.title}" disabled>
+                            <input type="text" class="form-control" id="title" th:field="*{title}" disabled>
                         </div>
                     </div>
 
                     <div class="row mb-3">
                         <label class="col-sm-2 col-form-label" for="contents"><span style="color: red">*</span> 내용:</label>
                         <div class="col-sm-10">
-                            <textarea class="form-control" id="contents" rows="5" th:text="${notice?.contents}" disabled></textarea>
+                            <textarea class="form-control" id="contents" rows="5" th:field="*{contents}" disabled></textarea>
                         </div>
                     </div>
 
                     <div class="row mb-3">
                         <label class="col-sm-2 col-form-label" for="noticeType"><span style="color: red">*</span> 공지 유형:</label>
                         <div class="col-sm-4">
-                            <select class="form-select" id="noticeType" disabled>
-                                <option selected="">유형을 선택해 주세요.</option>
+                            <select class="form-select" id="noticeType" th:field="*{noticeType}" disabled>
+                                <option value="">유형을 선택해 주세요.</option>
                                 <option th:each="noticeType : ${T(com.example.demo.domain.customer.define.NoticeType).values()}"
-                                        th:value="${noticeType.code}"
-                                        th:text="${noticeType.title}"
-                                        th:selected="${noticeType eq notice?.noticeType}"></option>
+                                        th:value="${noticeType}"
+                                        th:text="${noticeType.title}"></option>
                             </select>
                         </div>
                     </div>
@@ -44,11 +43,11 @@
                         <label class="col-sm-2 col-form-label"><span style="color: red">*</span> 노출 여부:</label>
                         <div class="col-sm-4">
                             <div class="form-check form-check-inline mt-2">
-                                <input class="form-check-input" type="radio" id="displayYnOn" value="Y" th:checked="${notice?.displayYn eq 'Y'}" disabled>
+                                <input class="form-check-input" type="radio" id="displayYnOn" value="Y" th:field="*{displayYn}" disabled>
                                 <label class="form-check-label" for="displayYnOn">노출</label>
                             </div>
                             <div class="form-check form-check-inline mt-2">
-                                <input class="form-check-input" type="radio" id="displayYnOff" value="N" th:checked="${notice?.displayYn eq 'N'}" disabled>
+                                <input class="form-check-input" type="radio" id="displayYnOff" value="N" th:field="*{displayYn}" disabled>
                                 <label class="form-check-label" for="displayYnOff">비노출</label>
                             </div>
                         </div>
