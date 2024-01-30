@@ -41,8 +41,4 @@ public class MybatisNoticeRepository implements NoticeRepository {
         noticeMapper.update(noticeNo, notice);
     }
 
-    @Override
-    public void deleteById(Integer noticeNo) {
-        noticeMapper.deleteById(noticeNo);
-    }
 }

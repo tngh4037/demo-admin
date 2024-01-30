@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+// TODO :: 구조 개선 (응답을 위한 객체 생성 고민)
 @Getter
 @Setter
 @ToString

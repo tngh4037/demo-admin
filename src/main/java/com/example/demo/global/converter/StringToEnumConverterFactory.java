@@ -10,6 +10,7 @@ import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+// TODO :: 로직 재점검
 public class StringToEnumConverterFactory implements ConverterFactory<String, Enum<? extends EnumMapperType>> {
 
     @Override

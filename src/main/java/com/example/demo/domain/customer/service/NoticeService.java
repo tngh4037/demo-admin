@@ -33,10 +33,4 @@ public class NoticeService {
     public void update(Integer noticeNo, NoticeEditDto noticeEditDto) {
         noticeRepository.update(noticeNo, noticeEditDto.toEntity());
     }
-
-    public void deleteByIds(Integer[] noticeNoList) {
-        for (Integer noticeNo : noticeNoList) {
-            noticeRepository.deleteById(noticeNo);
-        }
-    }
 }

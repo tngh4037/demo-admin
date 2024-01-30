@@ -55,9 +55,4 @@
         WHERE NOTICE_NO = #{noticeNo}
     </update>
 
-    <delete id="deleteById">
-        DELETE FROM CUSTOMER_NOTICE
-        WHERE NOTICE_NO = #{noticeNo}
-    </delete>
-
 </mapper>
