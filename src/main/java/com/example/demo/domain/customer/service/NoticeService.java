@@ -1,5 +1,7 @@
 package com.example.demo.domain.customer.service;
 
+import com.example.demo.domain.customer.dto.NoticeAddDto;
+import com.example.demo.domain.customer.dto.NoticeEditDto;
 import com.example.demo.domain.customer.dto.NoticeSearchDto;
 import com.example.demo.domain.customer.repository.NoticeRepository;
 import lombok.RequiredArgsConstructor;
@@ -7,7 +9,6 @@ import org.springframework.stereotype.Service;
 import com.example.demo.domain.customer.domain.Notice;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -21,12 +22,16 @@ public class NoticeService {
         return noticeRepository.findAll(noticeSearchDto);
     }
 
-    public Optional<Notice> findById(Integer noticeNo) {
-        return noticeRepository.findById(noticeNo);
+    public Notice findById(Integer noticeNo) {
+        return noticeRepository.findById(noticeNo).orElseThrow();
     }
 
-    public void save(Notice notice) {
-        noticeRepository.save(notice);
+    public Notice save(NoticeAddDto noticeAddDto) {
+        return noticeRepository.save(noticeAddDto.toEntity());
+    }
+
+    public void update(Integer noticeNo, NoticeEditDto noticeEditDto) {
+        noticeRepository.update(noticeNo, noticeEditDto.toEntity());
     }
 
     public void deleteByIds(Integer[] noticeNoList) {

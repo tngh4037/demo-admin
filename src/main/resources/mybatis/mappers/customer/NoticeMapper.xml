@@ -4,16 +4,23 @@
 
 <mapper namespace="com.example.demo.domain.customer.repository.mybatis.NoticeMapper">
 
+    <sql id="search">
+        <if test="title != null and title != ''">
+            AND TITLE LIKE CONCAT('%', #{title}, '%')
+        </if>
+        <if test="noticeType != null">
+            AND NOTICE_TYPE = #{noticeType}
+        </if>
+        <if test="displayYn != null and displayYn != ''">
+            AND DISPLAY_YN = #{displayYn}
+        </if>
+    </sql>
+
     <select id="count" resultType="Integer">
         SELECT  COUNT(*)
         FROM    CUSTOMER_NOTICE
         <where>
-            <if test="title != null and title != ''">
-                AND TITLE LIKE CONCAT('%', #{title}, '%')
-            </if>
-            <if test="noticeType != null">
-                AND NOTICE_TYPE = #{noticeType}
-            </if>
+            <include refid="search"></include>
         </where>
     </select>
 
@@ -21,13 +28,9 @@
         SELECT  NOTICE_NO, TITLE, CONTENTS, NOTICE_TYPE, HITS, DISPLAY_YN, REG_DT, MOD_DT
         FROM    CUSTOMER_NOTICE
         <where>
-            <if test="title != null and title != ''">
-                AND TITLE LIKE CONCAT('%', #{title}, '%')
-            </if>
-            <if test="noticeType != null">
-                AND NOTICE_TYPE = #{noticeType}
-            </if>
+            <include refid="search"></include>
         </where>
+        ORDER BY NOTICE_NO DESC
         LIMIT #{startNo}, #{recordCount}
     </select>
 
@@ -37,10 +40,20 @@
         WHERE   NOTICE_NO = #{noticeNo}
     </select>
 
-    <insert id="save">
+    <insert id="save" useGeneratedKeys="true" keyColumn="noticeNo" keyProperty="noticeNo">
         INSERT INTO CUSTOMER_NOTICE (TITLE, CONTENTS, NOTICE_TYPE, HITS, DISPLAY_YN, REG_DT, MOD_DT)
-        VALUES (#{title}, #{contents}, #{noticeType}, #{hits}, #{displayYn}, NOW(), NOW())
+        VALUES (#{title}, #{contents}, #{noticeType}, 0, #{displayYn}, NOW(), NOW())
     </insert>
+
+    <update id="update">
+        UPDATE CUSTOMER_NOTICE
+        SET TITLE = #{notice.title},
+            CONTENTS = #{notice.contents},
+            NOTICE_TYPE = #{notice.noticeType},
+            DISPLAY_YN = #{notice.displayYn},
+            MOD_DT = NOW()
+        WHERE NOTICE_NO = #{noticeNo}
+    </update>
 
     <delete id="deleteById">
         DELETE FROM CUSTOMER_NOTICE

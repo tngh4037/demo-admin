@@ -5,26 +5,28 @@ import com.example.demo.domain.customer.define.NoticeType;
 
 import java.time.LocalDateTime;
 
-@Data
+@Getter
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class Notice {
     private Integer noticeNo;
     private String title;
     private String contents;
     private NoticeType noticeType;
-    private Integer hits;
     private String displayYn;
+    private Integer hits;
     private LocalDateTime regDt;
     private LocalDateTime modDt;
 
-    public static Notice register(String title, String contents, NoticeType noticeType) {
-        Notice notice = new Notice();
-        notice.setTitle(title);
-        notice.setContents(contents);
-        notice.setNoticeType(noticeType);
-        notice.setHits(0);
-        notice.setDisplayYn("Y");
-        notice.setRegDt(LocalDateTime.now());
-        notice.setModDt(LocalDateTime.now());
-        return notice;
+    @Builder(builderClassName = "of", builderMethodName = "of")
+    public Notice(Integer noticeNo, String title, String contents, NoticeType noticeType, String displayYn,
+                  Integer hits, LocalDateTime regDt, LocalDateTime modDt) {
+        this.noticeNo = noticeNo;
+        this.title = title;
+        this.contents = contents;
+        this.noticeType = noticeType;
+        this.displayYn = displayYn;
+        this.hits = hits;
+        this.regDt = regDt;
+        this.modDt = modDt;
     }
 }

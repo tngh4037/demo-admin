@@ -12,4 +12,5 @@ import lombok.Setter;
 public class NoticeSearchDto extends PaginationDto {
     private String title;
     private NoticeType noticeType;
+    private String displayYn;
 }

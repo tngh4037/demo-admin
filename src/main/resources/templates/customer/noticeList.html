@@ -13,7 +13,7 @@
         <div class="card mb-4">
             <div class="card-header"><i class="icon icon-2xl cil-check-alt"></i><span class="small ms-1">검색 폼</span></div>
             <div class="card-body">
-                <form method="GET" th:action id="searchFrm" name="searchFrm">
+                <form method="GET" th:action id="searchForm" name="searchForm">
                     <input type="hidden" name="pageNo" value="1" />
                     <div class="row mb-3">
                         <label class="col-sm-2 col-form-label" for="title">제목:</label>
@@ -32,6 +32,17 @@
                             </select>
                         </div>
                     </div>
+
+                    <div class="row mb-3">
+                        <label class="col-sm-2 col-form-label" for="displayYn">노출 여부:</label>
+                        <div class="col-sm-4">
+                            <select class="form-select" id="displayYn" name="displayYn">
+                                <option value="">전체</option>
+                                <option value="Y" th:selected="${searchDto.displayYn eq 'Y'}">노출</option>
+                                <option value="N" th:selected="${searchDto.displayYn eq 'N'}">비노출</option>
+                            </select>
+                        </div>
+                    </div>
                 </form>
             </div>
             <div class="card-footer">
@@ -44,7 +55,8 @@
 
         <div class="d-grid gap-2 d-md-flex justify-content-lg-end mb-3">
             <button class="btn btn-danger me-md-1" style="color: white" type="button">선택삭제</button>
-            <button class="btn btn-info" style="color: white" type="button">등록하기</button>
+            <button class="btn btn-info" style="color: white" type="button"
+                    onclick="window.location.href='/customer/notices/add'">등록하기</button>
         </div>
 
         <!-- 검색 결과 영역 start -->
@@ -88,7 +100,7 @@
                                 <td>
                                     <div class="d-grid gap-2">
                                         <button class="btn btn-outline-info" type="button"
-                                                th:onclick="|location.href='@{/customer/notice/detail/{noticeNo}(noticeNo=${notice.noticeNo})}'|">상세 보기</button>
+                                                th:onclick="|location.href='@{/customer/notices/{noticeNo}(noticeNo=${notice.noticeNo})}'|">상세 보기</button>
                                     </div>
                                 </td>
                             </tr>

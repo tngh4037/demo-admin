@@ -11,7 +11,8 @@ public interface NoticeRepository {
     int count(NoticeSearchDto noticeSearchDto);
     List<Notice> findAll(NoticeSearchDto noticeSearchDto);
     Optional<Notice> findById(Integer noticeNo);
-    void save(Notice notice);
+    Notice save(Notice notice);
+    void update(Integer noticeNo, Notice notice);
     void deleteById(Integer noticeNo);
 
 }

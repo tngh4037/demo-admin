@@ -31,8 +31,14 @@ public class MybatisNoticeRepository implements NoticeRepository {
     }
 
     @Override
-    public void save(Notice notice) {
+    public Notice save(Notice notice) {
         noticeMapper.save(notice);
+        return notice;
+    }
+
+    @Override
+    public void update(Integer noticeNo, Notice notice) {
+        noticeMapper.update(noticeNo, notice);
     }
 
     @Override
