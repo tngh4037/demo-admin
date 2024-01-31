@@ -6,6 +6,7 @@ import com.example.demo.domain.customer.dto.NoticeAddDto;
 import com.example.demo.domain.customer.dto.NoticeEditDto;
 import com.example.demo.domain.customer.dto.NoticeSearchDto;
 import com.example.demo.domain.customer.service.NoticeService;
+import com.example.demo.domain.customer.validator.NoticeSearchValidator;
 import com.example.demo.global.utils.PaginationDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -42,6 +43,7 @@ public class NoticeController {
     private static final int PAGE_SIZE = 10;
 
     private final NoticeService noticeService;
+    private final NoticeSearchValidator noticeSearchValidator;
 
     /**
      * 목록 조회
@@ -51,9 +53,10 @@ public class NoticeController {
                        BindingResult bindingResult,
                        Model model) {
 
+        noticeSearchValidator.validate(noticeSearchDto, bindingResult);
         if (bindingResult.hasErrors()) {
             log.info("errors = {}", bindingResult);
-            model.addAttribute("msg", bindingResult.getFieldErrors().get(0).getDefaultMessage());
+            model.addAttribute("msg", bindingResult.getAllErrors().get(0).getDefaultMessage());
             model.addAttribute("url", "/customer/notices");
             return ViewConstant.COMMON_REDIRECT;
         }
