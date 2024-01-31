@@ -1,4 +1,4 @@
-package com.example.demo.global.util;
+package com.example.demo.global.utils;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-class CommonUtilsTest {
+class CommonUtilTest {
 
     @Test
     void isEmpty() {
@@ -18,11 +18,11 @@ class CommonUtilsTest {
         List<String> list = new ArrayList<>();
 
         // when
-        boolean str1_result = CommonUtils.isEmpty(str1);
-        boolean str2_result = CommonUtils.isEmpty(str2);
-        boolean str3_result = CommonUtils.isEmpty(str3);
-        boolean str4_result = CommonUtils.isEmpty(str4);
-        boolean list_result = CommonUtils.isEmpty(list);
+        boolean str1_result = CommonUtil.isEmpty(str1);
+        boolean str2_result = CommonUtil.isEmpty(str2);
+        boolean str3_result = CommonUtil.isEmpty(str3);
+        boolean str4_result = CommonUtil.isEmpty(str4);
+        boolean list_result = CommonUtil.isEmpty(list);
 
         // then
         Assertions.assertThat(str1_result).isTrue();

@@ -4,15 +4,15 @@
 
 <mapper namespace="com.example.demo.domain.customer.repository.mybatis.NoticeMapper">
 
-    <sql id="search">
-        <if test="title != null and title != ''">
-            AND TITLE LIKE CONCAT('%', #{title}, '%')
+    <sql id="searchCond">
+        <if test="search.title != null and search.title != ''">
+            AND TITLE LIKE CONCAT('%', #{search.title}, '%')
         </if>
-        <if test="noticeType != null">
-            AND NOTICE_TYPE = #{noticeType}
+        <if test="search.noticeType != null">
+            AND NOTICE_TYPE = #{search.noticeType}
         </if>
-        <if test="displayYn != null and displayYn != ''">
-            AND DISPLAY_YN = #{displayYn}
+        <if test="search.displayYn != null and search.displayYn != ''">
+            AND DISPLAY_YN = #{search.displayYn}
         </if>
     </sql>
 
@@ -20,7 +20,7 @@
         SELECT  COUNT(*)
         FROM    CUSTOMER_NOTICE
         <where>
-            <include refid="search"></include>
+            <include refid="searchCond"></include>
         </where>
     </select>
 
@@ -28,10 +28,12 @@
         SELECT  NOTICE_NO, TITLE, CONTENTS, NOTICE_TYPE, HITS, DISPLAY_YN, REG_DT, MOD_DT
         FROM    CUSTOMER_NOTICE
         <where>
-            <include refid="search"></include>
+            <include refid="searchCond"></include>
         </where>
         ORDER BY NOTICE_NO DESC
-        LIMIT #{startNo}, #{recordCount}
+        <if test="page != null">
+            LIMIT #{page.startNo}, #{page.recordCount}
+        </if>
     </select>
 
     <select id="findById" resultType="Notice">

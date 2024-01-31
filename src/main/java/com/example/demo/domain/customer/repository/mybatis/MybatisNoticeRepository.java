@@ -3,6 +3,7 @@ package com.example.demo.domain.customer.repository.mybatis;
 import com.example.demo.domain.customer.domain.Notice;
 import com.example.demo.domain.customer.dto.NoticeSearchDto;
 import com.example.demo.domain.customer.repository.NoticeRepository;
+import com.example.demo.global.utils.PaginationDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -21,8 +22,8 @@ public class MybatisNoticeRepository implements NoticeRepository {
     }
 
     @Override
-    public List<Notice> findAll(NoticeSearchDto noticeSearchDto) {
-        return noticeMapper.findAll(noticeSearchDto);
+    public List<Notice> findAll(NoticeSearchDto noticeSearchDto, PaginationDto paginationDto) {
+        return noticeMapper.findAll(noticeSearchDto, paginationDto);
     }
 
     @Override

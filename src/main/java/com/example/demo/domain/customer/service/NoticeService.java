@@ -4,10 +4,12 @@ import com.example.demo.domain.customer.dto.NoticeAddDto;
 import com.example.demo.domain.customer.dto.NoticeEditDto;
 import com.example.demo.domain.customer.dto.NoticeSearchDto;
 import com.example.demo.domain.customer.repository.NoticeRepository;
+import com.example.demo.global.utils.PaginationDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import com.example.demo.domain.customer.domain.Notice;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -16,10 +18,15 @@ public class NoticeService {
 
     private final NoticeRepository noticeRepository;
 
-    public List<Notice> findItems(NoticeSearchDto noticeSearchDto) {
+    public List<Notice> findItems(NoticeSearchDto noticeSearchDto, PaginationDto paginationDto) {
+        List<Notice> notices = new ArrayList<>();
         int count = noticeRepository.count(noticeSearchDto);
-        noticeSearchDto.setTotalRecordCount(count);
-        return noticeRepository.findAll(noticeSearchDto);
+        if (count > 0) {
+            paginationDto.setTotalRecordCount(count);
+            notices = noticeRepository.findAll(noticeSearchDto, paginationDto);
+        }
+
+        return notices;
     }
 
     public Notice findById(Integer noticeNo) {

@@ -1,10 +1,10 @@
-package com.example.demo.global.util;
+package com.example.demo.global.utils;
 
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-// TODO :: 구조 개선 (응답을 위한 객체 생성 고민)
+// TODO :: 구조 개선 고민할 것
 @Getter
 @Setter
 @ToString
@@ -31,9 +31,6 @@ public class PaginationDto {
     private boolean hasPreviousPage;
     // 다음 페이지 존재 여부
     private boolean hasNextPage;
-
-    public PaginationDto() {
-    }
 
     public PaginationDto(int pageNo, int recordCount, int pageSize) {
         this.pageNo = pageNo;

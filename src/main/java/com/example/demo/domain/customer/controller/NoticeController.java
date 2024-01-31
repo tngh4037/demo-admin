@@ -1,10 +1,12 @@
 package com.example.demo.domain.customer.controller;
 
+import com.example.demo.domain.common.constant.ViewConstant;
 import com.example.demo.domain.customer.domain.Notice;
 import com.example.demo.domain.customer.dto.NoticeAddDto;
 import com.example.demo.domain.customer.dto.NoticeEditDto;
 import com.example.demo.domain.customer.dto.NoticeSearchDto;
 import com.example.demo.domain.customer.service.NoticeService;
+import com.example.demo.global.utils.PaginationDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -28,13 +30,16 @@ import java.util.List;
  *
  * 2) 참고
  * - PRG(Post-Redirect-Get) 방식을 통한 (저장 / 수정)
- * - (BindingResult / BeanValidation)을 통한 client 요청 값 검증 처리
+ * - (BindingResult / BeanValidation)을 통한 client 요청 값 검증 및 redirect 처리
  */
+@Slf4j
 @Controller
 @RequestMapping("/customer/notices")
 @RequiredArgsConstructor
-@Slf4j
 public class NoticeController {
+
+    private static final int RECORD_COUNT = 10;
+    private static final int PAGE_SIZE = 10;
 
     private final NoticeService noticeService;
 
@@ -42,19 +47,25 @@ public class NoticeController {
      * 목록 조회
      */
     @GetMapping
-    public String list(@ModelAttribute("searchDto") NoticeSearchDto noticeSearchDto, Model model) {
-        if (noticeSearchDto.getPageNo() < 1) {
-            noticeSearchDto.setPageNo(1);
+    public String list(@Validated @ModelAttribute("searchDto") NoticeSearchDto noticeSearchDto,
+                       BindingResult bindingResult,
+                       Model model) {
+
+        if (bindingResult.hasErrors()) {
+            log.info("errors = {}", bindingResult);
+            model.addAttribute("msg", bindingResult.getFieldErrors().get(0).getDefaultMessage());
+            model.addAttribute("url", "/customer/notices");
+            return ViewConstant.COMMON_REDIRECT;
         }
 
-        noticeSearchDto.setRecordCount(10);
-        noticeSearchDto.setPageSize(10);
+        PaginationDto paginationDto = new PaginationDto(noticeSearchDto.getPageNo(), RECORD_COUNT, PAGE_SIZE);
+        List<Notice> noticeList = noticeService.findItems(noticeSearchDto, paginationDto);
 
-        List<Notice> noticeList = noticeService.findItems(noticeSearchDto);
-        model.addAttribute("totalCount", noticeSearchDto.getTotalRecordCount());
+        model.addAttribute("totalCount", paginationDto.getTotalRecordCount());
+        model.addAttribute("paginationDto", paginationDto);
         model.addAttribute("noticeList", noticeList);
 
-        return "customer/noticeList";
+        return ViewConstant.CUSTOMER_NOTICE_LIST;
     }
 
     /**
@@ -63,7 +74,7 @@ public class NoticeController {
     @GetMapping("/{noticeNo}")
     public String detail(@PathVariable("noticeNo") Integer noticeNo, Model model) {
         model.addAttribute("notice", noticeService.findById(noticeNo));
-        return "customer/noticeDetail";
+        return ViewConstant.CUSTOMER_NOTICE_DETAIL;
     }
 
     /**
@@ -72,7 +83,7 @@ public class NoticeController {
     @GetMapping("/add")
     public String addForm(Model model) {
         model.addAttribute("noticeAddDto", new NoticeAddDto());
-        return "customer/noticeAddForm";
+        return ViewConstant.CUSTOMER_NOTICE_ADD_FORM;
     }
 
     /**
@@ -85,11 +96,12 @@ public class NoticeController {
 
         if (bindingResult.hasErrors()) {
             log.info("errors = {}", bindingResult);
-            return "customer/noticeAddForm";
+            return ViewConstant.CUSTOMER_NOTICE_ADD_FORM;
         }
 
         Notice notice = noticeService.save(noticeAddDto);
         redirectAttributes.addAttribute("noticeNo", notice.getNoticeNo());
+
         return "redirect:/customer/notices/{noticeNo}";
     }
 
@@ -99,7 +111,7 @@ public class NoticeController {
     @GetMapping("/{noticeNo}/edit")
     public String editForm(@PathVariable("noticeNo") Integer noticeNo, Model model) {
         model.addAttribute("notice", noticeService.findById(noticeNo));
-        return "customer/noticeEditForm";
+        return ViewConstant.CUSTOMER_NOTICE_EDIT_FORM;
     }
 
     /**
@@ -112,7 +124,7 @@ public class NoticeController {
 
         if (bindingResult.hasErrors()) {
             log.info("errors = {}", bindingResult);
-            return "customer/noticeEditForm";
+            return ViewConstant.CUSTOMER_NOTICE_EDIT_FORM;
         }
 
         noticeService.update(noticeNo, noticeEditDto);

@@ -1,9 +1,9 @@
-package com.example.demo.global.util;
+package com.example.demo.global.utils;
 
 import java.util.List;
 import java.util.Map;
 
-public class CommonUtils {
+public class CommonUtil {
 
     public static boolean isEmpty(Object obj) {
         if (obj == null) {
