@@ -13,4 +13,5 @@ public interface NoticeRepository {
     Optional<Notice> findById(Integer noticeNo);
     Notice save(Notice notice);
     void update(Integer noticeNo, Notice notice);
+    void deleteById(Integer noticeNo);
 }

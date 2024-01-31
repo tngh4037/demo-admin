@@ -2,8 +2,8 @@ $(function() {
   NoticeAddFormModule.init()
 })
 
-var NoticeAddFormModule = (function() {
-  var settings = {
+const NoticeAddFormModule = (function() {
+  const settings = {
     $form: {
       addForm: $('#addForm')
     },
@@ -12,11 +12,11 @@ var NoticeAddFormModule = (function() {
     }
   }
 
-  var init = function() {
+  const init = function() {
     bind()
   }
 
-  var bind = function() {
+  const bind = function() {
 
     /**
      * add
@@ -27,7 +27,7 @@ var NoticeAddFormModule = (function() {
     })
   }
 
-  var API = {
+  const API = {
   }
 
   return {

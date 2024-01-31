@@ -11,7 +11,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class NoticeSearchDto {
 
-    private Integer pageNo = 1;
+    private int pageNo = 1;
 
     @Size(max = 50, message = "제목은 최대 50자까지 검색 가능합니다.")
     private String title;

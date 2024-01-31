@@ -2,25 +2,30 @@ $(function() {
   NoticeListModule.init()
 })
 
-var NoticeListModule = (function() {
-  var settings = {
+const NoticeListModule = (function() {
+  const settings = {
     $form: {
       searchForm: $('#searchForm')
     },
     $button: {
       addForm: $('#btnAddForm'),
-      search: $('#btnSearch')
+      search: $('#btnSearch'),
+      remove: $('#btnRemove')
+    },
+    $checkbox: {
+      chkAll: $('#chkAll'),
+      chkEle: $('input:checkbox[name="chkEle"]')
     },
     $nav: {
       pageArea: $('#pageArea')
     }
   }
 
-  var init = function() {
+  const init = function() {
     bind()
   }
 
-  var bind = function() {
+  const bind = function() {
 
     /**
      * search
@@ -40,16 +45,55 @@ var NoticeListModule = (function() {
     })
 
     /**
+     * chkAll click
+     */
+    settings.$checkbox.chkAll.on('click', function(event) {
+      if ($(this).is(':checked')) {
+        settings.$checkbox.chkEle.prop('checked', true)
+      } else {
+        settings.$checkbox.chkEle.prop('checked', false)
+      }
+    })
+
+    /**
+     * chkEle click
+     */
+    settings.$checkbox.chkEle.on('click', function(event) {
+      if (!$(this).is(':checked')) {
+        settings.$checkbox.chkAll.prop('checked', false)
+      }
+    })
+
+    /**
+     * remove
+     */
+    settings.$button.remove.on('click', function(event) {
+      event.preventDefault()
+      let noticeNos = []
+      settings.$checkbox.chkEle.each(function (index) {
+        if ($(this).is(':checked')) {
+          noticeNos.push($(this).data('noticeNo') || 0)
+        }
+      })
+
+      if (confirm(noticeNos.length + '개의 글을 삭제하시겠습니까?')) {
+        $('#noticeNos').val(noticeNos)
+        $('#removeForm').submit()
+      }
+    })
+
+    /**
      * page
      */
     settings.$nav.pageArea.on('click', 'a.page-link', function(event) {
       event.preventDefault()
-      settings.$form.searchForm.find('input[name=pageNo]').val($(this).data('pageNo') || 1)
+      let pageNo = $(this).data('pageNo') || 1
+      settings.$form.searchForm.find('input[name=pageNo]').val(pageNo)
       settings.$form.searchForm.submit()
     })
   }
 
-  var API = {}
+  const API = {}
 
   return {
     init: init

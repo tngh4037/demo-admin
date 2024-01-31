@@ -16,4 +16,5 @@ public interface NoticeMapper {
     Optional<Notice> findById(Integer noticeNo);
     void save(Notice notice);
     void update(@Param("noticeNo") Integer noticeNo, @Param("notice") Notice notice);
+    void deleteById(Integer noticeNo);
 }

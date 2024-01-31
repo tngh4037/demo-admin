@@ -8,6 +8,7 @@ import com.example.demo.global.utils.PaginationDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import com.example.demo.domain.customer.domain.Notice;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,5 +40,12 @@ public class NoticeService {
 
     public void update(Integer noticeNo, NoticeEditDto noticeEditDto) {
         noticeRepository.update(noticeNo, noticeEditDto.toEntity());
+    }
+
+    @Transactional
+    public void remove(Integer[] noticeNos) {
+        for (Integer noticeNo : noticeNos) {
+            noticeRepository.deleteById(noticeNo);
+        }
     }
 }

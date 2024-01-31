@@ -2,8 +2,8 @@ $(function() {
   NoticeEditFormModule.init()
 })
 
-var NoticeEditFormModule = (function() {
-  var settings = {
+const NoticeEditFormModule = (function() {
+  const settings = {
     $form: {
       editForm: $('#editForm')
     },
@@ -12,11 +12,11 @@ var NoticeEditFormModule = (function() {
     }
   }
 
-  var init = function() {
+  const init = function() {
     bind()
   }
 
-  var bind = function() {
+  const bind = function() {
 
     /**
      * edit
@@ -27,7 +27,7 @@ var NoticeEditFormModule = (function() {
     })
   }
 
-  var API = {
+  const API = {
   }
 
   return {

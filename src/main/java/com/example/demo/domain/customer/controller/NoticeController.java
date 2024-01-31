@@ -28,9 +28,11 @@ import java.util.List;
  * - 등록 처리: POST /customer/notices/add
  * - 수정 화면: GET  /customer/notices/{id}/edit
  * - 수정 처리: POST /customer/notices/{id}/edit
+ * - 삭제 처리: POST /customer/notices/remove
+ *   ㄴ 삭제 대상 정보는 form array 형태로 담아서 요청
  *
  * 2) 참고
- * - PRG(Post-Redirect-Get) 방식을 통한 (저장 / 수정)
+ * - PRG(Post-Redirect-Get) 방식을 통한 (저장 / 수정 / 삭제)
  * - (BindingResult / BeanValidation)을 통한 client 요청 값 검증 및 redirect 처리
  */
 @Slf4j
@@ -132,5 +134,14 @@ public class NoticeController {
 
         noticeService.update(noticeNo, noticeEditDto);
         return "redirect:/customer/notices/{noticeNo}";
+    }
+
+    /**
+     * 삭제 처리
+     */
+    @PostMapping("/remove")
+    public String remove(@RequestParam("noticeNos") Integer[] noticeNos) {
+        noticeService.remove(noticeNos);
+        return "redirect:/customer/notices";
     }
 }

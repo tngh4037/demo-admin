@@ -54,7 +54,7 @@
         <!-- // 검색 영역 end -->
 
         <div class="d-grid gap-2 d-md-flex justify-content-lg-end mb-3">
-            <button class="btn btn-danger me-md-1" style="color: white" type="button">선택삭제</button>
+            <button class="btn btn-danger me-md-1" style="color: white" type="button" id="btnRemove">선택삭제</button>
             <button class="btn btn-info" style="color: white" type="button" id="btnAddForm">등록하기</button>
         </div>
 
@@ -70,7 +70,7 @@
                         <thead>
                         <tr style="background-color: #f5f5f5">
                             <th scope="col">
-                                <input class="form-check-input" type="checkbox" value="" id="chkAll">
+                                <input class="form-check-input" type="checkbox" id="chkAll">
                                 <label class="form-check-label" for="chkAll"></label>
                             </th>
                             <th scope="col">공지 유형</th>
@@ -84,8 +84,8 @@
                         <th:block th:if="${noticeList.size() gt 0}">
                             <tr th:each="notice, noticeStat : ${noticeList}">
                                 <td>
-                                    <input class="form-check-input" type="checkbox" value="" id="chkEle1">
-                                    <label class="form-check-label" for="chkEle1"></label>
+                                    <input class="form-check-input" type="checkbox" value="" name="chkEle" th:data-notice-no="${notice.noticeNo}" th:id="|${'chkEle' + noticeStat.count}|">
+                                    <label class="form-check-label" th:for="|${'chkEle' + noticeStat.count}|"></label>
                                 </td>
                                 <td th:text="${notice.noticeType.title}"></td>
                                 <td th:text="${notice.title}"></td>
@@ -139,6 +139,12 @@
         </div>
         <!-- // 검색 결과 영역 end -->
     </div>
+
+    <!-- 삭제 대상 게시글 번호 set -->
+    <form id="removeForm" name="removeForm" method="POST" action="/customer/notices/remove" style="display: none;">
+        <input type="hidden" id="noticeNos" name="noticeNos" value="">
+    </form>
+    <!-- // 삭제 대상 게시글 번호 set -->
 </div>
 
 <th:block layout:fragment="script">
