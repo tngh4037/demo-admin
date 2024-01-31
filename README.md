@@ -15,5 +15,7 @@
 > ![](https://img.shields.io/badge/CoreUI-23C8D2)
 > ![](https://img.shields.io/badge/JQuery-3.7.1-mint)
 
-<!-- TODO :: URI 구조 작성 -->
+<!-- TODO :: 프로젝트 구조 작성 -->
 <!-- TODO :: 애플리케이션 구동 방법 작성 -->
+<!-- TODO :: URI 구조 작성 -->
+<!-- TODO :: Coding Rules 작성 -->

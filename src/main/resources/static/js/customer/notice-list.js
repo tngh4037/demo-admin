@@ -5,7 +5,8 @@ $(function() {
 const NoticeListModule = (function() {
   const settings = {
     $form: {
-      searchForm: $('#searchForm')
+      searchForm: $('#searchForm'),
+      removeForm: $('#removeForm')
     },
     $button: {
       addForm: $('#btnAddForm'),
@@ -70,6 +71,7 @@ const NoticeListModule = (function() {
     settings.$button.remove.on('click', function(event) {
       event.preventDefault()
       let noticeNos = []
+
       settings.$checkbox.chkEle.each(function (index) {
         if ($(this).is(':checked')) {
           noticeNos.push($(this).data('noticeNo') || 0)
@@ -77,8 +79,8 @@ const NoticeListModule = (function() {
       })
 
       if (confirm(noticeNos.length + '개의 글을 삭제하시겠습니까?')) {
-        $('#noticeNos').val(noticeNos)
-        $('#removeForm').submit()
+        settings.$form.removeForm.find('#noticeNos').val(noticeNos)
+        settings.$form.removeForm.submit()
       }
     })
 
@@ -88,6 +90,7 @@ const NoticeListModule = (function() {
     settings.$nav.pageArea.on('click', 'a.page-link', function(event) {
       event.preventDefault()
       let pageNo = $(this).data('pageNo') || 1
+
       settings.$form.searchForm.find('input[name=pageNo]').val(pageNo)
       settings.$form.searchForm.submit()
     })
