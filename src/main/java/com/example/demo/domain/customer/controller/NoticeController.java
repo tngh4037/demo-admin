@@ -7,6 +7,7 @@ import com.example.demo.domain.customer.dto.NoticeEditDto;
 import com.example.demo.domain.customer.dto.NoticeSearchDto;
 import com.example.demo.domain.customer.service.NoticeService;
 import com.example.demo.domain.customer.validator.NoticeSearchValidator;
+import com.example.demo.global.utils.ErrorUtil;
 import com.example.demo.global.utils.PaginationDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -58,7 +59,7 @@ public class NoticeController {
         noticeSearchValidator.validate(noticeSearchDto, bindingResult);
         if (bindingResult.hasErrors()) {
             log.info("errors = {}", bindingResult);
-            model.addAttribute("msg", bindingResult.getAllErrors().get(0).getDefaultMessage());
+            model.addAttribute("msg", ErrorUtil.getMessage(bindingResult));
             model.addAttribute("url", "/customer/notices");
             return ViewConstant.COMMON_REDIRECT;
         }
