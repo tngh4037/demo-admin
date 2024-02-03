@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/default}">
+
+<th:block layout:fragment="css">
+</th:block>
+
+<div layout:fragment="Content" class="body flex-grow-1 px-3">
+    <div class="container-fluid">
+        <!-- 검색 영역 start -->
+        <div class="card mb-4">
+            <div class="card-header"><i class="icon icon-2xl cil-check-alt"></i><span class="small ms-1">검색 폼</span></div>
+            <div class="card-body">
+                <form id="searchForm" name="searchForm" method="GET" th:action>
+                    <input type="hidden" name="pageNo" value="1" />
+                    <div class="row mb-3">
+                        <label class="col-sm-2 col-form-label" for="question">질문:</label>
+                        <div class="col-sm-4">
+                            <input class="form-control" id="question" name="question" th:value="${searchDto.question}"
+                                   autocomplete="off" maxlength="50" placeholder="질문을 입력해 주세요.">
+                        </div>
+                        <label class="col-sm-2 col-form-label" for="faqType">질문 유형:</label>
+                        <div class="col-sm-4">
+                            <select class="form-select" id="faqType" name="faqType">
+                                <option value="">전체</option>
+                                <option th:each="faqType : ${T(com.example.demo.domain.customer.define.FaqType).values()}"
+                                        th:value="${faqType}"
+                                        th:text="${faqType.title}"
+                                        th:selected="${faqType eq searchDto.faqType}"></option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <label class="col-sm-2 col-form-label" for="displayYn">노출 여부:</label>
+                        <div class="col-sm-4">
+                            <select class="form-select" id="displayYn" name="displayYn">
+                                <option value="">전체</option>
+                                <option th:value="${T(com.example.demo.domain.common.define.Yn).YES}"
+                                        th:selected="${searchDto.displayYn eq T(com.example.demo.domain.common.define.Yn).YES}">노출</option>
+                                <option th:value="${T(com.example.demo.domain.common.define.Yn).NO}"
+                                        th:selected="${searchDto.displayYn eq T(com.example.demo.domain.common.define.Yn).NO}">비노출</option>
+                            </select>
+                        </div>
+
+                        <label class="col-sm-2 col-form-label" for="displayTopYn">상단 노출 여부:</label>
+                        <div class="col-sm-4">
+                            <select class="form-select" id="displayTopYn" name="displayTopYn">
+                                <option value="">전체</option>
+                                <option th:value="${T(com.example.demo.domain.common.define.Yn).YES}"
+                                        th:selected="${searchDto.displayTopYn eq T(com.example.demo.domain.common.define.Yn).YES}">노출</option>
+                                <option th:value="${T(com.example.demo.domain.common.define.Yn).NO}"
+                                        th:selected="${searchDto.displayTopYn eq T(com.example.demo.domain.common.define.Yn).NO}">비노출</option>
+                            </select>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="card-footer">
+                <div class="d-grid gap-2 d-md-flex justify-content-lg-center">
+                    <button id="btnSearch" class="btn btn-info" style="color: white" type="button"><i class="icon icon-2xl cil-zoom"></i> 검색하기</button>
+                </div>
+            </div>
+        </div>
+        <!-- // 검색 영역 end -->
+
+        <div class="d-grid gap-2 d-md-flex justify-content-lg-end mb-3">
+            <button class="btn btn-danger me-md-1" style="color: white" type="button" id="btnRemove">선택삭제</button>
+            <button class="btn btn-info" style="color: white" type="button" id="btnAddForm">등록하기</button>
+        </div>
+
+        <!-- 검색 결과 영역 start -->
+        <div class="card mb-4">
+            <div class="card-header">
+                <i class="icon icon-2xl cil-check-alt"></i>
+                <span class="small ms-1">검색 결과: </span><strong th:text="${#numbers.formatInteger(totalCount, 0, 'COMMA')}"></strong>건
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered text-center align-middle">
+                        <thead>
+                        <tr style="background-color: #f5f5f5">
+                            <th scope="col">
+                                <input class="form-check-input" type="checkbox" id="chkAll">
+                                <label class="form-check-label" for="chkAll"></label>
+                            </th>
+                            <th scope="col">질문 유형</th>
+                            <th scope="col">질문</th>
+                            <th scope="col">노출 여부</th>
+                            <th scope="col">상단 노출 여부</th>
+                            <th scope="col">등록일</th>
+                            <th scope="col">상세 보기</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <th:block th:if="${faqList.size() gt 0}">
+                            <tr th:each="faq, faqStat : ${faqList}">
+                                <td>
+                                    <input class="form-check-input" type="checkbox" value="" name="chkEle" th:data-faq-no="${faq.faqNo}" th:id="|${'chkEle' + faqStat.count}|">
+                                    <label class="form-check-label" th:for="|${'chkEle' + faqStat.count}|"></label>
+                                </td>
+                                <td th:text="${faq.faqType.title}"></td>
+                                <td th:text="${faq.question}"></td>
+                                <td>
+                                    <h5>
+                                        <th:block th:if="${faq.displayYn eq T(com.example.demo.domain.common.define.Yn).YES}">
+                                            <span class="badge me-1 bg-success">노출</span>
+                                        </th:block>
+                                        <th:block th:unless="${faq.displayYn eq T(com.example.demo.domain.common.define.Yn).YES}">
+                                            <span class="badge me-1 bg-secondary">비노출</span>
+                                        </th:block>
+                                    </h5>
+                                </td>
+                                <td>
+                                    <h5>
+                                        <th:block th:if="${faq.displayTopYn eq T(com.example.demo.domain.common.define.Yn).YES}">
+                                            <span class="badge me-1 bg-success">노출</span>
+                                        </th:block>
+                                        <th:block th:unless="${faq.displayTopYn eq T(com.example.demo.domain.common.define.Yn).YES}">
+                                            <span class="badge me-1 bg-secondary">비노출</span>
+                                        </th:block>
+                                    </h5>
+                                </td>
+                                <td th:text="${#temporals.format(faq.regDt, 'yyyy-MM-dd HH:mm:ss')}"></td>
+                                <td>
+                                    <div class="d-grid gap-2">
+                                        <button class="btn btn-outline-info" type="button"
+                                                th:onclick="|location.href='@{/customer/faqs/{faqNo}(faqNo=${faq.faqNo})}'|">상세 보기</button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </th:block>
+                        <th:block th:unless="${faqList.size() gt 0}">
+                            <tr>
+                                <td colspan="7">조회된 데이터가 없습니다.</td>
+                            </tr>
+                        </th:block>
+                        </tbody>
+                    </table>
+                </div>
+
+                <nav id="pageArea" th:if="${paginationDto.totalPageCount > 0}" class="mt-3" style="overflow-x: auto;-webkit-overflow-scrolling: touch;">
+                    <ul class="pagination justify-content-lg-center">
+                        <li class="page-item" th:classappend="${!paginationDto.hasPreviousPage ? 'disabled' : ''}">
+                            <a href="javascript:void(0);" class="page-link" th:data-page-no="${1}">&laquo;</a>
+                        </li>
+                        <li class="page-item" th:if="${paginationDto.firstPage > 1}">
+                            <a href="javascript:void(0);" class="page-link" th:data-page-no="${paginationDto.firstPage - 1}">&lt;</a>
+                        </li>
+                        <th:block th:if="${paginationDto.firstPage > 0}">
+                            <li class="page-item" th:each="page: ${#numbers.sequence(paginationDto.firstPage, paginationDto.lastPage)}">
+                                <a href="javascript:void(0);" class="page-link" th:data-page-no="${page}"
+                                   th:text="${page}" th:classappend="${paginationDto.pageNo == page} ? 'active' : ''"></a>
+                            </li>
+                        </th:block>
+                        <li class="page-item" th:if="${paginationDto.lastPage != paginationDto.totalPageCount}">
+                            <a href="javascript:void(0);" class="page-link" th:data-page-no="${paginationDto.lastPage + 1}">&gt;</a>
+                        </li>
+                        <li class="page-item" th:classappend="${!paginationDto.hasNextPage ? 'disabled' : ''}">
+                            <a href="javascript:void(0);" class="page-link" th:data-page-no="${paginationDto.totalPageCount}">&raquo;</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        <!-- // 검색 결과 영역 end -->
+    </div>
+</div>
+
+<th:block layout:fragment="script">
+    <script th:src="@{/js/customer/faq-list.js}"></script>
+</th:block>
+
+</html>

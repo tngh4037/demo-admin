@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.demo.domain.customer.repository.mybatis.FaqMapper">
+
+    <sql id="searchCond">
+        <if test="search.question != null and search.question != ''">
+            AND QUESTION LIKE CONCAT('%', #{search.question}, '%')
+        </if>
+        <if test="search.faqType != null">
+            AND FAQ_TYPE = #{search.faqType}
+        </if>
+        <if test="search.displayYn != null">
+            AND DISPLAY_YN = #{search.displayYn}
+        </if>
+        <if test="search.displayTopYn != null">
+            AND DISPLAY_TOP_YN = #{search.displayTopYn}
+        </if>
+    </sql>
+
+    <select id="count" resultType="Integer">
+        SELECT  COUNT(*)
+        FROM    CUSTOMER_FAQ
+        <where>
+            <include refid="searchCond"></include>
+        </where>
+    </select>
+
+    <select id="findAll" resultType="Faq">
+        SELECT  FAQ_NO, QUESTION, ANSWER, FAQ_TYPE, HITS, DISPLAY_YN, DISPLAY_TOP_YN, REG_DT, MOD_DT
+        FROM    CUSTOMER_FAQ
+        <where>
+            <include refid="searchCond"></include>
+        </where>
+        ORDER BY FAQ_NO DESC
+        <if test="page != null">
+            LIMIT #{page.startNo}, #{page.recordCount}
+        </if>
+    </select>
+
+    <select id="findById" resultType="Faq">
+        SELECT  FAQ_NO, QUESTION, ANSWER, FAQ_TYPE, HITS, DISPLAY_YN, DISPLAY_TOP_YN, REG_DT, MOD_DT
+        FROM    CUSTOMER_FAQ
+        WHERE   FAQ_NO = #{faqNo}
+    </select>
+
+    <insert id="save" useGeneratedKeys="true" keyColumn="faqNo" keyProperty="faqNo">
+        INSERT INTO CUSTOMER_FAQ (QUESTION, ANSWER, FAQ_TYPE, HITS, DISPLAY_YN, DISPLAY_TOP_YN, REG_DT, MOD_DT)
+        VALUES (#{question}, #{answer}, #{faqType}, 0, #{displayYn}, #{displayTopYn}, NOW(), NOW())
+    </insert>
+
+    <update id="update">
+        UPDATE CUSTOMER_FAQ
+        SET QUESTION = #{faq.question},
+            ANSWER = #{faq.answer},
+            FAQ_TYPE = #{faq.faqType},
+            DISPLAY_YN = #{faq.displayYn},
+            DISPLAY_TOP_YN = #{faq.displayTopYn},
+            MOD_DT = NOW()
+        WHERE FAQ_NO = #{faqNo}
+    </update>
+
+    <delete id="deleteById">
+        DELETE FROM CUSTOMER_FAQ
+        WHERE FAQ_NO = #{faqNo}
+    </delete>
+
+</mapper>

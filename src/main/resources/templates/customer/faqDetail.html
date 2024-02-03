@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/default}">
+
+<th:block layout:fragment="css">
+</th:block>
+
+<div layout:fragment="Content" class="body flex-grow-1 px-3">
+    <div class="container-fluid">
+        <div class="card mb-4">
+            <div class="card-header"><i class="icon icon-2xl cil-check-alt"></i><span class="small ms-1">상세보기</span></div>
+            <div class="card-body">
+                <form th:object="${faq}">
+                    <div class="row mb-3">
+                        <label for="question" class="col-sm-2 col-form-label"><span style="color: red">*</span> 질문:</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="question" th:field="*{question}" disabled>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <label class="col-sm-2 col-form-label" for="answer"><span style="color: red">*</span> 답변:</label>
+                        <div class="col-sm-10">
+                            <textarea class="form-control" id="answer" rows="5" th:field="*{answer}" disabled></textarea>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <label class="col-sm-2 col-form-label" for="faqType"><span style="color: red">*</span> 질문 유형:</label>
+                        <div class="col-sm-4">
+                            <select class="form-select" id="faqType" th:field="*{faqType}" disabled>
+                                <option value="">유형을 선택해 주세요.</option>
+                                <option th:each="faqType : ${T(com.example.demo.domain.customer.define.FaqType).values()}"
+                                        th:value="${faqType}"
+                                        th:text="${faqType.title}"></option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <label class="col-sm-2 col-form-label"><span style="color: red">*</span> 노출 여부:</label>
+                        <div class="col-sm-4">
+                            <div class="form-check form-check-inline mt-2">
+                                <input class="form-check-input" type="radio"
+                                       th:field="*{displayYn}"
+                                       th:value="${T(com.example.demo.domain.common.define.Yn).YES}" disabled>
+                                <label class="form-check-label" th:for="${#ids.prev('displayYn')}">노출</label>
+                            </div>
+                            <div class="form-check form-check-inline mt-2">
+                                <input class="form-check-input" type="radio"
+                                       th:field="*{displayYn}"
+                                       th:value="${T(com.example.demo.domain.common.define.Yn).NO}" disabled>
+                                <label class="form-check-label" th:for="${#ids.prev('displayYn')}">비노출</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <label class="col-sm-2 col-form-label"><span style="color: red">*</span> 상단 노출 여부:</label>
+                        <div class="col-sm-4">
+                            <div class="form-check form-check-inline mt-2">
+                                <input class="form-check-input" type="radio"
+                                       th:field="*{displayTopYn}"
+                                       th:value="${T(com.example.demo.domain.common.define.Yn).YES}" disabled>
+                                <label class="form-check-label" th:for="${#ids.prev('displayTopYn')}">노출</label>
+                            </div>
+                            <div class="form-check form-check-inline mt-2">
+                                <input class="form-check-input" type="radio"
+                                       th:field="*{displayTopYn}"
+                                       th:value="${T(com.example.demo.domain.common.define.Yn).NO}" disabled>
+                                <label class="form-check-label" th:for="${#ids.prev('displayTopYn')}">비노출</label>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="card-footer">
+                <div class="d-grid gap-2 d-md-flex justify-content-lg-end">
+                    <button type="button" class="btn btn-info" id="btnEditForm"
+                            th:data-faq-no="${faq?.faqNo}" style="color: white">수정하기</button>
+                    <button type="button" class="btn btn-outline-dark"
+                            onclick="window.location.href='/customer/faqs'">목록보기</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<th:block layout:fragment="script">
+    <script th:src="@{/js/customer/faq-detail.js}"></script>
+</th:block>
+
+</html>
