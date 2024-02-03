@@ -19,11 +19,4 @@ public class NoticeSearchDto {
     private String title;
     private NoticeType noticeType;
     private String displayYn;
-
-    public static NoticeSearchDto checkDuplicate(String title) {
-        NoticeSearchDto noticeSearchDto = new NoticeSearchDto();
-        noticeSearchDto.setTitle(title);
-        noticeSearchDto.setDisplayYn("Y");
-        return noticeSearchDto;
-    }
 }

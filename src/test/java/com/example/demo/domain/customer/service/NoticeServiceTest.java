@@ -3,7 +3,6 @@ package com.example.demo.domain.customer.service;
 import com.example.demo.domain.customer.define.NoticeType;
 import com.example.demo.domain.customer.domain.Notice;
 import com.example.demo.domain.customer.dto.NoticeAddDto;
-import com.example.demo.domain.customer.exception.NoticeDuplicateException;
 import com.example.demo.global.error.exception.DataNotFoundException;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -63,24 +62,6 @@ class NoticeServiceTest {
 
         // then
         Assertions.assertThat(save.getNoticeNo()).isGreaterThan(0);
-    }
-
-    @Test
-    @DisplayName("공지글 등록시 중복된 제목은 등록할 수 없다")
-    void save_throw_if_exist_duplicate_title() {
-        // given
-        NoticeAddDto noticeAddDto = new NoticeAddDto();
-        noticeAddDto.setTitle("TEST1");
-        noticeAddDto.setContents("TEST");
-        noticeAddDto.setDisplayYn("Y");
-        noticeAddDto.setNoticeType(NoticeType.NOTICE);
-
-        // when
-        Notice save = noticeService.save(noticeAddDto);
-
-        // then
-        Assertions.assertThatThrownBy(() -> noticeService.save(noticeAddDto))
-                .isInstanceOf(NoticeDuplicateException.class);
     }
 
 }
