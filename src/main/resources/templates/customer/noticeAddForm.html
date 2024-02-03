@@ -18,8 +18,8 @@
                         <div class="col-sm-10">
                             <input type="text" class="form-control" id="title" name="title" maxlength="100"
                                    th:field="*{title}" th:errorclass="is-invalid"
-                                   placeholder="제목을 입력해 주세요." autocomplete="off">
-                            <div th:errors="*{title}" class="invalid-feedback"></div>
+                                   placeholder="제목을 입력해 주세요." autocomplete="off"> <!-- th:classappend="${#fields.hasErrors('title') ? 'is-invalid' : 'is-valid'}" -->
+                            <div th:errors="*{title}" class="invalid-feedback"></div> <!-- <div class="valid-feedback">hello</div> -->
                         </div>
                     </div>
 
@@ -27,7 +27,8 @@
                         <label class="col-sm-2 col-form-label" for="contents"><span style="color: red">*</span> 내용:</label>
                         <div class="col-sm-10">
                             <textarea class="form-control" id="contents" name="contents" rows="5"
-                                      th:field="*{contents}" th:errorclass="is-invalid"></textarea>
+                                      th:field="*{contents}" th:errorclass="is-invalid"
+                                      placeholder="내용을 입력해 주세요." autocomplete="off"></textarea>
                             <div th:errors="*{contents}" class="invalid-feedback"></div>
                         </div>
                     </div>

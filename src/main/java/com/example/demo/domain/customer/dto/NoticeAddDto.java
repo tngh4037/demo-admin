@@ -38,4 +38,10 @@ public class NoticeAddDto {
                 .noticeType(this.noticeType)
                 .build();
     }
+
+    public static Notice initForm() {
+        return Notice.of()
+                .displayYn("N")
+                .build();
+    }
 }

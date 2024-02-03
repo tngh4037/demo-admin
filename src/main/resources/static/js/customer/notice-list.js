@@ -78,6 +78,11 @@ const NoticeListModule = (function() {
         }
       })
 
+      if (noticeNos.length === 0) {
+        alert('삭제할 게시물이 없습니다.')
+        return false
+      }
+
       if (confirm(noticeNos.length + '개의 글을 삭제하시겠습니까?')) {
         settings.$form.removeForm.find('#noticeNos').val(noticeNos)
         settings.$form.removeForm.submit()

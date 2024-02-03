@@ -1,5 +1,6 @@
 package com.example.demo.domain.customer.controller;
 
+import com.example.demo.domain.common.constant.PageConstant;
 import com.example.demo.domain.common.constant.ViewConstant;
 import com.example.demo.domain.customer.domain.Notice;
 import com.example.demo.domain.customer.dto.NoticeAddDto;
@@ -42,9 +43,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class NoticeController {
 
-    private static final int RECORD_COUNT = 10;
-    private static final int PAGE_SIZE = 10;
-
     private final NoticeService noticeService;
     private final NoticeSearchValidator noticeSearchValidator;
 
@@ -64,7 +62,8 @@ public class NoticeController {
             return ViewConstant.COMMON_REDIRECT;
         }
 
-        PaginationDto paginationDto = new PaginationDto(noticeSearchDto.getPageNo(), RECORD_COUNT, PAGE_SIZE);
+        PaginationDto paginationDto = new PaginationDto(noticeSearchDto.getPageNo(),
+                PageConstant.COMMON_RECORD_COUNT, PageConstant.COMMON_PAGE_SIZE);
         List<Notice> noticeList = noticeService.findItems(noticeSearchDto, paginationDto);
 
         model.addAttribute("totalCount", paginationDto.getTotalRecordCount());
@@ -88,7 +87,7 @@ public class NoticeController {
      */
     @GetMapping("/add")
     public String addForm(Model model) {
-        model.addAttribute("noticeAddDto", new NoticeAddDto());
+        model.addAttribute("noticeAddDto", NoticeAddDto.initForm());
         return ViewConstant.CUSTOMER_NOTICE_ADD_FORM;
     }
 
