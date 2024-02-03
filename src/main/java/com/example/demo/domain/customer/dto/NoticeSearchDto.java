@@ -3,13 +3,14 @@ package com.example.demo.domain.customer.dto;
 import com.example.demo.domain.customer.define.NoticeType;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class NoticeSearchDto {
 
     @Positive(message = "페이지 번호를 다시 확인해 주세요.")

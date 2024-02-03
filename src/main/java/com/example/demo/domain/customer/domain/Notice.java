@@ -6,7 +6,7 @@ import com.example.demo.domain.customer.define.NoticeType;
 import java.time.LocalDateTime;
 
 @Getter
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Notice {
     private Integer noticeNo;
     private String title;
