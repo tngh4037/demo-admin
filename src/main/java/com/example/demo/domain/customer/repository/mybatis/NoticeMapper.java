@@ -14,6 +14,7 @@ public interface NoticeMapper {
     int count(@Param("search") NoticeSearchDto noticeSearchDto);
     List<Notice> findAll(@Param("search") NoticeSearchDto noticeSearchDto, @Param("page") PaginationDto paginationDto);
     Optional<Notice> findById(Integer noticeNo);
+    boolean isDuplicate(@Param("noticeNo") Integer noticeNo, @Param("title") String title);
     void save(Notice notice);
     void update(@Param("noticeNo") Integer noticeNo, @Param("notice") Notice notice);
     void deleteById(Integer noticeNo);

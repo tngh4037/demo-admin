@@ -36,6 +36,15 @@
         </if>
     </select>
 
+    <select id="isDuplicate" resultType="boolean">
+        SELECT  IF(COUNT(*) > 0, 1, 0)
+        FROM    CUSTOMER_NOTICE
+        WHERE   TITLE = #{title}
+        <if test="noticeNo != null and noticeNo > 0"> <!-- (게시글 수정의 경우) 중복된 게시물 체크시 자기 자신은 제외 -->
+            AND NOTICE_NO != ${noticeNo}
+        </if>
+    </select>
+
     <select id="findById" resultType="Notice">
         SELECT  NOTICE_NO, TITLE, CONTENTS, NOTICE_TYPE, HITS, DISPLAY_YN, REG_DT, MOD_DT
         FROM    CUSTOMER_NOTICE

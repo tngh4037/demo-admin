@@ -3,6 +3,7 @@ package com.example.demo.domain.customer.service;
 import com.example.demo.domain.customer.dto.NoticeAddDto;
 import com.example.demo.domain.customer.dto.NoticeEditDto;
 import com.example.demo.domain.customer.dto.NoticeSearchDto;
+import com.example.demo.domain.customer.exception.NoticeDuplicateException;
 import com.example.demo.domain.customer.repository.NoticeRepository;
 import com.example.demo.global.error.exception.DataNotFoundException;
 import com.example.demo.global.common.PaginationDto;
@@ -36,11 +37,19 @@ public class NoticeService {
     }
 
     public Notice save(NoticeAddDto noticeAddDto) {
+        checkDuplicate(null, noticeAddDto.getTitle());
         return noticeRepository.save(noticeAddDto.toEntity());
     }
 
     public void update(Integer noticeNo, NoticeEditDto noticeEditDto) {
+        checkDuplicate(noticeNo, noticeEditDto.getTitle());
         noticeRepository.update(noticeNo, noticeEditDto.toEntity());
+    }
+
+    private void checkDuplicate(Integer noticeNo, String title) {
+        if (noticeRepository.isDuplicate(noticeNo, title)) {
+            throw new NoticeDuplicateException();
+        }
     }
 
     @Transactional

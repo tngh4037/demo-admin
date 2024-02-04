@@ -11,6 +11,7 @@ public interface NoticeRepository {
     int count(NoticeSearchDto noticeSearchDto);
     List<Notice> findAll(NoticeSearchDto noticeSearchDto, PaginationDto paginationDto);
     Optional<Notice> findById(Integer noticeNo);
+    boolean isDuplicate(Integer noticeNo, String title);
     Notice save(Notice notice);
     void update(Integer noticeNo, Notice notice);
     void deleteById(Integer noticeNo);

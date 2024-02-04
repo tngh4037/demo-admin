@@ -32,6 +32,11 @@ public class MybatisNoticeRepository implements NoticeRepository {
     }
 
     @Override
+    public boolean isDuplicate(Integer noticeNo, String title) {
+        return noticeMapper.isDuplicate(noticeNo, title);
+    }
+
+    @Override
     public Notice save(Notice notice) {
         noticeMapper.save(notice);
         return notice;
