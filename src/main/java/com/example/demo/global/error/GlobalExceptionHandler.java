@@ -1,26 +1,33 @@
 package com.example.demo.global.error;
 
 import com.example.demo.global.error.exception.BusinessException;
-import com.example.demo.global.util.ErrorUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.ModelAndView;
 
+// TODO :: 리팩토링
+//  ㄴ 1) 뷰 / API 응답 분리 처리 (뷰 처리시 4xx, 5xx 오류 페이지 별도 적용)
+//  ㄴ 2) 예외 처리 정책 변경 (응답 포맷, 전체 오류 발생 컬럼 및 메시지 정보 추가 등) )
 /**
- * [ 공통 예외 처리 ]
- * - 정의한 예외(=예측 가능한 예외)의 경우, 예외 발생시 사용자에게 정상적으로 응답한다. ( Exception 제외 )
- * - 정의한 예외(=예측 가능한 예외)가 아닌 경우, 오류 페이지를 리턴하고, 개발자 오류 알람(slack, email, sms)을 전송한다.
- * <p>
- * [ 응답 유형 ]
- * - Ajax or Accept Header('application/json') 요청의 경우 => json 형태로 응답
- * - 그 외 요청의 경우 => 오류 페이지(html) 응답
- * - (참고) 정의한 예외(=예측 가능한 예외)가 아닌 경우는 모두 오류 페이지(html) 응답
+ * [공통 예외 처리]
+ * - 정의한 예외(=예측 가능한 예외)의 경우, 예외 발생시 클라이언트에 정상적으로 응답하고 에러 정보를 리턴한다. ( Exception 제외 )
+ * - 정의한 예외(=예측 가능한 예외)가 아닌 경우, 오류 페이지(html)를 리턴하고, 개발자 오류 알람(slack, email, sms)을 전송한다.
+ *
+ * [요청 방식에 따른 응답 유형]
+ * - Ajax or Accept Header('application/json') 요청의 경우 : json 형태로 응답한다.
+ * - 그 외 요청의 경우 : 오류 페이지(error.html)를 응답한다.
+ * - 단, 정의한 예외(=예측 가능한 예외)가 아닌 경우는, 요청 유형에 상관없이 모두 오류 페이지(html)를 응답한다.
+ *
+ * [(참고) 예외 발생시 json 응답 형태 예시는 아래와 같다.]
+ * {
+ *     code: 내부 결과 코드 ( ex> 400 )
+ *     message: 결과 메시지 ( ex> "잘못된 요청입니다.", "질문을 입력해 주세요." ... )
+ * }
  */
 @Slf4j
 @ControllerAdvice
@@ -54,7 +61,6 @@ public class GlobalExceptionHandler {
         ModelAndView mav = new ModelAndView("jsonView");
         mav.addObject("code", HttpStatus.BAD_REQUEST.value());
         mav.addObject("message", message);
-        mav.addObject("data", null);
         return mav;
     }
 

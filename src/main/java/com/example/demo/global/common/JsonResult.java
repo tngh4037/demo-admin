@@ -11,7 +11,7 @@ public class JsonResult<T> {
 
     private static final int SUCCESS = 200;
 
-    private int code;
+    private Integer code;
     private String message;
     private T data;
 
@@ -20,16 +20,16 @@ public class JsonResult<T> {
     }
 
     public static <T> JsonResult<T> ok(T data) {
-        return new JsonResult<>(SUCCESS, data, null);
+        return new JsonResult<>(SUCCESS, null, data);
     }
 
-    public static <T> JsonResult<T> ok(T data, String message) {
-        return new JsonResult<>(SUCCESS, data, message);
+    public static <T> JsonResult<T> ok(String message, T data) {
+        return new JsonResult<>(SUCCESS, message, data);
     }
 
-    private JsonResult(int code, T data, String message) {
+    private JsonResult(Integer code, String message, T data) {
         this.code = code;
-        this.data = data;
         this.message = message;
+        this.data = data;
     }
 }

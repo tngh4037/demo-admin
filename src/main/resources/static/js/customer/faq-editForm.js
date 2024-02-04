@@ -74,6 +74,7 @@ const FaqEditFormModule = (function() {
       $.ajax({
         type: 'POST',
         url: '/customer/faqs/' + param.faqNo + '/edit',
+        headers: {'Accept': 'application/json'},
         contentType: 'application/json',
         data: JSON.stringify(param),
         dataType: 'json',

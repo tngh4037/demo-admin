@@ -18,8 +18,8 @@ public class DataInit {
 
     @EventListener(ApplicationReadyEvent.class)
     public void initData() {
-        log.info("초기 데이터 세팅");
         /*
+        log.info("초기 데이터 세팅");
         for (int i = 1; i <= 201; i++) {
             NoticeAddDto noticeAddDto = new NoticeAddDto();
             noticeAddDto.setTitle("제목" + i);

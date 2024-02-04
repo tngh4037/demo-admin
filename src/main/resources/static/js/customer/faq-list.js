@@ -104,6 +104,7 @@ const FaqListModule = (function() {
       $.ajax({
         type: 'POST',
         url: '/customer/faqs/remove',
+        headers: {'Accept': 'application/json'},
         contentType: 'application/json',
         data: JSON.stringify(param),
         dataType: 'json',
