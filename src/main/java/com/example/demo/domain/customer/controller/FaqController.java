@@ -1,15 +1,15 @@
 package com.example.demo.domain.customer.controller;
 
-import com.example.demo.domain.common.JsonResult;
-import com.example.demo.domain.common.constant.PageConstant;
-import com.example.demo.domain.common.constant.ViewConstant;
+import com.example.demo.global.common.JsonResult;
+import com.example.demo.global.common.constant.PageConstant;
+import com.example.demo.global.common.constant.ViewConstant;
 import com.example.demo.domain.customer.domain.Faq;
 import com.example.demo.domain.customer.dto.FaqAddDto;
 import com.example.demo.domain.customer.dto.FaqEditDto;
 import com.example.demo.domain.customer.dto.FaqSearchDto;
 import com.example.demo.domain.customer.service.FaqService;
-import com.example.demo.global.utils.ErrorUtil;
-import com.example.demo.global.utils.PaginationDto;
+import com.example.demo.global.util.ErrorUtil;
+import com.example.demo.global.common.PaginationDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -55,7 +55,7 @@ public class FaqController {
 
         if (bindingResult.hasErrors()) {
             log.info("errors = {}", bindingResult);
-            model.addAttribute("msg", ErrorUtil.getMessage(bindingResult));
+            model.addAttribute("msg", ErrorUtil.getBindingMessage(bindingResult));
             model.addAttribute("url", "/customer/faqs");
             return ViewConstant.COMMON_REDIRECT;
         }

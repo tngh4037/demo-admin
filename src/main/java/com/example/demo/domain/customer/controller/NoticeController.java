@@ -1,15 +1,15 @@
 package com.example.demo.domain.customer.controller;
 
-import com.example.demo.domain.common.constant.PageConstant;
-import com.example.demo.domain.common.constant.ViewConstant;
+import com.example.demo.global.common.constant.PageConstant;
+import com.example.demo.global.common.constant.ViewConstant;
 import com.example.demo.domain.customer.domain.Notice;
 import com.example.demo.domain.customer.dto.NoticeAddDto;
 import com.example.demo.domain.customer.dto.NoticeEditDto;
 import com.example.demo.domain.customer.dto.NoticeSearchDto;
 import com.example.demo.domain.customer.service.NoticeService;
 import com.example.demo.domain.customer.validator.NoticeSearchValidator;
-import com.example.demo.global.utils.ErrorUtil;
-import com.example.demo.global.utils.PaginationDto;
+import com.example.demo.global.util.ErrorUtil;
+import com.example.demo.global.common.PaginationDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -31,11 +31,11 @@ import java.util.List;
  * - 수정 화면: GET  /customer/notices/{id}/edit
  * - 수정 처리: POST /customer/notices/{id}/edit
  * - 삭제 처리: POST /customer/notices/remove
- *   ㄴ 삭제 대상 정보는 form array 형태로 담아서 요청
+ *   ㄴ 삭제 대상 정보는 form data 형태로 메시지 바디에 담아서 요청
  *
  * 2) 참고
- * - PRG(Post-Redirect-Get) 방식을 통한 (저장 / 수정 / 삭제)
  * - (BindingResult / BeanValidation)을 통한 client 요청 값 검증 및 redirect 처리
+ * - PRG(Post-Redirect-Get) 방식을 통한 (저장 / 수정 / 삭제)
  */
 @Slf4j
 @Controller
@@ -57,7 +57,7 @@ public class NoticeController {
         noticeSearchValidator.validate(noticeSearchDto, bindingResult);
         if (bindingResult.hasErrors()) {
             log.info("errors = {}", bindingResult);
-            model.addAttribute("msg", ErrorUtil.getMessage(bindingResult));
+            model.addAttribute("msg", ErrorUtil.getBindingMessage(bindingResult));
             model.addAttribute("url", "/customer/notices");
             return ViewConstant.COMMON_REDIRECT;
         }

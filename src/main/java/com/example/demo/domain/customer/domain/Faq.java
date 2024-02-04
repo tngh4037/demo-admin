@@ -1,6 +1,6 @@
 package com.example.demo.domain.customer.domain;
 
-import com.example.demo.domain.common.define.Yn;
+import com.example.demo.global.common.define.Yn;
 import com.example.demo.domain.customer.define.FaqType;
 import lombok.AccessLevel;
 import lombok.Builder;

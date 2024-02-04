@@ -1,7 +1,7 @@
 package com.example.demo.global.error;
 
 import com.example.demo.global.error.exception.BusinessException;
-import com.example.demo.global.utils.ErrorUtil;
+import com.example.demo.global.util.ErrorUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
@@ -29,13 +29,6 @@ public class GlobalExceptionHandler {
     private static final String ERROR_PAGE = "error";
     private static final String AJAX_HEADER_NAME = "X-Requested-With";
     private static final String AJAX_HEADER_VALUE = "XMLHttpRequest";
-
-    @ExceptionHandler(MethodArgumentNotValidException.class)
-    private ModelAndView handleMethodArgumentNotValidException(HttpServletRequest request,
-                                                               MethodArgumentNotValidException ex) {
-        log.info("handleMethodArgumentNotValidException :: ", ex);
-        return sendError(request, ErrorUtil.getMessage(ex.getBindingResult()));
-    }
 
     @ExceptionHandler(BusinessException.class)
     private ModelAndView handleBusinessException(HttpServletRequest request, BusinessException ex) {

@@ -1,4 +1,4 @@
-package com.example.demo.domain.common.constant;
+package com.example.demo.global.common.constant;
 
 public class ViewConstant {
 

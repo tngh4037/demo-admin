@@ -1,6 +1,6 @@
-package com.example.demo.domain.common.define;
+package com.example.demo.global.common.define;
 
-import com.example.demo.global.define.EnumMapperType;
+import com.example.demo.global.config.define.EnumMapperType;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 

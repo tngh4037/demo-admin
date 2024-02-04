@@ -38,10 +38,10 @@
                         <div class="col-sm-4">
                             <select class="form-select" id="displayYn" name="displayYn">
                                 <option value="">전체</option>
-                                <option th:value="${T(com.example.demo.domain.common.define.Yn).YES}"
-                                        th:selected="${searchDto.displayYn eq T(com.example.demo.domain.common.define.Yn).YES}">노출</option>
-                                <option th:value="${T(com.example.demo.domain.common.define.Yn).NO}"
-                                        th:selected="${searchDto.displayYn eq T(com.example.demo.domain.common.define.Yn).NO}">비노출</option>
+                                <option th:value="${T(com.example.demo.global.common.define.Yn).YES}"
+                                        th:selected="${searchDto.displayYn eq T(com.example.demo.global.common.define.Yn).YES}">노출</option>
+                                <option th:value="${T(com.example.demo.global.common.define.Yn).NO}"
+                                        th:selected="${searchDto.displayYn eq T(com.example.demo.global.common.define.Yn).NO}">비노출</option>
                             </select>
                         </div>
 
@@ -49,10 +49,10 @@
                         <div class="col-sm-4">
                             <select class="form-select" id="displayTopYn" name="displayTopYn">
                                 <option value="">전체</option>
-                                <option th:value="${T(com.example.demo.domain.common.define.Yn).YES}"
-                                        th:selected="${searchDto.displayTopYn eq T(com.example.demo.domain.common.define.Yn).YES}">노출</option>
-                                <option th:value="${T(com.example.demo.domain.common.define.Yn).NO}"
-                                        th:selected="${searchDto.displayTopYn eq T(com.example.demo.domain.common.define.Yn).NO}">비노출</option>
+                                <option th:value="${T(com.example.demo.global.common.define.Yn).YES}"
+                                        th:selected="${searchDto.displayTopYn eq T(com.example.demo.global.common.define.Yn).YES}">노출</option>
+                                <option th:value="${T(com.example.demo.global.common.define.Yn).NO}"
+                                        th:selected="${searchDto.displayTopYn eq T(com.example.demo.global.common.define.Yn).NO}">비노출</option>
                             </select>
                         </div>
                     </div>
@@ -105,20 +105,20 @@
                                 <td th:text="${faq.question}"></td>
                                 <td>
                                     <h5>
-                                        <th:block th:if="${faq.displayYn eq T(com.example.demo.domain.common.define.Yn).YES}">
+                                        <th:block th:if="${faq.displayYn eq T(com.example.demo.global.common.define.Yn).YES}">
                                             <span class="badge me-1 bg-success">노출</span>
                                         </th:block>
-                                        <th:block th:unless="${faq.displayYn eq T(com.example.demo.domain.common.define.Yn).YES}">
+                                        <th:block th:unless="${faq.displayYn eq T(com.example.demo.global.common.define.Yn).YES}">
                                             <span class="badge me-1 bg-secondary">비노출</span>
                                         </th:block>
                                     </h5>
                                 </td>
                                 <td>
                                     <h5>
-                                        <th:block th:if="${faq.displayTopYn eq T(com.example.demo.domain.common.define.Yn).YES}">
+                                        <th:block th:if="${faq.displayTopYn eq T(com.example.demo.global.common.define.Yn).YES}">
                                             <span class="badge me-1 bg-success">노출</span>
                                         </th:block>
-                                        <th:block th:unless="${faq.displayTopYn eq T(com.example.demo.domain.common.define.Yn).YES}">
+                                        <th:block th:unless="${faq.displayTopYn eq T(com.example.demo.global.common.define.Yn).YES}">
                                             <span class="badge me-1 bg-secondary">비노출</span>
                                         </th:block>
                                     </h5>

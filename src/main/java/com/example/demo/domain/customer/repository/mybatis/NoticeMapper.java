@@ -2,7 +2,7 @@ package com.example.demo.domain.customer.repository.mybatis;
 
 import com.example.demo.domain.customer.domain.Notice;
 import com.example.demo.domain.customer.dto.NoticeSearchDto;
-import com.example.demo.global.utils.PaginationDto;
+import com.example.demo.global.common.PaginationDto;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 

@@ -5,7 +5,7 @@ import com.example.demo.domain.customer.dto.NoticeEditDto;
 import com.example.demo.domain.customer.dto.NoticeSearchDto;
 import com.example.demo.domain.customer.repository.NoticeRepository;
 import com.example.demo.global.error.exception.DataNotFoundException;
-import com.example.demo.global.utils.PaginationDto;
+import com.example.demo.global.common.PaginationDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import com.example.demo.domain.customer.domain.Notice;

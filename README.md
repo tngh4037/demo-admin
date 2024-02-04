@@ -1,9 +1,9 @@
-# Web Application
+# Admin Web Application
 
 ---
 
 ## 1) 소개
-- Spring Boot를 기반으로 학습 내용을 정리하기 위한 프로젝트입니다.
+- Spring Boot를 기반으로 학습 내용을 정리하기 위한 프로젝트입니다. ( 관리자 성격의 웹 애플리케이션 )
 - (참고) 추후 데이터 접근 기술을 SQL Mapper -> ORM 으로 전환할 계획입니다.
 
 ## 2) 주요 사용 기술

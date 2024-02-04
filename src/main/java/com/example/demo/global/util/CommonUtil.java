@@ -1,4 +1,4 @@
-package com.example.demo.global.utils;
+package com.example.demo.global.util;
 
 import java.util.List;
 import java.util.Map;

@@ -1,4 +1,4 @@
-package com.example.demo.global.define;
+package com.example.demo.global.config.define;
 
 import java.util.EnumSet;
 

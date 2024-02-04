@@ -1,6 +1,6 @@
-package com.example.demo.global.converter;
+package com.example.demo.global.config.converter;
 
-import com.example.demo.global.define.EnumMapperType;
+import com.example.demo.global.config.define.EnumMapperType;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.core.convert.converter.ConverterFactory;
 import org.springframework.util.StringUtils;

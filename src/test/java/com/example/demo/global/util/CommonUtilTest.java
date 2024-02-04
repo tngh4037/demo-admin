@@ -1,4 +1,4 @@
-package com.example.demo.global.utils;
+package com.example.demo.global.util;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;

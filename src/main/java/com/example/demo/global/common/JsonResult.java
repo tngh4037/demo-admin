@@ -1,4 +1,4 @@
-package com.example.demo.domain.common;
+package com.example.demo.global.common;
 
 import lombok.AccessLevel;
 import lombok.Getter;

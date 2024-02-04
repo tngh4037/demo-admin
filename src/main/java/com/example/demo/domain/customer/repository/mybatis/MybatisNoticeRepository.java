@@ -3,7 +3,7 @@ package com.example.demo.domain.customer.repository.mybatis;
 import com.example.demo.domain.customer.domain.Notice;
 import com.example.demo.domain.customer.dto.NoticeSearchDto;
 import com.example.demo.domain.customer.repository.NoticeRepository;
-import com.example.demo.global.utils.PaginationDto;
+import com.example.demo.global.common.PaginationDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 

@@ -1,7 +1,7 @@
 package com.example.demo.global.config;
 
-import com.example.demo.global.converter.StringToEnumConverterFactory;
-import com.example.demo.global.define.EnumMapperType;
+import com.example.demo.global.config.converter.StringToEnumConverterFactory;
+import com.example.demo.global.config.define.EnumMapperType;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.convert.converter.ConverterFactory;
