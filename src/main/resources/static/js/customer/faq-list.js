@@ -111,7 +111,7 @@ const FaqListModule = (function() {
         success: function(response) {
           if (response.code === 200) {
             alert(response.message || '정상적으로 처리되었습니다.')
-            window.location.href = '/customer/faqs'
+            window.location.reload()
           } else {
             alert(response.message || '처리에 실패했습니다. 다시 시도해 주세요.')
           }

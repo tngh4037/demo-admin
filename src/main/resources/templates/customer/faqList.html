@@ -14,7 +14,7 @@
             <div class="card-header"><i class="icon icon-2xl cil-check-alt"></i><span class="small ms-1">검색 폼</span></div>
             <div class="card-body">
                 <form id="searchForm" name="searchForm" method="GET" th:action>
-                    <input type="hidden" name="pageNo" value="1" />
+                    <input type="hidden" name="pageNo" th:value="${searchDto.pageNo}" />
                     <div class="row mb-3">
                         <label class="col-sm-2 col-form-label" for="question">질문:</label>
                         <div class="col-sm-4">

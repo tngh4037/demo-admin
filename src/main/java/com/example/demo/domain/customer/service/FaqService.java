@@ -1,10 +1,13 @@
 package com.example.demo.domain.customer.service;
 
+import com.example.demo.domain.customer.define.FaqType;
 import com.example.demo.domain.customer.domain.Faq;
 import com.example.demo.domain.customer.dto.FaqAddDto;
 import com.example.demo.domain.customer.dto.FaqEditDto;
 import com.example.demo.domain.customer.dto.FaqSearchDto;
+import com.example.demo.domain.customer.exception.FaqException;
 import com.example.demo.domain.customer.repository.FaqRepository;
+import com.example.demo.global.common.define.Yn;
 import com.example.demo.global.error.exception.DataNotFoundException;
 import com.example.demo.global.common.PaginationDto;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +20,8 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class FaqService {
+
+    private static final int ACTIVE_DISPLAY_TOP_MAX_COUNT = 3;
 
     private final FaqRepository faqRepository;
 
@@ -36,15 +41,28 @@ public class FaqService {
     }
 
     public Faq save(FaqAddDto faqAddDto) {
+        checkActiveDisplayTopMaxCount(null, faqAddDto.getDisplayTopYn(), faqAddDto.getFaqType());
         return faqRepository.save(faqAddDto.toEntity());
     }
 
     public void update(Integer faqNo, FaqEditDto faqEditDto) {
+        findById(faqNo);
+        checkActiveDisplayTopMaxCount(faqNo, faqEditDto.getDisplayTopYn(), faqEditDto.getFaqType());
         faqRepository.update(faqNo, faqEditDto.toEntity());
     }
 
+    private void checkActiveDisplayTopMaxCount(Integer faqNo, Yn displayTopYn, FaqType faqType) {
+        if (displayTopYn == Yn.NO) return;
+
+        int count = faqRepository.countForActiveDisplayTop(faqNo, faqType);
+        if (count >= ACTIVE_DISPLAY_TOP_MAX_COUNT) {
+            throw new FaqException("질문 유형별 상단에 노출할 수 있는 게시글은 최대 " +
+                    ACTIVE_DISPLAY_TOP_MAX_COUNT + "개 까지 가능합니다. 확인 후 다시 시도해 주세요.");
+        }
+    }
+
     @Transactional
-    public void remove(Integer[] faqNos) {
+    public void remove(List<Integer> faqNos) {
         for (Integer faqNo : faqNos) {
             faqRepository.deleteById(faqNo);
         }

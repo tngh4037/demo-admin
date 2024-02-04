@@ -42,6 +42,7 @@ public class NoticeService {
     }
 
     public void update(Integer noticeNo, NoticeEditDto noticeEditDto) {
+        findById(noticeNo);
         checkDuplicate(noticeNo, noticeEditDto.getTitle());
         noticeRepository.update(noticeNo, noticeEditDto.toEntity());
     }

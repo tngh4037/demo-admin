@@ -14,7 +14,7 @@
             <div class="card-header"><i class="icon icon-2xl cil-check-alt"></i><span class="small ms-1">검색 폼</span></div>
             <div class="card-body">
                 <form method="GET" th:action id="searchForm" name="searchForm">
-                    <input type="hidden" name="pageNo" value="1" />
+                    <input type="hidden" name="pageNo" th:value="${searchDto.pageNo}" />
                     <div class="row mb-3">
                         <label class="col-sm-2 col-form-label" for="title">제목:</label>
                         <div class="col-sm-4">
@@ -142,6 +142,7 @@
 
     <!-- 삭제 대상 게시글 번호 set -->
     <form id="removeForm" name="removeForm" method="POST" action="/customer/notices/remove" style="display: none;">
+        <input type="hidden" id="searchParams" name="searchParams" value="">
         <input type="hidden" id="noticeNos" name="noticeNos" value="">
     </form>
     <!-- // 삭제 대상 게시글 번호 set -->

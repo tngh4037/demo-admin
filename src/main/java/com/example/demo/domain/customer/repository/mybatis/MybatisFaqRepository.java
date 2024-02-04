@@ -1,5 +1,6 @@
 package com.example.demo.domain.customer.repository.mybatis;
 
+import com.example.demo.domain.customer.define.FaqType;
 import com.example.demo.domain.customer.domain.Faq;
 import com.example.demo.domain.customer.dto.FaqSearchDto;
 import com.example.demo.domain.customer.repository.FaqRepository;
@@ -29,6 +30,11 @@ public class MybatisFaqRepository implements FaqRepository {
     @Override
     public Optional<Faq> findById(Integer faqNo) {
         return faqMapper.findById(faqNo);
+    }
+
+    @Override
+    public int countForActiveDisplayTop(Integer faqNo, FaqType faqType) {
+        return faqMapper.countForActiveDisplayTop(faqNo, faqType);
     }
 
     @Override

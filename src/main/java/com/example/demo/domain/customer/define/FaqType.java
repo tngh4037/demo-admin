@@ -8,7 +8,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public enum FaqType implements EnumMapperType {
     EVENT("EV", "이벤트"),
-    BUY("GO", "주문/결제"),
+    BUY("BU", "주문/결제"),
     USER("US", "회원"),
     CANCEL("CA", "취소/반품"),
     DELIVER("DE", "배송");

@@ -84,6 +84,7 @@ const NoticeListModule = (function() {
       }
 
       if (confirm(noticeNos.length + '개의 글을 삭제하시겠습니까?')) {
+        settings.$form.removeForm.find('#searchParams').val(window.location.search)
         settings.$form.removeForm.find('#noticeNos').val(noticeNos)
         settings.$form.removeForm.submit()
       }

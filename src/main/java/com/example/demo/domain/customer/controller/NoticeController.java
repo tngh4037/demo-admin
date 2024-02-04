@@ -140,8 +140,9 @@ public class NoticeController {
      * 삭제 처리
      */
     @PostMapping("/remove")
-    public String remove(@RequestParam("noticeNos") Integer[] noticeNos) {
+    public String remove(@RequestParam("noticeNos") Integer[] noticeNos,
+                         @RequestParam(value = "searchParams", required = false, defaultValue = "") String searchParams) {
         noticeService.remove(noticeNos);
-        return "redirect:/customer/notices";
+        return "redirect:/customer/notices" + searchParams;
     }
 }

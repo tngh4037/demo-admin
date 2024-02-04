@@ -124,7 +124,7 @@ public class FaqController {
      */
     @PostMapping("/remove")
     @ResponseBody
-    public JsonResult<?> remove(@RequestBody Integer[] faqNos) {
+    public JsonResult<?> remove(@RequestBody List<Integer> faqNos) {
         faqService.remove(faqNos);
         return JsonResult.ok();
     }

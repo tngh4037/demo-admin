@@ -45,6 +45,16 @@
         WHERE   FAQ_NO = #{faqNo}
     </select>
 
+    <select id="countForActiveDisplayTop" resultType="Integer">
+        SELECT  COUNT(*)
+        FROM    CUSTOMER_FAQ
+        WHERE   FAQ_TYPE = #{faqType}
+        AND     DISPLAY_TOP_YN = 'Y'
+        <if test="faqNo != null and faqNo > 0"><!-- (게시글 수정의 경우) 상단 노출 게시글 개수 조회시 자기 자신은 제외 -->
+            AND FAQ_NO != ${faqNo}
+        </if>
+    </select>
+
     <insert id="save" useGeneratedKeys="true" keyColumn="faqNo" keyProperty="faqNo">
         INSERT INTO CUSTOMER_FAQ (QUESTION, ANSWER, FAQ_TYPE, HITS, DISPLAY_YN, DISPLAY_TOP_YN, REG_DT, MOD_DT)
         VALUES (#{question}, #{answer}, #{faqType}, 0, #{displayYn}, #{displayTopYn}, NOW(), NOW())
