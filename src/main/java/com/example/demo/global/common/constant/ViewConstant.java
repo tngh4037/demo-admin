@@ -8,6 +8,11 @@ public class ViewConstant {
     public static final String COMMON_REDIRECT = "common/redirect";
 
     /**
+     * 로그인
+     */
+    public static final String LOGIN_LOGIN_FORM = "login/loginForm";
+
+    /**
      * 고객센터
      */
     public static final String CUSTOMER_NOTICE_LIST = "customer/noticeList";

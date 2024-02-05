@@ -14,7 +14,7 @@
             <div class="card-body">
                 <form id="addForm" name="addForm" method="POST" th:object="${faq}">
                     <div class="row mb-3">
-                        <label class="col-sm-2 col-form-label" for="question"><span style="color: red">*</span> 질문:</label>
+                        <label class="col-sm-2 col-form-label" for="question"><span style="color: red">*</span> 질문:</label> <!-- <p class="text-danger"></p> -->
                         <div class="col-sm-10">
                             <input type="text" class="form-control" id="question" maxlength="100"
                                    th:field="*{question}"

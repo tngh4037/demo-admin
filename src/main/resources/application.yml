@@ -23,10 +23,7 @@ mybatis:
   type-aliases-package: com.example.demo.domain.*.domain # define package path in mapper file
 logging:
   level:
-    com:
-      example:
-        demo:
-          domain:
-            customer:
-              repository:
-                mybatis: trace
+    com.example.demo.domain:
+      customer.repository.mybatis: trace
+      admin.repository.mybatis: trace
+      login.repository.mybatis: trace

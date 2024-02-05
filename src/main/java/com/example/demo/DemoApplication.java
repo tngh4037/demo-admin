@@ -1,10 +1,10 @@
 package com.example.demo;
 
+import com.example.demo.domain.admin.repository.AdminRepository;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Profile;
-import com.example.demo.domain.customer.repository.NoticeRepository;
 
 @SpringBootApplication
 public class DemoApplication {
@@ -15,7 +15,7 @@ public class DemoApplication {
 
 	@Bean
 	@Profile("local")
-	public DataInit dataInit(NoticeRepository noticeRepository) {
-		return new DataInit(noticeRepository);
+	public DataInit dataInit(AdminRepository adminRepository) {
+		return new DataInit(adminRepository);
 	}
 }

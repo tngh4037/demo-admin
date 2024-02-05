@@ -1,16 +1,18 @@
-package com.example.demo.domain.home;
+package com.example.demo.domain;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
-/**
- * 화면 구성을 위한 샘플 페이지
- */
 @Controller
-public class SampleController {
+public class HomeController {
+
+    @GetMapping("/")
+    public String getHome() {
+        return "/sample/sampleList";
+    }
 
     /**
-     * list page
+     * (화면 구성을 위한 샘플 페이지) list page
      */
     @GetMapping("/sample/list")
     public String getSampleList() {
@@ -18,7 +20,7 @@ public class SampleController {
     }
 
     /**
-     * detail page
+     * (화면 구성을 위한 샘플 페이지) detail page
      */
     @GetMapping("/sample/detail")
     public String getSampleDetail() {

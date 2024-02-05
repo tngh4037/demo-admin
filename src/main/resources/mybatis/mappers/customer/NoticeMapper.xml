@@ -51,7 +51,7 @@
         WHERE   NOTICE_NO = #{noticeNo}
     </select>
 
-    <insert id="save" useGeneratedKeys="true" keyColumn="noticeNo" keyProperty="noticeNo">
+    <insert id="save" useGeneratedKeys="true" keyColumn="notice_no" keyProperty="noticeNo">
         INSERT INTO CUSTOMER_NOTICE (TITLE, CONTENTS, NOTICE_TYPE, HITS, DISPLAY_YN, REG_DT, MOD_DT)
         VALUES (#{title}, #{contents}, #{noticeType}, 0, #{displayYn}, NOW(), NOW())
     </insert>
