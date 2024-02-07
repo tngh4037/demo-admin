@@ -1,6 +1,7 @@
 -- #################################
 -- ######### 관리자 (ADMIN) #########
 -- #################################
+-- // TODO :: 이메일, 휴대폰 번호 컬럼 추가 여부 체크
 DROP TABLE IF EXISTS ADMIN CASCADE;
 CREATE TABLE ADMIN (
     `ADMIN_NO`		INT NOT NULL AUTO_INCREMENT COMMENT '식별자',
@@ -18,9 +19,9 @@ CREATE TABLE ADMIN (
 CREATE UNIQUE INDEX `ADMIN_ADMIN_ID_IDX1` ON ADMIN (`ADMIN_ID`);
 
 -- #################################
--- ###### 고객센터 (CUSTOMER) #######
+-- ###### 고객센터 (CUSTOMER) ####### // TODO :: 등록자 정보 컬럼 추가 여부 체크
 -- #################################
--- 공지사항 // TODO :: 추후 회원 및 로그인 기능 추가시, 등록자 정보 컬럼 추가  ###
+-- 공지사항
 DROP TABLE IF EXISTS CUSTOMER_NOTICE CASCADE;
 CREATE TABLE CUSTOMER_NOTICE (
     `NOTICE_NO`     INT NOT NULL AUTO_INCREMENT COMMENT '식별자',
@@ -33,7 +34,7 @@ CREATE TABLE CUSTOMER_NOTICE (
     `MOD_DT`        DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '수정일시',
     PRIMARY KEY(`NOTICE_NO`)
 );
--- 자주하는질문 // TODO :: 추후 회원 및 로그인 기능 추가시, 등록자 정보 컬럼 추가  ###
+-- 자주하는질문
 DROP TABLE IF EXISTS CUSTOMER_FAQ CASCADE;
 CREATE TABLE CUSTOMER_FAQ (
     `FAQ_NO`            INT NOT NULL AUTO_INCREMENT COMMENT '식별자',

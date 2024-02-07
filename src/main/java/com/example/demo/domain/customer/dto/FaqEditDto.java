@@ -3,6 +3,7 @@ package com.example.demo.domain.customer.dto;
 import com.example.demo.global.common.define.Yn;
 import com.example.demo.domain.customer.define.FaqType;
 import com.example.demo.domain.customer.domain.Faq;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -10,6 +11,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+// @JsonIgnoreProperties({"faqNo"})
 @Getter
 @Setter
 @ToString

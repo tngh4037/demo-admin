@@ -12,7 +12,7 @@
         </svg>
     </div>
     <ul class="sidebar-nav" data-coreui="navigation" data-simplebar="">
-        <li class="nav-item"><a class="nav-link" href="/">
+        <li class="nav-item"><a class="nav-link" th:href="@{/}">
             <svg class="nav-icon">
                 <use th:attr="'xlink:href'=@{/coreui/vendors/@coreui/icons/svg/free.svg#cil-speedometer}"></use>
             </svg> 공통 레이아웃</a>
@@ -26,6 +26,11 @@
                 <li class="nav-item"><a class="nav-link" href="/customer/notices"><span class="nav-icon"></span> 공지사항</a></li>
                 <li class="nav-item"><a class="nav-link" href="/customer/faqs"><span class="nav-icon"></span> 자주하는질문</a></li>
             </ul>
+        </li>
+        <li class="nav-item"><a class="nav-link" th:href="@{/admins}">
+            <svg class="nav-icon">
+                <use th:attr="'xlink:href'=@{/coreui/vendors/@coreui/icons/svg/free.svg#cil-https}"></use>
+            </svg> 어드민 관리</a>
         </li>
     </ul>
     <button class="sidebar-toggler" type="button" data-coreui-toggle="unfoldable"></button>

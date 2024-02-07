@@ -58,8 +58,7 @@ const FaqEditFormModule = (function() {
         return false
       }
 
-      API.EDIT({
-        faqNo: faqNo,
+      API.EDIT(faqNo, {
         question: questionVal,
         answer: answerVal,
         faqType: faqTypeVal,
@@ -70,10 +69,10 @@ const FaqEditFormModule = (function() {
   }
 
   const API = {
-    EDIT: function(param) {
+    EDIT: function(faqNo, param) {
       $.ajax({
         type: 'POST',
-        url: '/customer/faqs/' + param.faqNo + '/edit',
+        url: '/customer/faqs/' + faqNo + '/edit',
         headers: {'Accept': 'application/json'},
         contentType: 'application/json',
         data: JSON.stringify(param),

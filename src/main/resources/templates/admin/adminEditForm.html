@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/default}">
+
+<th:block layout:fragment="css">
+</th:block>
+
+<div layout:fragment="Content" class="body flex-grow-1 px-3">
+    <div class="container-fluid">
+        <div class="card mb-4">
+            <div class="card-header"><i class="icon icon-2xl cil-check-alt"></i><span class="small ms-1">수정 폼</span></div>
+            <div class="card-body">
+                <form id="editForm" name="addForm" method="POST" th:object="${admin}">
+                    <input type="hidden" th:field="*{adminNo}"/>
+                    <div class="row mb-3">
+                        <label for="adminId" class="col-sm-2 col-form-label"><span style="color: red">*</span> 아이디:</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" id="adminId"
+                                   th:field="*{adminId}" maxlength="16" autocomplete="off" disabled>
+                        </div>
+                        <label class="col-sm-2 col-form-label" for="adminPwd"><span style="color: red">*</span> 비밀번호:</label>
+                        <div class="col-sm-4">
+                            <input type="password" class="form-control" id="adminPwd" name="adminPwd" maxlength="16">
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <label class="col-sm-2 col-form-label" for="adminAuth"><span style="color: red">*</span> 관리자 권한:</label>
+                        <div class="col-sm-4">
+                            <select class="form-select" id="adminAuth" th:field="*{adminAuth}">
+                                <option value="">권한을 지정해 주세요.</option>
+                                <option th:each="adminAuth : ${T(com.example.demo.domain.admin.define.AdminAuth).values()}"
+                                        th:value="${adminAuth}"
+                                        th:text="${adminAuth.title}"></option>
+                            </select>
+                        </div>
+                        <label class="col-sm-2 col-form-label" for="adminRePwd"><span style="color: red">*</span> 비밀번호 확인:</label>
+                        <div class="col-sm-4">
+                            <input type="password" class="form-control" id="adminRePwd" name="adminRePwd" maxlength="16">
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <label class="col-sm-2 col-form-label" for="adminStatus"><span style="color: red">*</span> 관리자 상태:</label>
+                        <div class="col-sm-4">
+                            <select class="form-select" id="adminStatus" th:field="*{adminStatus}">
+                                <option value="">상태를 지정해 주세요.</option>
+                                <option th:each="adminStatus : ${T(com.example.demo.domain.admin.define.AdminStatus).values()}"
+                                        th:value="${adminStatus}"
+                                        th:text="${adminStatus.title}"></option>
+                            </select>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="card-footer">
+                <div class="d-grid gap-2 d-md-flex justify-content-lg-end">
+                    <button type="button" class="btn btn-info" id="btnEdit" style="color: white">저장</button>
+                    <button type="button" class="btn btn-outline-dark"
+                            th:onclick="|location.href='@{/admins/{adminNo}(adminNo=__${adminNo}__)}'|">취소</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<th:block layout:fragment="script">
+    <script th:src="@{/js/admin/admin-editForm.js}"></script>
+</th:block>
+
+</html>

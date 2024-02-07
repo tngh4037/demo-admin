@@ -3,10 +3,9 @@ package com.example.demo.domain.admin.domain;
 import com.example.demo.domain.admin.define.AdminAuth;
 import com.example.demo.domain.admin.define.AdminStatus;
 import com.example.demo.global.common.constant.SecurityConstant;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import com.example.demo.global.common.define.PrivacyType;
+import com.example.demo.global.util.RegExpUtil;
+import lombok.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -39,6 +38,13 @@ public class Admin {
         this.pwdDt = pwdDt;
         this.regDt = regDt;
         this.modDt = modDt;
+    }
+
+    /**
+     * 개인정보 masking 처리
+     */
+    public void setMasking() {
+        this.adminId = RegExpUtil.getMaskingPrivacy(PrivacyType.ID, this.adminId);
     }
 
     /**

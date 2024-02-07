@@ -4,7 +4,45 @@
 
 <mapper namespace="com.example.demo.domain.admin.repository.mybatis.AdminMapper">
 
-    <select id="findByLoginId" resultType="Admin">
+    <sql id="searchCond">
+        <if test="search.adminId != null and search.adminId != ''">
+            AND ADMIN_ID = #{search.adminId}
+        </if>
+        <if test="search.adminStatus != null">
+            AND ADMIN_STATUS = #{search.adminStatus}
+        </if>
+        <if test="search.adminAuth != null">
+            AND ADMIN_AUTH = #{search.adminAuth}
+        </if>
+    </sql>
+
+    <select id="count" resultType="Integer">
+        SELECT  COUNT(*)
+        FROM    ADMIN
+        <where>
+            <include refid="searchCond"></include>
+        </where>
+    </select>
+
+    <select id="findAll" resultType="Admin">
+        SELECT  ADMIN_NO, ADMIN_ID, ADMIN_PWD, ADMIN_AUTH, ADMIN_STATUS, FAIL_CNT, LOGIN_DT, PWD_DT, REG_DT, MOD_DT
+        FROM    ADMIN
+        <where>
+            <include refid="searchCond"></include>
+        </where>
+        ORDER BY ADMIN_NO DESC
+        <if test="page != null">
+            LIMIT #{page.startNo}, #{page.recordCount}
+        </if>
+    </select>
+
+    <select id="findByAdminNo" resultType="Admin">
+        SELECT  ADMIN_NO, ADMIN_ID, ADMIN_PWD, ADMIN_AUTH, ADMIN_STATUS, FAIL_CNT, LOGIN_DT, PWD_DT, REG_DT, MOD_DT
+        FROM    ADMIN
+        WHERE   ADMIN_NO = #{adminNo}
+    </select>
+
+    <select id="findByAdminId" resultType="Admin">
         SELECT  ADMIN_NO, ADMIN_ID, ADMIN_PWD, ADMIN_AUTH, ADMIN_STATUS, FAIL_CNT, LOGIN_DT, PWD_DT, REG_DT, MOD_DT
         FROM    ADMIN
         WHERE   ADMIN_ID = #{adminId}
@@ -14,5 +52,16 @@
         INSERT INTO ADMIN (ADMIN_ID, ADMIN_PWD, ADMIN_AUTH, ADMIN_STATUS, FAIL_CNT, LOGIN_DT, PWD_DT, REG_DT, MOD_DT)
         VALUES (#{adminId}, #{adminPwd}, #{adminAuth}, #{adminStatus}, 0, NULL, NULL, NOW(), NOW())
     </insert>
+
+    <update id="update">
+        UPDATE ADMIN
+        SET ADMIN_AUTH = #{admin.adminAuth},
+            ADMIN_STATUS = #{admin.adminStatus},
+            <if test="admin.adminPwd != null and admin.adminPwd != ''">
+                ADMIN_PWD = #{admin.adminPwd},
+            </if>
+            MOD_DT = NOW()
+        WHERE ADMIN_NO = #{adminNo}
+    </update>
 
 </mapper>

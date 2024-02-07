@@ -21,7 +21,7 @@ public class LoginService {
     private final AdminRepository adminRepository;
 
     public Admin login(String adminId, String adminPwd) {
-        Admin admin = adminRepository.findByLoginId(adminId)
+        Admin admin = adminRepository.findByAdminId(adminId)
                 .orElseThrow(() -> new LoginFailException("존재하지 않는 계정입니다. 입력하신 내용을 다시 확인해주세요."));
 
         if (!admin.getAdminPwd().equals(adminPwd)) {

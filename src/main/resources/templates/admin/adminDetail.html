@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/default}">
+
+<th:block layout:fragment="css">
+</th:block>
+
+<div layout:fragment="Content" class="body flex-grow-1 px-3">
+    <div class="container-fluid">
+        <div class="card mb-4">
+            <div class="card-header"><i class="icon icon-2xl cil-check-alt"></i><span class="small ms-1">상세보기</span></div>
+            <div class="card-body">
+                <form th:object="${admin}">
+                    <div class="row mb-3">
+                        <label for="adminId" class="col-sm-2 col-form-label"><span style="color: red">*</span> 아이디:</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" id="adminId" th:field="*{adminId}" disabled>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <label class="col-sm-2 col-form-label" for="adminAuth"><span style="color: red">*</span> 관리자 권한:</label>
+                        <div class="col-sm-4">
+                            <select class="form-select" id="adminAuth" th:field="*{adminAuth}" disabled>
+                                <option value="">유형을 선택해 주세요.</option>
+                                <option th:each="adminAuth : ${T(com.example.demo.domain.admin.define.AdminAuth).values()}"
+                                        th:value="${adminAuth}"
+                                        th:text="${adminAuth.title}"></option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <label class="col-sm-2 col-form-label" for="adminStatus"><span style="color: red">*</span> 관리자 상태:</label>
+                        <div class="col-sm-4">
+                            <select class="form-select" id="adminStatus" th:field="*{adminStatus}" disabled>
+                                <option value="">유형을 선택해 주세요.</option>
+                                <option th:each="adminStatus : ${T(com.example.demo.domain.admin.define.AdminStatus).values()}"
+                                        th:value="${adminStatus}"
+                                        th:text="${adminStatus.title}"></option>
+                            </select>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="card-footer">
+                <div class="d-grid gap-2 d-md-flex justify-content-lg-end">
+                    <button type="button" class="btn btn-info" id="btnEditForm"
+                            th:data-admin-no="${admin?.adminNo}" style="color: white">수정하기</button>
+                    <button type="button" class="btn btn-outline-dark"
+                            onclick="window.location.href='/admins'">목록보기</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<th:block layout:fragment="script">
+    <script th:src="@{/js/admin/admin-detail.js}"></script>
+</th:block>
+
+</html>

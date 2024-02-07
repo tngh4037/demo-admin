@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/default}">
+
+<th:block layout:fragment="css">
+</th:block>
+
+<div layout:fragment="Content" class="body flex-grow-1 px-3">
+    <div class="container-fluid">
+        <!-- 검색 영역 start -->
+        <div class="card mb-4">
+            <div class="card-header"><i class="icon icon-2xl cil-check-alt"></i><span class="small ms-1">검색 폼</span></div>
+            <div class="card-body">
+                <form id="searchForm" name="searchForm" method="GET" th:action>
+                    <input type="hidden" name="pageNo" th:value="${searchDto.pageNo}" />
+                    <div class="row mb-3">
+                        <label class="col-sm-2 col-form-label" for="adminId">아이디:</label>
+                        <div class="col-sm-4">
+                            <input class="form-control" id="adminId" name="adminId" th:value="${searchDto.adminId}"
+                                   autocomplete="off" maxlength="16" placeholder="아이디를 입력해 주세요. (LIKE 검색 불가)">
+                        </div>
+                        <label class="col-sm-2 col-form-label" for="adminAuth">관리자 권한:</label>
+                        <div class="col-sm-4">
+                            <select class="form-select" id="adminAuth" name="adminAuth">
+                                <option value="">전체</option>
+                                <option th:each="adminAuth : ${T(com.example.demo.domain.admin.define.AdminAuth).values()}"
+                                        th:value="${adminAuth}"
+                                        th:text="${adminAuth.title}"
+                                        th:selected="${adminAuth eq searchDto.adminAuth}"></option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <label class="col-sm-2 col-form-label" for="adminStatus">상태:</label>
+                        <div class="col-sm-4">
+                            <select class="form-select" id="adminStatus" name="adminStatus">
+                                <option value="">전체</option>
+                                <option th:each="adminStatus : ${T(com.example.demo.domain.admin.define.AdminStatus).values()}"
+                                        th:value="${adminStatus}"
+                                        th:text="${adminStatus.title}"
+                                        th:selected="${adminStatus eq searchDto.adminStatus}"></option>
+                            </select>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="card-footer">
+                <div class="d-grid gap-2 d-md-flex justify-content-lg-center">
+                    <button id="btnSearch" class="btn btn-info" style="color: white" type="button"><i class="icon icon-2xl cil-zoom"></i> 검색하기</button>
+                </div>
+            </div>
+        </div>
+        <!-- // 검색 영역 end -->
+
+        <div class="d-grid gap-2 d-md-flex justify-content-lg-end mb-3">
+            <button class="btn btn-info" style="color: white" type="button" id="btnAddForm">등록하기</button>
+        </div>
+
+        <!-- 검색 결과 영역 start -->
+        <div class="card mb-4">
+            <div class="card-header">
+                <i class="icon icon-2xl cil-check-alt"></i>
+                <span class="small ms-1">검색 결과: </span><strong th:text="${#numbers.formatInteger(paginationDto.totalRecordCount, 0, 'COMMA')}"></strong>건
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered text-center align-middle">
+                        <thead>
+                        <tr style="background-color: #f5f5f5">
+                            <th scope="col">아이디</th>
+                            <th scope="col">권한</th>
+                            <th scope="col">상태</th>
+                            <th scope="col">가입일</th>
+                            <th scope="col">상세보기</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <th:block th:if="${adminList.size() gt 0}">
+                            <tr th:each="admin, adminStat : ${adminList}"
+                                th:data-admin-no="${admin.adminNo}">
+                                <td>
+                                    <a class="btnDetail" href="javascript:void(0);" th:text="${admin.adminId}"></a>
+                                </td>
+                                <td th:text="${admin.adminAuth.title}"></td>
+                                <td>
+                                    <h5>
+                                        <span class="badge me-1"
+                                              th:classappend="${admin.adminStatus eq T(com.example.demo.domain.admin.define.AdminStatus).ACTIVE ? 'bg-success' : 'bg-danger'}"
+                                              th:text="${admin.adminStatus.title}"></span>
+                                    </h5>
+                                </td>
+                                <td th:text="${#temporals.format(admin.regDt, 'yyyy-MM-dd HH:mm:ss')}"></td>
+                                <td>
+                                    <div class="d-grid gap-2">
+                                        <button class="btn btn-outline-info" type="button"
+                                                th:onclick="|location.href='@{/admins/{adminNo}(adminNo=${admin.adminNo})}'|">상세 보기</button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </th:block>
+                        <th:block th:unless="${adminList.size() gt 0}">
+                            <tr>
+                                <td colspan="5">조회된 데이터가 없습니다.</td>
+                            </tr>
+                        </th:block>
+                        </tbody>
+                    </table>
+                </div>
+
+                <nav id="pageArea" th:if="${paginationDto.totalPageCount > 0}" class="mt-3" style="overflow-x: auto;-webkit-overflow-scrolling: touch;">
+                    <ul class="pagination justify-content-lg-center">
+                        <li class="page-item" th:classappend="${!paginationDto.hasPreviousPage ? 'disabled' : ''}">
+                            <a href="javascript:void(0);" class="page-link" th:data-page-no="${1}">&laquo;</a>
+                        </li>
+                        <li class="page-item" th:if="${paginationDto.firstPage > 1}">
+                            <a href="javascript:void(0);" class="page-link" th:data-page-no="${paginationDto.firstPage - 1}">&lt;</a>
+                        </li>
+                        <th:block th:if="${paginationDto.firstPage > 0}">
+                            <li class="page-item" th:each="page: ${#numbers.sequence(paginationDto.firstPage, paginationDto.lastPage)}">
+                                <a href="javascript:void(0);" class="page-link" th:data-page-no="${page}"
+                                   th:text="${page}" th:classappend="${paginationDto.pageNo == page} ? 'active' : ''"></a>
+                            </li>
+                        </th:block>
+                        <li class="page-item" th:if="${paginationDto.lastPage != paginationDto.totalPageCount}">
+                            <a href="javascript:void(0);" class="page-link" th:data-page-no="${paginationDto.lastPage + 1}">&gt;</a>
+                        </li>
+                        <li class="page-item" th:classappend="${!paginationDto.hasNextPage ? 'disabled' : ''}">
+                            <a href="javascript:void(0);" class="page-link" th:data-page-no="${paginationDto.totalPageCount}">&raquo;</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        <!-- // 검색 결과 영역 end -->
+
+        <!-- 상세보기 modal start -->
+        <div class="modal fade" id="adminDetailModal" tabindex="-1" aria-labelledby="adminDetailModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="adminDetailModalLabel">상세보기</h5>
+                        <button type="button" class="btn-close" data-coreui-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form></form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-coreui-dismiss="modal">닫기</button>
+                        <!-- <button type="button" class="btn btn-primary" id="btnCloseAdminDetailModal">확인</button> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 상세보기 modal end -->
+    </div>
+</div>
+
+<th:block layout:fragment="script">
+    <script defer="defer" th:src="@{/js/admin/admin-list.js}"></script>
+</th:block>
+
+</html>

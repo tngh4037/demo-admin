@@ -36,7 +36,7 @@ public class StringToEnumConverterFactory implements ConverterFactory<String, En
 
             T value = map.get(source);
             if (value == null) {
-                throw new IllegalArgumentException("IllegalArgumentException");
+                throw new IllegalArgumentException("No enum constant");
             }
             return value;
         }

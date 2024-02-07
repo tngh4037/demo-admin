@@ -24,4 +24,12 @@ public class ViewConstant {
     public static final String CUSTOMER_FAQ_ADD_FORM = "customer/faqAddForm";
     public static final String CUSTOMER_FAQ_EDIT_FORM = "customer/faqEditForm";
 
+    /**
+     * 어드민 관리
+     */
+    public static final String ADMIN_ADMIN_LIST = "admin/adminList";
+    public static final String ADMIN_ADMIN_DETAIL = "admin/adminDetail";
+    public static final String ADMIN_ADMIN_ADD_FORM = "admin/adminAddForm";
+    public static final String ADMIN_ADMIN_EDIT_FORM = "admin/adminEditForm";
+
 }
