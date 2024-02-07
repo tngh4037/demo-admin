@@ -7,8 +7,10 @@ import com.example.demo.domain.admin.dto.AdminSearchDto;
 import com.example.demo.domain.admin.service.AdminService;
 import com.example.demo.global.common.JsonResult;
 import com.example.demo.global.common.PaginationDto;
+import com.example.demo.global.common.ValidationSequence;
 import com.example.demo.global.common.constant.PageConstant;
 import com.example.demo.global.common.constant.ViewConstant;
+import com.example.demo.global.config.argumentresolver.LoginAdmin;
 import com.example.demo.global.util.ErrorUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -23,13 +25,15 @@ import java.util.List;
 /**
  * [어드민 관리]
  * 1) URI 구조
- * - 목록 조회: GET   /admins
- * - 상세 조회: GET   /admins/{id}
- * - 상세 조회: POST  /admins/{id}
- * - 등록 화면: GET   /admins/add
- * - 등록 처리: POST  /admins/add
- * - 수정 화면: GET   /admins/{id}/edit
- * - 수정 처리: POST  /admins/{id}/edit
+ * - 목록 조회: GET     /admins
+ * - 상세 조회: GET     /admins/{id}
+ * - 상세 조회: POST    /admins/{id}
+ * - 등록 화면: GET     /admins/add
+ * - 등록 처리: POST    /admins/add
+ * - 수정 화면: GET     /admins/{id}/edit
+ * - 수정 처리: POST    /admins/{id}/edit
+ * - 잠금 해제: POST    /admins/{id}/edit/unlock
+ * - 실패 초기화: POST  /admins/{id}/edit/failcnt
  *
  * 2) 참고
  * - (BindingResult / BeanValidation)을 통한 client 요청 값 검증 및 redirect 처리
@@ -87,8 +91,10 @@ public class AdminController {
 
     @PostMapping("/add")
     @ResponseBody
-    public JsonResult<?> add(@RequestBody AdminAddDto adminAddDto) {
-        adminService.save(adminAddDto);
+    public JsonResult<?> add(@RequestBody @Validated(ValidationSequence.class) AdminAddDto adminAddDto,
+                             @LoginAdmin(field = "adminNo") Integer worker) {
+        Admin admin = adminService.save(adminAddDto);
+        log.info("admin account add [worker: {}] [target: {}]", worker, admin.getAdminNo());
         return JsonResult.ok();
     }
 
@@ -102,8 +108,28 @@ public class AdminController {
     @PostMapping("/{adminNo}/edit")
     @ResponseBody
     public JsonResult<?> edit(@PathVariable("adminNo") Integer adminNo,
-                              @RequestBody AdminEditDto adminEditDto) {
+                              @RequestBody @Validated(ValidationSequence.class) AdminEditDto adminEditDto,
+                              @LoginAdmin(field = "adminNo") Integer worker) {
         adminService.update(adminNo, adminEditDto);
+        log.info("admin account edit [worker: {}] [target: {}]", worker, adminNo);
+        return JsonResult.ok();
+    }
+
+    @PostMapping("/{adminNo}/edit/unlock")
+    @ResponseBody
+    public JsonResult<?> unlock(@PathVariable("adminNo") Integer adminNo,
+                                @LoginAdmin(field = "adminNo") Integer worker) {
+        adminService.updateLoginDt(adminNo);
+        log.info("admin account unlock [worker: {}] [target: {}]", worker, adminNo);
+        return JsonResult.ok();
+    }
+
+    @PostMapping("/{adminNo}/edit/failcnt")
+    @ResponseBody
+    public JsonResult<?> failCnt(@PathVariable("adminNo") Integer adminNo,
+                                 @LoginAdmin(field = "adminNo") Integer worker) {
+        adminService.initFailCnt(adminNo);
+        log.info("admin account failcnt [worker: {}] [target: {}]", worker, adminNo);
         return JsonResult.ok();
     }
 }

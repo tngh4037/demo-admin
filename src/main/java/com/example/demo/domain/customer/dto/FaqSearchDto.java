@@ -4,14 +4,12 @@ import com.example.demo.global.common.define.Yn;
 import com.example.demo.domain.customer.define.FaqType;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@ToString
+@NoArgsConstructor
 public class FaqSearchDto {
 
     @Positive(message = "페이지 번호를 다시 확인해 주세요.")

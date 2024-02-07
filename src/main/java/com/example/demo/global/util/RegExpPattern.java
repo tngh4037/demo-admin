@@ -6,7 +6,7 @@ public class RegExpPattern {
 	 * 회원 정규식
 	 */
 	public static final String ID_PATTERN = "^[a-z0-9]{4,16}$";
-	public static final String PWD_PATTERN = "^.*(?=^.{8,16}$)(?=.*\\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$";
+	public static final String PWD_PATTERN = "^(?=.*[a-zA-Z])(?=.*\\d)(?=.*\\W).{8,20}$";
 
 	/**
 	 * Masking 정규식

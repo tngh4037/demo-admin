@@ -5,7 +5,7 @@ import com.example.demo.domain.customer.domain.Faq;
 import com.example.demo.domain.customer.dto.FaqAddDto;
 import com.example.demo.domain.customer.dto.FaqEditDto;
 import com.example.demo.domain.customer.dto.FaqSearchDto;
-import com.example.demo.domain.customer.exception.FaqException;
+import com.example.demo.domain.customer.exception.FaqPolicyException;
 import com.example.demo.domain.customer.repository.FaqRepository;
 import com.example.demo.global.common.define.Yn;
 import com.example.demo.global.error.exception.DataNotFoundException;
@@ -56,7 +56,7 @@ public class FaqService {
 
         int count = faqRepository.countForActiveDisplayTop(faqNo, faqType);
         if (count >= ACTIVE_DISPLAY_TOP_MAX_COUNT) {
-            throw new FaqException("질문 유형별 상단에 노출할 수 있는 게시글은 최대 " +
+            throw new FaqPolicyException("질문 유형별 상단에 노출할 수 있는 게시글은 최대 " +
                     ACTIVE_DISPLAY_TOP_MAX_COUNT + "개 까지 가능합니다. 확인 후 다시 시도해 주세요.");
         }
     }

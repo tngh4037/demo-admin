@@ -4,7 +4,7 @@ import com.example.demo.domain.customer.define.FaqType;
 import com.example.demo.domain.customer.domain.Faq;
 import com.example.demo.domain.customer.dto.FaqAddDto;
 import com.example.demo.domain.customer.dto.FaqEditDto;
-import com.example.demo.domain.customer.exception.FaqException;
+import com.example.demo.domain.customer.exception.FaqPolicyException;
 import com.example.demo.global.common.define.Yn;
 import com.example.demo.global.error.exception.DataNotFoundException;
 import org.assertj.core.api.Assertions;
@@ -93,7 +93,7 @@ class FaqServiceTest {
             for (int i = 0; i < ACTIVE_DISPLAY_TOP_MAX_COUNT + 1; i++) {
                 faqService.save(faqAddDto);
             }
-        }).isInstanceOf(FaqException.class);
+        }).isInstanceOf(FaqPolicyException.class);
     }
 
     @Test
@@ -122,7 +122,7 @@ class FaqServiceTest {
                 faqEditDto.setDisplayTopYn(Yn.YES);
                 faqService.update(faq.getFaqNo(), faqEditDto);
             }
-        }).isInstanceOf(FaqException.class);
+        }).isInstanceOf(FaqPolicyException.class);
     }
 
     @Test

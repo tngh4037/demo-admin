@@ -6,6 +6,7 @@ import com.example.demo.global.common.constant.SecurityConstant;
 import com.example.demo.global.common.define.PrivacyType;
 import com.example.demo.global.util.RegExpUtil;
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -19,6 +20,7 @@ public class Admin {
     private AdminAuth adminAuth;
     private AdminStatus adminStatus;
     private Integer failCnt;
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime loginDt;
     private LocalDateTime pwdDt;
     private LocalDateTime regDt;
@@ -48,8 +50,9 @@ public class Admin {
     }
 
     /**
-     * 마지막 로그인 날짜로 부터 90일간 로그인 이력이 없는 경우, 서비스 이용 불가한 잠금 대상이 된다.
-     * ( 만약 계정 생성된 후 한 번도 로그인 하지 않았다면, 기준 날짜는 계정 생성일로 한다. )
+     * 잠금 대상자 인지 체크
+     * - 마지막 로그인 날짜로 부터 90일간 로그인 이력이 없는 경우, 서비스 이용 불가한 잠금 대상이 된다.
+     * - 만약 계정 생성된 후 한 번도 로그인 하지 않았다면, 기준 날짜는 계정 생성일로 한다.
      * @return boolean
      */
     public boolean isLockTarget() {
@@ -61,5 +64,13 @@ public class Admin {
         }
 
         return targetDt.plusDays(SecurityConstant.LOCK_TARGET_DAYS).isBefore(LocalDate.now());
+    }
+
+    /**
+     * 비밀번호 실패 건수 초기화 대상자 인지 체크
+     * - 대상자: SecurityConstant.MAX_PWD_FAIL_CNT 회 이상 비밀번호 불일치로 로그인에 실패한 경우
+     */
+    public boolean isFailCntInitTarget() {
+        return this.failCnt >= SecurityConstant.MAX_PWD_FAIL_CNT;
     }
 }

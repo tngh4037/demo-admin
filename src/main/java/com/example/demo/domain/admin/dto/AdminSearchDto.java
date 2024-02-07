@@ -8,7 +8,8 @@ import lombok.*;
 
 @Getter
 @Setter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@ToString
+@NoArgsConstructor
 public class AdminSearchDto {
 
     @Positive(message = "페이지 번호를 다시 확인해 주세요.")

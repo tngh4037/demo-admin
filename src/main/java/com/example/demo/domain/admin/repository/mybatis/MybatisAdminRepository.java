@@ -46,4 +46,20 @@ public class MybatisAdminRepository implements AdminRepository {
     public void update(Integer adminNo, Admin admin) {
         adminMapper.update(adminNo, admin);
     }
+
+    @Override
+    public void updateLoginDt(Integer adminNo) {
+        adminMapper.updateLoginDt(adminNo);
+    }
+
+    @Override
+    public void updateFailCnt(Integer adminNo, Integer count) {
+        adminMapper.updateFailCnt(adminNo, count);
+    }
+
+    @Override
+    public void updateByLogin(Integer adminNo) {
+        adminMapper.updateByLogin(adminNo);
+    }
+
 }

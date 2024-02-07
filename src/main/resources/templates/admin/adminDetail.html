@@ -43,12 +43,20 @@
                             </select>
                         </div>
                     </div>
+
+                    <div class="row mb-3">
+                        <label for="adminId" class="col-sm-2 col-form-label"><span style="color: red">*</span> 로그인 일시:</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" id="loginDt" th:field="*{loginDt}" disabled>
+                        </div>
+                    </div>
                 </form>
             </div>
             <div class="card-footer">
-                <div class="d-grid gap-2 d-md-flex justify-content-lg-end">
-                    <button type="button" class="btn btn-info" id="btnEditForm"
-                            th:data-admin-no="${admin?.adminNo}" style="color: white">수정하기</button>
+                <div class="d-grid gap-2 d-md-flex justify-content-lg-end" th:data-admin-no="${admin?.adminNo}">
+                    <button type="button" class="btn btn-danger" id="btnUnlock" th:if="${admin.isLockTarget()}" style="color: white">잠금해제</button>
+                    <button type="button" class="btn btn-warning" id="btnFailCnt" th:if="${admin.isFailCntInitTarget()}"  style="color: white">비밀번호 실패 건수 초기화</button>
+                    <button type="button" class="btn btn-info" id="btnEditForm" style="color: white">수정하기</button>
                     <button type="button" class="btn btn-outline-dark"
                             onclick="window.location.href='/admins'">목록보기</button>
                 </div>
@@ -58,7 +66,7 @@
 </div>
 
 <th:block layout:fragment="script">
-    <script th:src="@{/js/admin/admin-detail.js}"></script>
+    <script defer="defer" th:src="@{/js/admin/admin-detail.js}"></script>
 </th:block>
 
 </html>

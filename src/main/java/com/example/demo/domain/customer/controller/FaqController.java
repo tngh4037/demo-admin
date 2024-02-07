@@ -1,6 +1,7 @@
 package com.example.demo.domain.customer.controller;
 
 import com.example.demo.global.common.JsonResult;
+import com.example.demo.global.common.ValidationSequence;
 import com.example.demo.global.common.constant.PageConstant;
 import com.example.demo.global.common.constant.ViewConstant;
 import com.example.demo.domain.customer.domain.Faq;
@@ -94,7 +95,7 @@ public class FaqController {
      */
     @PostMapping("/add")
     @ResponseBody
-    public JsonResult<?> add(@RequestBody @Validated FaqAddDto faqAddDto) {
+    public JsonResult<?> add(@RequestBody @Validated(ValidationSequence.class) FaqAddDto faqAddDto) {
         faqService.save(faqAddDto);
         return JsonResult.ok();
     }
@@ -114,7 +115,7 @@ public class FaqController {
     @PostMapping("/{faqNo}/edit")
     @ResponseBody
     public JsonResult<?> edit(@PathVariable("faqNo") Integer faqNo,
-                              @RequestBody @Validated FaqEditDto noticeEditDto) {
+                              @RequestBody @Validated(ValidationSequence.class) FaqEditDto noticeEditDto) {
         faqService.update(faqNo, noticeEditDto);
         return JsonResult.ok();
     }

@@ -59,7 +59,37 @@
             ADMIN_STATUS = #{admin.adminStatus},
             <if test="admin.adminPwd != null and admin.adminPwd != ''">
                 ADMIN_PWD = #{admin.adminPwd},
+                PWD_DT = NOW(),
             </if>
+            MOD_DT = NOW()
+        WHERE ADMIN_NO = #{adminNo}
+    </update>
+
+    <update id="updateLoginDt">
+        UPDATE ADMIN
+        SET LOGIN_DT = NOW(),
+            MOD_DT = NOW()
+        WHERE ADMIN_NO = #{adminNo}
+    </update>
+
+    <update id="updateFailCnt">
+        UPDATE ADMIN
+        SET MOD_DT = NOW(),
+        <choose>
+            <when test="count != null and count > 0">
+                FAIL_CNT = FAIL_CNT + #{count}
+            </when>
+            <otherwise>
+                FAIL_CNT = 0
+            </otherwise>
+        </choose>
+        WHERE ADMIN_NO = #{adminNo}
+    </update>
+
+    <update id="updateByLogin">
+        UPDATE ADMIN
+        SET LOGIN_DT = NOW(),
+            FAIL_CNT = 0,
             MOD_DT = NOW()
         WHERE ADMIN_NO = #{adminNo}
     </update>

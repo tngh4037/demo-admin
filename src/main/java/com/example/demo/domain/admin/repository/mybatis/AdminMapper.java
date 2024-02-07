@@ -17,4 +17,7 @@ public interface AdminMapper {
     Optional<Admin> findByAdminId(String adminId);
     void save(Admin admin);
     void update(@Param("adminNo") Integer adminNo, @Param("admin") Admin admin);
+    void updateLoginDt(Integer adminNo);
+    void updateFailCnt(@Param("adminNo") Integer adminNo, @Param("count") Integer count);
+    void updateByLogin(Integer adminNo);
 }

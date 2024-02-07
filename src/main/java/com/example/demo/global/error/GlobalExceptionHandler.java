@@ -1,17 +1,20 @@
 package com.example.demo.global.error;
 
 import com.example.demo.global.error.exception.BusinessException;
+import com.example.demo.global.util.ErrorUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.validation.BindException;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.ModelAndView;
 
 // TODO :: 리팩토링
-//  ㄴ 1) 뷰 / API 응답 분리 처리 (뷰 처리시 4xx, 5xx 오류 페이지 별도 적용)
+//  ㄴ 1) 뷰 / API 응답 분리 처리 고민 (뷰 처리시 4xx, 5xx 오류 페이지 별도 적용)
 //  ㄴ 2) 예외 처리 정책 변경 (응답 포맷, 전체 오류 발생 컬럼 및 메시지 정보 추가 등) )
 /**
  * [공통 예외 처리]
@@ -36,6 +39,19 @@ public class GlobalExceptionHandler {
     private static final String ERROR_PAGE = "error";
     private static final String AJAX_HEADER_NAME = "X-Requested-With";
     private static final String AJAX_HEADER_VALUE = "XMLHttpRequest";
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    private ModelAndView handleMethodArgumentNotValidException(HttpServletRequest request,
+                                                               MethodArgumentNotValidException ex) {
+        log.info("handleMethodArgumentNotValidException :: ", ex);
+        return sendError(request, ErrorUtil.getBindingMessage(ex.getBindingResult()));
+    }
+
+    @ExceptionHandler(BindException.class)
+    private ModelAndView handleBindException(HttpServletRequest request, BindException ex) {
+        log.error("handleBindException", ex);
+        return sendError(request, ErrorUtil.getBindingMessage(ex.getBindingResult()));
+    }
 
     @ExceptionHandler(BusinessException.class)
     private ModelAndView handleBusinessException(HttpServletRequest request, BusinessException ex) {

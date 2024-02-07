@@ -36,7 +36,7 @@ const AdminAddFormModule = (function() {
       }
 
       if (adminPwdVal === '' || !DA.regex.ADMIN_PWD.test(adminPwdVal)) {
-        alert('비밀번호는 영문 숫자 특수기호 조합 8~15자리로 입력 가능합니다.')
+        alert('비밀번호는 영문 숫자 특수기호 조합 8~16자리로 입력 가능합니다.')
         $adminPwd.focus()
         return false
       }

@@ -14,4 +14,7 @@ public interface AdminRepository {
     Optional<Admin> findByAdminId(String adminId);
     Admin save(Admin admin);
     void update(Integer adminNo, Admin admin);
+    void updateLoginDt(Integer adminNo);
+    void updateFailCnt(Integer adminNo, Integer count);
+    void updateByLogin(Integer adminNo);
 }
