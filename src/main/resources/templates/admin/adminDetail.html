@@ -25,7 +25,7 @@
                         <div class="col-sm-4">
                             <select class="form-select" id="adminAuth" th:field="*{adminAuth}" disabled>
                                 <option value="">유형을 선택해 주세요.</option>
-                                <option th:each="adminAuth : ${T(com.example.demo.domain.admin.define.AdminAuth).values()}"
+                                <option th:each="adminAuth : ${T(com.example.demo.admin.domain.admin.define.AdminAuth).values()}"
                                         th:value="${adminAuth}"
                                         th:text="${adminAuth.title}"></option>
                             </select>
@@ -37,7 +37,7 @@
                         <div class="col-sm-4">
                             <select class="form-select" id="adminStatus" th:field="*{adminStatus}" disabled>
                                 <option value="">유형을 선택해 주세요.</option>
-                                <option th:each="adminStatus : ${T(com.example.demo.domain.admin.define.AdminStatus).values()}"
+                                <option th:each="adminStatus : ${T(com.example.demo.admin.domain.admin.define.AdminStatus).values()}"
                                         th:value="${adminStatus}"
                                         th:text="${adminStatus.title}"></option>
                             </select>

@@ -32,7 +32,7 @@
                         <div class="col-sm-4">
                             <select class="form-select" id="faqType" th:field="*{faqType}" disabled>
                                 <option value="">유형을 선택해 주세요.</option>
-                                <option th:each="faqType : ${T(com.example.demo.domain.customer.define.FaqType).values()}"
+                                <option th:each="faqType : ${T(com.example.demo.admin.domain.customer.define.FaqType).values()}"
                                         th:value="${faqType}"
                                         th:text="${faqType.title}"></option>
                             </select>
@@ -45,13 +45,13 @@
                             <div class="form-check form-check-inline mt-2">
                                 <input class="form-check-input" type="radio"
                                        th:field="*{displayYn}"
-                                       th:value="${T(com.example.demo.global.common.define.Yn).YES}" disabled>
+                                       th:value="${T(com.example.demo.admin.global.common.define.Yn).YES}" disabled>
                                 <label class="form-check-label" th:for="${#ids.prev('displayYn')}">노출</label>
                             </div>
                             <div class="form-check form-check-inline mt-2">
                                 <input class="form-check-input" type="radio"
                                        th:field="*{displayYn}"
-                                       th:value="${T(com.example.demo.global.common.define.Yn).NO}" disabled>
+                                       th:value="${T(com.example.demo.admin.global.common.define.Yn).NO}" disabled>
                                 <label class="form-check-label" th:for="${#ids.prev('displayYn')}">비노출</label>
                             </div>
                         </div>
@@ -63,13 +63,13 @@
                             <div class="form-check form-check-inline mt-2">
                                 <input class="form-check-input" type="radio"
                                        th:field="*{displayTopYn}"
-                                       th:value="${T(com.example.demo.global.common.define.Yn).YES}" disabled>
+                                       th:value="${T(com.example.demo.admin.global.common.define.Yn).YES}" disabled>
                                 <label class="form-check-label" th:for="${#ids.prev('displayTopYn')}">노출</label>
                             </div>
                             <div class="form-check form-check-inline mt-2">
                                 <input class="form-check-input" type="radio"
                                        th:field="*{displayTopYn}"
-                                       th:value="${T(com.example.demo.global.common.define.Yn).NO}" disabled>
+                                       th:value="${T(com.example.demo.admin.global.common.define.Yn).NO}" disabled>
                                 <label class="form-check-label" th:for="${#ids.prev('displayTopYn')}">비노출</label>
                             </div>
                         </div>

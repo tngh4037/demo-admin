@@ -38,7 +38,7 @@
                         <div class="col-sm-4">
                             <select class="form-select" id="noticeType" th:field="*{noticeType}" th:errorclass="is-invalid">
                                 <option value="">유형을 선택해 주세요.</option>
-                                <option th:each="noticeType : ${T(com.example.demo.domain.customer.define.NoticeType).values()}"
+                                <option th:each="noticeType : ${T(com.example.demo.admin.domain.customer.define.NoticeType).values()}"
                                         th:value="${noticeType}"
                                         th:text="${noticeType.title}"></option>
                             </select>

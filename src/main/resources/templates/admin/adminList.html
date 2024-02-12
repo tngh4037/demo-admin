@@ -25,7 +25,7 @@
                         <div class="col-sm-4">
                             <select class="form-select" id="adminAuth" name="adminAuth">
                                 <option value="">전체</option>
-                                <option th:each="adminAuth : ${T(com.example.demo.domain.admin.define.AdminAuth).values()}"
+                                <option th:each="adminAuth : ${T(com.example.demo.admin.domain.admin.define.AdminAuth).values()}"
                                         th:value="${adminAuth}"
                                         th:text="${adminAuth.title}"
                                         th:selected="${adminAuth eq searchDto.adminAuth}"></option>
@@ -38,7 +38,7 @@
                         <div class="col-sm-4">
                             <select class="form-select" id="adminStatus" name="adminStatus">
                                 <option value="">전체</option>
-                                <option th:each="adminStatus : ${T(com.example.demo.domain.admin.define.AdminStatus).values()}"
+                                <option th:each="adminStatus : ${T(com.example.demo.admin.domain.admin.define.AdminStatus).values()}"
                                         th:value="${adminStatus}"
                                         th:text="${adminStatus.title}"
                                         th:selected="${adminStatus eq searchDto.adminStatus}"></option>
@@ -88,7 +88,7 @@
                                 <td>
                                     <h5>
                                         <span class="badge me-1"
-                                              th:classappend="${admin.adminStatus eq T(com.example.demo.domain.admin.define.AdminStatus).ACTIVE ? 'bg-success' : 'bg-danger'}"
+                                              th:classappend="${admin.adminStatus eq T(com.example.demo.admin.domain.admin.define.AdminStatus).ACTIVE ? 'bg-success' : 'bg-danger'}"
                                               th:text="${admin.adminStatus.title}"></span>
                                     </h5>
                                 </td>

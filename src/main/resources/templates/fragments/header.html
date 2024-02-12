@@ -6,19 +6,19 @@
     <div class="container-fluid">
         <button class="header-toggler px-md-0 me-md-3" type="button" onclick="coreui.Sidebar.getInstance(document.querySelector('#sidebar')).toggle()">
             <svg class="icon icon-lg">
-                <use th:attr="'xlink:href'=@{/coreui/vendors/@coreui/icons/svg/free.svg#cil-menu}"></use>
+                <use th:attr="'xlink:href'=@{/coreui/dist/vendors/@coreui/icons/svg/free.svg#cil-menu}"></use>
             </svg>
         </button>
         <a class="header-brand d-md-none" href="#" style="margin-left: 0;margin-right: 0;">
             <svg width="118" height="46" alt="CoreUI Logo">
-                <use th:attr="'xlink:href'=@{/coreui/assets/brand/coreui.svg#full}"></use>
+                <use th:attr="'xlink:href'=@{/coreui/dist/assets/brand/coreui.svg#full}"></use>
             </svg>
         </a>
         <ul class="header-nav"> <!-- remove: ms-3 -->
             <li class="nav-item dropdown">
                 <a class="nav-link py-0" data-coreui-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
                     <div class="avatar avatar-md">
-                        <img class="avatar-img" src="/coreui/assets/img/avatars/setting.png">
+                        <img class="avatar-img" th:src="@{/images/common/gnb_icon_settings.png}">
                     </div>
                 </a>
                 <div class="dropdown-menu dropdown-menu-end pt-0">
@@ -27,16 +27,16 @@
                     </div>
                     <a class="dropdown-item" href="/">
                         <svg class="icon me-2">
-                            <use th:attr="'xlink:href'=@{/coreui/vendors/@coreui/icons/svg/free.svg#cil-user}"></use>
+                            <use th:attr="'xlink:href'=@{/coreui/dist/vendors/@coreui/icons/svg/free.svg#cil-user}"></use>
                         </svg> 내 정보 수정</a>
                     <a class="dropdown-item" href="/">
                         <svg class="icon me-2">
-                            <use th:attr="'xlink:href'=@{/coreui/vendors/@coreui/icons/svg/free.svg#cil-settings}"></use>
+                            <use th:attr="'xlink:href'=@{/coreui/dist/vendors/@coreui/icons/svg/free.svg#cil-settings}"></use>
                         </svg> 비밀번호 변경</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="javascript:void(0);" onclick="window.document.getElementById('logoutForm').submit();">
                         <svg class="icon me-2">
-                            <use th:attr="'xlink:href'=@{/coreui/vendors/@coreui/icons/svg/free.svg#cil-account-logout}"></use>
+                            <use th:attr="'xlink:href'=@{/coreui/dist/vendors/@coreui/icons/svg/free.svg#cil-account-logout}"></use>
                         </svg> 로그아웃</a>
                 </div>
             </li>

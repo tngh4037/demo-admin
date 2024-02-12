@@ -25,7 +25,7 @@
                         <div class="col-sm-4">
                             <select class="form-select" id="noticeType" name="noticeType">
                                 <option value="">전체</option>
-                                <option th:each="noticeType : ${T(com.example.demo.domain.customer.define.NoticeType).values()}"
+                                <option th:each="noticeType : ${T(com.example.demo.admin.domain.customer.define.NoticeType).values()}"
                                         th:value="${noticeType}"
                                         th:text="${noticeType.title}"
                                         th:selected="${noticeType eq searchDto.noticeType}"></option>

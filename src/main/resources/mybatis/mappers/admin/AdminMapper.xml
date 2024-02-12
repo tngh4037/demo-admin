@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.example.demo.domain.admin.repository.mybatis.AdminMapper">
+<mapper namespace="com.example.demo.admin.domain.admin.repository.mybatis.AdminMapper">
 
     <sql id="searchCond">
         <if test="search.adminId != null and search.adminId != ''">

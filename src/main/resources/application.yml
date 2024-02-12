@@ -19,11 +19,11 @@ mybatis:
   mapper-locations: classpath:/mybatis/mappers/**/*.xml # mapper file location
   configuration:
     map-underscore-to-camel-case: true # convert snake_case to camelCase
-    default-enum-type-handler: com.example.demo.global.config.define.EnumTypeHandler # define defaultEnumTypeHandler
-  type-aliases-package: com.example.demo.domain.*.domain # define package path in mapper file
+    default-enum-type-handler: com.example.demo.admin.global.config.define.EnumTypeHandler # define defaultEnumTypeHandler
+  type-aliases-package: com.example.demo.admin.domain.*.domain # define package path in mapper file
 logging:
   level:
-    com.example.demo.domain:
+    com.example.demo.admin.domain:
       customer.repository.mybatis: trace
       admin.repository.mybatis: trace
       login.repository.mybatis: trace
