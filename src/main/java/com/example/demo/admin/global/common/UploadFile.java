@@ -10,12 +10,12 @@ import lombok.ToString;
 public class UploadFile {
 
     private String originalFilename;
-    private String storeFileName;
-    private String fullPath;
+    private String uploadFileName;
+    private String uploadPath;
 
-    public UploadFile(String originalFilename, String storeFileName, String fullPath) {
+    public UploadFile(String originalFilename, String uploadFileName, String uploadPath) {
         this.originalFilename = originalFilename;
-        this.storeFileName = storeFileName;
-        this.fullPath = fullPath;
+        this.uploadFileName = uploadFileName;
+        this.uploadPath = uploadPath;
     }
 }

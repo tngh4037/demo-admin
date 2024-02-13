@@ -3,6 +3,7 @@ package com.example.demo.admin.domain.admin.controller;
 import com.example.demo.admin.domain.admin.domain.Admin;
 import com.example.demo.admin.domain.admin.dto.AdminAddDto;
 import com.example.demo.admin.domain.admin.dto.AdminEditDto;
+import com.example.demo.admin.domain.admin.dto.AdminResponseDto;
 import com.example.demo.admin.domain.admin.dto.AdminSearchDto;
 import com.example.demo.admin.domain.admin.service.AdminService;
 import com.example.demo.admin.global.common.JsonResult;
@@ -12,6 +13,7 @@ import com.example.demo.admin.global.common.constant.PageConstant;
 import com.example.demo.admin.global.common.constant.ViewConstant;
 import com.example.demo.admin.global.config.argumentresolver.LoginAdmin;
 import com.example.demo.admin.global.util.ErrorUtil;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -80,8 +82,8 @@ public class AdminController {
 
     @PostMapping("/{adminNo}")
     @ResponseBody
-    public JsonResult<Admin> detailData(@PathVariable("adminNo") Integer adminNo) {
-        return JsonResult.ok(adminService.findByAdminNo(adminNo));
+    public JsonResult<AdminResponseDto> detailData(@PathVariable("adminNo") Integer adminNo) {
+        return JsonResult.ok(new AdminResponseDto(adminService.findByAdminNo(adminNo)));
     }
 
     @GetMapping("/add")

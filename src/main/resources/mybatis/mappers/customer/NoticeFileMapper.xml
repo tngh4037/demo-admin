@@ -4,9 +4,25 @@
 
 <mapper namespace="com.example.demo.admin.domain.customer.repository.mybatis.NoticeFileMapper">
 
+    <select id="findAll" resultType="NoticeFile">
+        SELECT NOTICE_FILE_NO, NOTICE_NO, FILE_NAME, ORG_FILE_NAME, REG_DT
+        FROM CUSTOMER_NOTICE_FILE
+        WHERE NOTICE_NO = #{noticeNo}
+    </select>
+
     <insert id="save" useGeneratedKeys="true" keyColumn="notice_file_no" keyProperty="noticeFileNo">
         INSERT INTO CUSTOMER_NOTICE_FILE (NOTICE_NO, FILE_NAME, ORG_FILE_NAME, REG_DT)
         VALUES (#{noticeNo}, #{fileName}, #{orgFileName}, NOW())
     </insert>
+
+    <delete id="delete">
+        DELETE FROM CUSTOMER_NOTICE_FILE
+        WHERE NOTICE_NO = #{noticeNo}
+    </delete>
+
+    <delete id="deleteById">
+        DELETE FROM CUSTOMER_NOTICE_FILE
+        WHERE NOTICE_FILE_NO = #{noticeFileNo}
+    </delete>
 
 </mapper>

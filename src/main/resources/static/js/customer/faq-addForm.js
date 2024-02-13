@@ -37,7 +37,7 @@ const FaqAddFormModule = (function() {
 
       if (answerVal === '') {
         alert('답변을 입력해 주세요.')
-        $question.focus()
+        $answer.focus()
         return false
       }
 

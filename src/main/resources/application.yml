@@ -27,7 +27,3 @@ logging:
       customer.repository.mybatis: trace
       admin.repository.mybatis: trace
       login.repository.mybatis: trace
-file:
-  dir:
-    customer:
-      notice: C:/demo-admin/customer/notice/

@@ -1,5 +1,8 @@
 package com.example.demo.admin.domain.customer.controller;
 
+import com.example.demo.admin.domain.customer.domain.NoticeFile;
+import com.example.demo.admin.domain.customer.service.NoticeFileService;
+import com.example.demo.admin.global.common.JsonResult;
 import com.example.demo.admin.global.common.constant.PageConstant;
 import com.example.demo.admin.global.common.constant.ViewConstant;
 import com.example.demo.admin.domain.customer.domain.Notice;
@@ -8,17 +11,25 @@ import com.example.demo.admin.domain.customer.dto.NoticeEditDto;
 import com.example.demo.admin.domain.customer.dto.NoticeSearchDto;
 import com.example.demo.admin.domain.customer.service.NoticeService;
 import com.example.demo.admin.domain.customer.validator.NoticeSearchValidator;
+import com.example.demo.admin.global.common.define.FileUploadType;
 import com.example.demo.admin.global.util.ErrorUtil;
 import com.example.demo.admin.global.common.PaginationDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.util.UriUtils;
 
+import java.net.MalformedURLException;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 /**
@@ -32,6 +43,8 @@ import java.util.List;
  * - 수정 처리: POST /customer/notices/{id}/edit
  * - 삭제 처리: POST /customer/notices/remove
  *   ㄴ 삭제 대상 정보는 form data 형태로 메시지 바디에 담아서 요청
+ * - 파일 다운: GET /customer/notices/{id}/files/{id}/download
+ * - 파일 삭제: GET /customer/notices/{id}/files/{id}/remove
  *
  * 2) 참고
  * - (BindingResult / BeanValidation)을 통한 client 요청 값 검증 및 redirect 처리
@@ -44,6 +57,7 @@ import java.util.List;
 public class NoticeController {
 
     private final NoticeService noticeService;
+    private final NoticeFileService noticeFileService;
     private final NoticeSearchValidator noticeSearchValidator;
 
     /**
@@ -79,6 +93,7 @@ public class NoticeController {
     @GetMapping("/{noticeNo}")
     public String detail(@PathVariable("noticeNo") Integer noticeNo, Model model) {
         model.addAttribute("notice", noticeService.findById(noticeNo));
+        model.addAttribute("noticeFiles", noticeFileService.findItems(noticeNo));
         return ViewConstant.CUSTOMER_NOTICE_DETAIL;
     }
 
@@ -144,5 +159,33 @@ public class NoticeController {
                          @RequestParam(value = "searchParams", required = false, defaultValue = "") String searchParams) {
         noticeService.remove(noticeNos);
         return "redirect:/customer/notices" + searchParams;
+    }
+
+    /**
+     * 첨부파일 삭제
+     */
+    @PostMapping("/{noticeNo}/files/{noticeFileNo}/remove")
+    @ResponseBody
+    public JsonResult<?> remove(@PathVariable("noticeNo") Integer noticeNo,
+                                @PathVariable("noticeFileNo") Integer noticeFileNo) {
+        noticeFileService.removeFile(noticeNo, noticeFileNo);
+        return JsonResult.ok();
+    }
+
+    /**
+     * 첨부파일 다운로드
+     */
+    @GetMapping("/{noticeNo}/files/{noticeFileNo}/download")
+    public ResponseEntity<Resource> download(@PathVariable("noticeNo") Integer noticeNo,
+                                             @PathVariable("noticeFileNo") Integer noticeFileNo) throws MalformedURLException {
+        NoticeFile noticeFile = noticeFileService.findItem(noticeNo, noticeFileNo);
+        UrlResource resource = new UrlResource("file:" +
+                FileUploadType.CUSTOMER_NOTICE.getUploadPath(noticeFile.getFileName()));
+
+        String encodedUploadFileName = UriUtils.encode(noticeFile.getOrgFileName(), StandardCharsets.UTF_8);
+        String contentDisposition = "attachment; filename=\"" + encodedUploadFileName + "\"";
+        return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION, contentDisposition)
+                .body(resource);
     }
 }

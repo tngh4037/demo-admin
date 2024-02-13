@@ -9,10 +9,12 @@ const NoticeAddFormModule = (function() {
     },
     $button: {
       add: $('#btnAdd'),
+      filePolicy: $('#btnFilePolicy')
     }
   }
 
   const init = function() {
+    settings.$button.filePolicy.trigger('click')
     bind()
   }
 
