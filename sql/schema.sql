@@ -1,7 +1,7 @@
 -- #################################
 -- ######### 관리자 (ADMIN) #########
 -- #################################
--- // TODO :: 이메일, 휴대폰 번호 컬럼 추가 여부 체크
+-- // TODO :: 이름, 이메일, 휴대폰 번호 컬럼 추가
 DROP TABLE IF EXISTS ADMIN CASCADE;
 CREATE TABLE ADMIN (
     `ADMIN_NO`		INT NOT NULL AUTO_INCREMENT COMMENT '식별자',
@@ -19,7 +19,7 @@ CREATE TABLE ADMIN (
 CREATE UNIQUE INDEX `ADMIN_ADMIN_ID_IDX1` ON ADMIN (`ADMIN_ID`);
 
 -- #################################
--- ###### 고객센터 (CUSTOMER) ####### // TODO :: 등록자 정보 컬럼 추가 여부 체크
+-- ###### 고객센터 (CUSTOMER) #######
 -- #################################
 -- 공지사항
 DROP TABLE IF EXISTS CUSTOMER_NOTICE CASCADE;
@@ -33,6 +33,16 @@ CREATE TABLE CUSTOMER_NOTICE (
     `REG_DT`        DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '등록일시',
     `MOD_DT`        DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '수정일시',
     PRIMARY KEY(`NOTICE_NO`)
+);
+-- 공지사항 첨부파일 정보
+DROP TABLE IF EXISTS CUSTOMER_NOTICE_FILE CASCADE;
+CREATE TABLE CUSTOMER_NOTICE_FILE (
+    `NOTICE_FILE_NO`    INT NOT NULL AUTO_INCREMENT COMMENT '식별자',
+    `NOTICE_NO`     	INT NOT NULL COMMENT '공지글 번호',
+    `FILE_NAME`     	VARCHAR(36) NOT NULL COMMENT '파일명',
+    `ORG_FILE_NAME` 	VARCHAR(260) NOT NULL COMMENT '원본 파일명',
+    `REG_DT`        	DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '등록일시',
+    PRIMARY KEY(`NOTICE_FILE_NO`)
 );
 -- 자주하는질문
 DROP TABLE IF EXISTS CUSTOMER_FAQ CASCADE;

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.demo.admin.domain.customer.repository.mybatis.NoticeFileMapper">
+
+    <insert id="save" useGeneratedKeys="true" keyColumn="notice_file_no" keyProperty="noticeFileNo">
+        INSERT INTO CUSTOMER_NOTICE_FILE (NOTICE_NO, FILE_NAME, ORG_FILE_NAME, REG_DT)
+        VALUES (#{noticeNo}, #{fileName}, #{orgFileName}, NOW())
+    </insert>
+
+</mapper>

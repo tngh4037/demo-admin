@@ -12,7 +12,7 @@
         <div class="card mb-4">
             <div class="card-header"><i class="icon icon-2xl cil-check-alt"></i><span class="small ms-1">등록 폼</span></div>
             <div class="card-body">
-                <form id="addForm" name="addForm" method="POST" th:action th:object="${noticeAddDto}">
+                <form id="addForm" name="addForm" method="POST" th:action th:object="${noticeAddDto}" enctype="multipart/form-data">
                     <div class="row mb-3">
                         <label class="col-sm-2 col-form-label" for="title"><span style="color: red">*</span> 제목:</label>
                         <div class="col-sm-10">
@@ -43,6 +43,13 @@
                                         th:text="${noticeType.title}"></option>
                             </select>
                             <div th:errors="*{noticeType}" class="invalid-feedback"></div>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <label class="col-sm-2 col-form-label" for="uploadFiles"><span style="color: black">*</span> 파일 업로드:</label>
+                        <div class="col-sm-4">
+                            <input class="form-control" type="file" id="uploadFiles" name="uploadFiles" multiple>
                         </div>
                     </div>
 

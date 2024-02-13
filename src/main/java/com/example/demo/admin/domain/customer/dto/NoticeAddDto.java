@@ -8,6 +8,9 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 @Getter
 @Setter
@@ -29,6 +32,8 @@ public class NoticeAddDto {
     @NotNull(message = "공지 유형을 선택해 주세요.")
     private NoticeType noticeType;
 
+    private List<MultipartFile> uploadFiles;
+
     public Notice toEntity() {
         return Notice.of()
                 .title(this.title)
@@ -42,5 +47,13 @@ public class NoticeAddDto {
         return Notice.of()
                 .displayYn("N")
                 .build();
+    }
+
+    public List<MultipartFile> getFilesIfNotEmpty() {
+        if (uploadFiles == null || uploadFiles.isEmpty() || (uploadFiles.size() == 1 && uploadFiles.get(0).isEmpty())) {
+            return null;
+        }
+
+        return uploadFiles;
     }
 }
