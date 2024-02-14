@@ -28,7 +28,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new LoginCheckInterceptor())
                 .addPathPatterns("/**")
-                .excludePathPatterns("/login", "/logout", "/coreui/**", "/js/common/**");
+                .excludePathPatterns("/login", "/logout", "/coreui/**", "/js/common/**", "/images/common/**");
     }
 
     @Override

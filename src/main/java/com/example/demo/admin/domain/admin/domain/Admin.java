@@ -6,7 +6,6 @@ import com.example.demo.admin.global.common.constant.SecurityConstant;
 import com.example.demo.admin.global.common.define.PrivacyType;
 import com.example.demo.admin.global.util.RegExpUtil;
 import lombok.*;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -20,7 +19,6 @@ public class Admin {
     private AdminAuth adminAuth;
     private AdminStatus adminStatus;
     private Integer failCnt;
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime loginDt;
     private LocalDateTime pwdDt;
     private LocalDateTime regDt;

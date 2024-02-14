@@ -80,15 +80,15 @@ const AdminAddFormModule = (function() {
         dataType: 'json',
         processData: false,
         success: function(response) {
-          if (response.code === 200) {
-            alert(response.message || '정상적으로 처리되었습니다.')
-            window.location.href = '/admins'
-          } else {
-            alert(response.message || '처리에 실패했습니다. 다시 시도해 주세요.')
-          }
+          alert(response.message || '정상적으로 처리되었습니다.')
+          window.location.href = '/admins'
         },
         error: function(response) {
-          alert('처리 중 오류가 발생했습니다. 잠시 후 다시 시도해 주세요.')
+          if (response.responseJSON === undefined || !response.responseJSON.hasOwnProperty('message')) {
+            alert('처리에 실패했습니다. 다시 시도해 주세요.')
+          } else {
+            alert(response.responseJSON.message)
+          }
           return false
         },
         complete: function() {

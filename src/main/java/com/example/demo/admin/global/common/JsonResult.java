@@ -1,35 +1,30 @@
 package com.example.demo.admin.global.common;
 
-import lombok.AccessLevel;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 
-// TODO :: 리팩토링 ( 응답 포맷, naming )
+/**
+ * JSON data 응답 시 일관된 포맷을 위한 객체
+ */
 @Getter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class JsonResult<T> {
-
     private static final int SUCCESS = 200;
+    private static final String DEFAULT_MESSAGE = "정상적으로 처리되었습니다.";
 
-    private Integer code;
-    private String message;
-    private T data;
+    private final Integer code;
+    private final String message;
+    private final T data;
 
     public static JsonResult<?> ok() {
-        return new JsonResult<>(SUCCESS, null, null);
+        return new JsonResult<>(null);
     }
 
     public static <T> JsonResult<T> ok(T data) {
-        return new JsonResult<>(SUCCESS, null, data);
+        return new JsonResult<>(data);
     }
 
-    public static <T> JsonResult<T> ok(String message, T data) {
-        return new JsonResult<>(SUCCESS, message, data);
-    }
-
-    private JsonResult(Integer code, String message, T data) {
-        this.code = code;
-        this.message = message;
+    private JsonResult(T data) {
+        this.code = SUCCESS;
+        this.message = DEFAULT_MESSAGE;
         this.data = data;
     }
 }

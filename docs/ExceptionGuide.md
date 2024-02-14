@@ -12,61 +12,57 @@
 
 
 ## 2) 예외 처리
-### 모든 예외 처리를 위한 클래스: GlobalExceptionHandler (@ControllerAdvice)
-- @ControllerAdvice 를 적용한 GlobalExceptionHandler 에서 비즈니스 예외를 포함한 모든 예외를 처리합니다.
-- (참고) 아래는 현재까지 구현된 예외 처리 클래스의 일부 참고이며, 개선중에 있습니다. ( [예외 처리 핸들러 바로가기](../src/main/java/com/example/demo/admin/global/error/GlobalExceptionHandler.java) )
-  - 개선이 필요한 부분은 해당 파일내 주석으로 작성해 두었습니다. ( view 와 api 응답을 위한 처리를 어떻게 하면 효율적으로 처리할 수 있는지 학습 및 고민이 필요 )
+### API 예외 처리를 위한 클래스: GlobalExceptionHandler(@RestControllerAdvice)
+- API 예외의 경우 GlobalExceptionHandler(@RestControllerAdvice)에서 공통으로 응답 처리하고, 그 외의 경우(화면 처리)는 스프링 부트 기본 오류 처리 매커니즘(BasicErrorController)를 따릅니다.
 ```java
 @Slf4j
-@ControllerAdvice
+@RestControllerAdvice(annotations = RestController.class)
 public class GlobalExceptionHandler {
 
-    private static final String ERROR_PAGE = "error";
-    private static final String AJAX_HEADER_NAME = "X-Requested-With";
-    private static final String AJAX_HEADER_VALUE = "XMLHttpRequest";
+  @ExceptionHandler(MethodArgumentNotValidException.class)
+  protected ResponseEntity<ErrorResponse> handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
+    log.error("handleMethodArgumentNotValidException", e);
+    final ErrorResponse response = ErrorResponse.of(HttpStatus.BAD_REQUEST.value(), e.getBindingResult());
+    return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+  }
 
-    @ExceptionHandler(BusinessException.class)
-    private ModelAndView handleBusinessException(HttpServletRequest request, BusinessException ex) {
-        log.info("handleBusinessException :: ", ex);
-        return sendError(request, ex.getMessage());
-    }
+  @ExceptionHandler(MethodArgumentTypeMismatchException.class)
+  protected ResponseEntity<ErrorResponse> handleMethodArgumentTypeMismatchException(MethodArgumentTypeMismatchException e) {
+    log.error("handleMethodArgumentTypeMismatchException", e);
+    final ErrorResponse response = ErrorResponse.of(HttpStatus.BAD_REQUEST.value());
+    return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+  }
 
-    @ExceptionHandler(Exception.class)
-    private String handleException(Exception ex) {
-        log.error("handleException :: ", ex);
-        // alarm
-        return ERROR_PAGE;
-    }
+  @ExceptionHandler(BindException.class)
+  protected ResponseEntity<ErrorResponse> handleBindException(BindException e) {
+    log.error("handleBindException", e);
+    final ErrorResponse response = ErrorResponse.of(HttpStatus.BAD_REQUEST.value(), e.getBindingResult());
+    return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+  }
 
-    private ModelAndView sendError(HttpServletRequest request, String msg) {
-        if (isAjaxRequest(request)) {
-            return errorJson(msg);
-        }
-        return errorHtml(msg);
-    }
+  @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
+  protected ResponseEntity<ErrorResponse> handleHttpRequestMethodNotSupportedException(HttpRequestMethodNotSupportedException e) {
+    log.error("handleHttpRequestMethodNotSupportedException", e);
+    final ErrorResponse response = ErrorResponse.of(HttpStatus.METHOD_NOT_ALLOWED.value());
+    return new ResponseEntity<>(response, HttpStatus.METHOD_NOT_ALLOWED);
+  }
 
-    private ModelAndView errorJson(String message) {
-        ModelAndView mav = new ModelAndView("jsonView");
-        mav.addObject("code", HttpStatus.BAD_REQUEST.value());
-        mav.addObject("message", message);
-        return mav;
-    }
+  @ExceptionHandler(BusinessException.class)
+  protected ResponseEntity<ErrorResponse> handleBusinessException(BusinessException e) {
+    log.error("handleBusinessException", e);
+    final ErrorResponse response = ErrorResponse.of(HttpStatus.BAD_REQUEST.value(), e.getMessage());
+    return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+  }
 
-    private ModelAndView errorHtml(String msg) {
-        ModelAndView mav = new ModelAndView();
-        mav.addObject("msg", msg);
-        mav.addObject("url", "/");
-        mav.setViewName("/common/redirect");
-        return mav;
-    }
-
-    private boolean isAjaxRequest(HttpServletRequest request) {
-        String header = request.getHeader(AJAX_HEADER_NAME);
-        String acceptHeader = request.getHeader(HttpHeaders.ACCEPT);
-        return AJAX_HEADER_VALUE.equals(header) || MediaType.APPLICATION_JSON_VALUE.equals(acceptHeader);
-    }
+  @ExceptionHandler(Exception.class)
+  protected ResponseEntity<ErrorResponse> handleException(Exception e) {
+    log.error("handleException", e);
+    // 개발자 알람 전송
+    final ErrorResponse response = ErrorResponse.of(HttpStatus.INTERNAL_SERVER_ERROR.value());
+    return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+  }
 }
 ```
 
-### 공통 응답 포맷
-- 정책 정의 및 작성중
+### API 공통 응답 포맷: ErrorResponse
+- 작성중

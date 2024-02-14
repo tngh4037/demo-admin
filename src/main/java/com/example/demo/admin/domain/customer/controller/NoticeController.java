@@ -2,7 +2,6 @@ package com.example.demo.admin.domain.customer.controller;
 
 import com.example.demo.admin.domain.customer.domain.NoticeFile;
 import com.example.demo.admin.domain.customer.service.NoticeFileService;
-import com.example.demo.admin.global.common.JsonResult;
 import com.example.demo.admin.global.common.constant.PageConstant;
 import com.example.demo.admin.global.common.constant.ViewConstant;
 import com.example.demo.admin.domain.customer.domain.Notice;
@@ -32,24 +31,6 @@ import java.net.MalformedURLException;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 
-/**
- * [공지 사항]
- * 1) URI 구조
- * - 목록 조회: GET  /customer/notices
- * - 상세 조회: GET  /customer/notices/{id}
- * - 등록 화면: GET  /customer/notices/add
- * - 등록 처리: POST /customer/notices/add
- * - 수정 화면: GET  /customer/notices/{id}/edit
- * - 수정 처리: POST /customer/notices/{id}/edit
- * - 삭제 처리: POST /customer/notices/remove
- *   ㄴ 삭제 대상 정보는 form data 형태로 메시지 바디에 담아서 요청
- * - 파일 다운: GET /customer/notices/{id}/files/{id}/download
- * - 파일 삭제: GET /customer/notices/{id}/files/{id}/remove
- *
- * 2) 참고
- * - (BindingResult / BeanValidation)을 통한 client 요청 값 검증 및 redirect 처리
- * - PRG(Post-Redirect-Get) 방식을 통한 (저장 / 수정 / 삭제)
- */
 @Slf4j
 @Controller
 @RequestMapping("/customer/notices")
@@ -60,9 +41,6 @@ public class NoticeController {
     private final NoticeFileService noticeFileService;
     private final NoticeSearchValidator noticeSearchValidator;
 
-    /**
-     * 목록 조회
-     */
     @GetMapping
     public String list(@Validated @ModelAttribute("searchDto") NoticeSearchDto noticeSearchDto,
                        BindingResult bindingResult,
@@ -87,28 +65,19 @@ public class NoticeController {
         return ViewConstant.CUSTOMER_NOTICE_LIST;
     }
 
-    /**
-     * 상세 조회
-     */
     @GetMapping("/{noticeNo}")
-    public String detail(@PathVariable("noticeNo") Integer noticeNo, Model model) {
+    public String detailForm(@PathVariable("noticeNo") Integer noticeNo, Model model) {
         model.addAttribute("notice", noticeService.findById(noticeNo));
         model.addAttribute("noticeFiles", noticeFileService.findItems(noticeNo));
         return ViewConstant.CUSTOMER_NOTICE_DETAIL;
     }
 
-    /**
-     * 등록 화면
-     */
     @GetMapping("/add")
     public String addForm(Model model) {
         model.addAttribute("noticeAddDto", NoticeAddDto.initForm());
         return ViewConstant.CUSTOMER_NOTICE_ADD_FORM;
     }
 
-    /**
-     * 등록 처리
-     */
     @PostMapping("/add")
     public String add(@Validated @ModelAttribute("noticeAddDto") NoticeAddDto noticeAddDto,
                       BindingResult bindingResult,
@@ -125,18 +94,12 @@ public class NoticeController {
         return "redirect:/customer/notices/{noticeNo}";
     }
 
-    /**
-     * 수정 화면
-     */
     @GetMapping("/{noticeNo}/edit")
     public String editForm(@PathVariable("noticeNo") Integer noticeNo, Model model) {
         model.addAttribute("notice", noticeService.findById(noticeNo));
         return ViewConstant.CUSTOMER_NOTICE_EDIT_FORM;
     }
 
-    /**
-     * 수정 처리
-     */
     @PostMapping("/{noticeNo}/edit")
     public String edit(@PathVariable("noticeNo") Integer noticeNo,
                        @Validated @ModelAttribute("notice") NoticeEditDto noticeEditDto,
@@ -151,9 +114,6 @@ public class NoticeController {
         return "redirect:/customer/notices/{noticeNo}";
     }
 
-    /**
-     * 삭제 처리
-     */
     @PostMapping("/remove")
     public String remove(@RequestParam("noticeNos") Integer[] noticeNos,
                          @RequestParam(value = "searchParams", required = false, defaultValue = "") String searchParams) {
@@ -161,20 +121,6 @@ public class NoticeController {
         return "redirect:/customer/notices" + searchParams;
     }
 
-    /**
-     * 첨부파일 삭제
-     */
-    @PostMapping("/{noticeNo}/files/{noticeFileNo}/remove")
-    @ResponseBody
-    public JsonResult<?> remove(@PathVariable("noticeNo") Integer noticeNo,
-                                @PathVariable("noticeFileNo") Integer noticeFileNo) {
-        noticeFileService.removeFile(noticeNo, noticeFileNo);
-        return JsonResult.ok();
-    }
-
-    /**
-     * 첨부파일 다운로드
-     */
     @GetMapping("/{noticeNo}/files/{noticeFileNo}/download")
     public ResponseEntity<Resource> download(@PathVariable("noticeNo") Integer noticeNo,
                                              @PathVariable("noticeFileNo") Integer noticeFileNo) throws MalformedURLException {
