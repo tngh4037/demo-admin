@@ -6,11 +6,11 @@ import com.example.demo.admin.domain.customer.repository.NoticeFileRepository;
 import com.example.demo.admin.global.common.UploadFile;
 import com.example.demo.admin.global.common.define.FileUploadType;
 import com.example.demo.admin.global.error.exception.DataNotFoundException;
+import com.example.demo.admin.global.util.CommonUtil;
 import com.example.demo.admin.global.util.FileUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import org.springframework.util.ObjectUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
@@ -33,23 +33,37 @@ public class NoticeFileService {
                 .orElseThrow(DataNotFoundException::new);
     }
 
-    public void saveFiles(Integer noticeNo, List< MultipartFile > multipartFiles) {
-        if (multipartFiles == null) return;
+    public void saveFiles(Integer noticeNo, List<MultipartFile> uploadFiles) {
+        if (FileUtil.isEmpty(uploadFiles)) return;
 
-        List<UploadFile> uploadFiles = null;
+        FileUtil.checkValidate(uploadFiles, FileUploadType.CUSTOMER_NOTICE);
+        uploadFiles(noticeNo, uploadFiles);
+    }
+
+    public void updateFiles(Integer noticeNo, List<MultipartFile> uploadFiles) {
+        FileUtil.checkValidate(uploadFiles, FileUploadType.CUSTOMER_NOTICE,
+                findItems(noticeNo).stream().map(NoticeFile::getFileName).toList());
+
+        if (!FileUtil.isEmpty(uploadFiles)) {
+            uploadFiles(noticeNo, uploadFiles);
+        }
+    }
+
+    private void uploadFiles(Integer noticeNo, List<MultipartFile> uploadFiles) {
+        List<UploadFile> uploadedFiles = null;
         try {
-            uploadFiles = FileUtil.uploadFiles(multipartFiles, FileUploadType.CUSTOMER_NOTICE);
-            for (UploadFile uploadFile : uploadFiles) {
+            uploadedFiles = FileUtil.uploadFiles(uploadFiles, FileUploadType.CUSTOMER_NOTICE);
+            for (UploadFile result : uploadedFiles) {
                 noticeFileRepository.save(NoticeFile.of()
                         .noticeNo(noticeNo)
-                        .fileName(uploadFile.getUploadFileName())
-                        .orgFileName(uploadFile.getOriginalFilename())
+                        .fileName(result.getStoreFileName())
+                        .orgFileName(result.getOriginalFilename())
                         .build());
             }
         } catch (RuntimeException e) {
-            log.error("notice saveFiles failed", e);
-            if (!ObjectUtils.isEmpty(uploadFiles)) {
-                uploadFiles.forEach(v -> FileUtil.deleteFile(v.getUploadPath()));
+            log.error("notice uploadFiles failed", e);
+            if (!CommonUtil.isEmpty(uploadedFiles)) {
+                uploadedFiles.forEach(v -> FileUtil.deleteFile(v.getStorePath()));
             }
             throw new NoticeFileException(e);
         }
@@ -57,13 +71,13 @@ public class NoticeFileService {
 
     public void removeFiles(Integer noticeNo) {
         List<NoticeFile> noticeFiles = findItems(noticeNo);
-        noticeFiles.forEach(v -> FileUtil.deleteFile(FileUploadType.CUSTOMER_NOTICE.getUploadPath(v.getFileName())));
+        noticeFiles.forEach(v -> FileUtil.deleteFile(FileUploadType.CUSTOMER_NOTICE.getStorePath(v.getFileName())));
         noticeFileRepository.delete(noticeNo);
     }
 
     public void removeFile(Integer noticeNo, Integer noticeFileNo) {
         NoticeFile noticeFile = findItem(noticeNo, noticeFileNo);
-        FileUtil.deleteFile(FileUploadType.CUSTOMER_NOTICE.getUploadPath(noticeFile.getFileName()));
+        FileUtil.deleteFile(FileUploadType.CUSTOMER_NOTICE.getStorePath(noticeFile.getFileName()));
         noticeFileRepository.deleteById(noticeFileNo);
     }
 }

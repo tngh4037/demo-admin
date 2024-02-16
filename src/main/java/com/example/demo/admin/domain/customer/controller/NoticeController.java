@@ -96,13 +96,14 @@ public class NoticeController {
 
     @GetMapping("/{noticeNo}/edit")
     public String editForm(@PathVariable("noticeNo") Integer noticeNo, Model model) {
-        model.addAttribute("notice", noticeService.findById(noticeNo));
+        model.addAttribute("noticeEditDto", NoticeEditDto.initForm(noticeService.findById(noticeNo)));
+        model.addAttribute("noticeFiles", noticeFileService.findItems(noticeNo));
         return ViewConstant.CUSTOMER_NOTICE_EDIT_FORM;
     }
 
     @PostMapping("/{noticeNo}/edit")
     public String edit(@PathVariable("noticeNo") Integer noticeNo,
-                       @Validated @ModelAttribute("notice") NoticeEditDto noticeEditDto,
+                       @Validated @ModelAttribute("noticeEditDto") NoticeEditDto noticeEditDto,
                        BindingResult bindingResult) {
 
         if (bindingResult.hasErrors()) {
@@ -125,11 +126,10 @@ public class NoticeController {
     public ResponseEntity<Resource> download(@PathVariable("noticeNo") Integer noticeNo,
                                              @PathVariable("noticeFileNo") Integer noticeFileNo) throws MalformedURLException {
         NoticeFile noticeFile = noticeFileService.findItem(noticeNo, noticeFileNo);
-        UrlResource resource = new UrlResource("file:" +
-                FileUploadType.CUSTOMER_NOTICE.getUploadPath(noticeFile.getFileName()));
+        UrlResource resource = new UrlResource("file:" + FileUploadType.CUSTOMER_NOTICE.getStorePath(noticeFile.getFileName()));
 
-        String encodedUploadFileName = UriUtils.encode(noticeFile.getOrgFileName(), StandardCharsets.UTF_8);
-        String contentDisposition = "attachment; filename=\"" + encodedUploadFileName + "\"";
+        String encodedStoreFileName = UriUtils.encode(noticeFile.getOrgFileName(), StandardCharsets.UTF_8);
+        String contentDisposition = "attachment; filename=\"" + encodedStoreFileName + "\"";
         return ResponseEntity.ok()
                 .header(HttpHeaders.CONTENT_DISPOSITION, contentDisposition)
                 .body(resource);

@@ -43,14 +43,16 @@ public class NoticeService {
     public Notice save(NoticeAddDto noticeAddDto) {
         checkDuplicate(null, noticeAddDto.getTitle());
         Notice notice = noticeRepository.save(noticeAddDto.toEntity());
-        noticeFileService.saveFiles(notice.getNoticeNo(), noticeAddDto.getFilesIfNotEmpty());
+        noticeFileService.saveFiles(notice.getNoticeNo(), noticeAddDto.getUploadFiles());
         return notice;
     }
 
+    @Transactional
     public void update(Integer noticeNo, NoticeEditDto noticeEditDto) {
         findById(noticeNo);
         checkDuplicate(noticeNo, noticeEditDto.getTitle());
         noticeRepository.update(noticeNo, noticeEditDto.toEntity());
+        noticeFileService.updateFiles(noticeNo, noticeEditDto.getUploadFiles());
     }
 
     private void checkDuplicate(Integer noticeNo, String title) {

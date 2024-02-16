@@ -43,17 +43,9 @@ public class NoticeAddDto {
                 .build();
     }
 
-    public static Notice initForm() {
-        return Notice.of()
-                .displayYn("N")
-                .build();
-    }
-
-    public List<MultipartFile> getFilesIfNotEmpty() {
-        if (uploadFiles == null || uploadFiles.isEmpty() || (uploadFiles.size() == 1 && uploadFiles.get(0).isEmpty())) {
-            return null;
-        }
-
-        return uploadFiles;
+    public static NoticeAddDto initForm() {
+        NoticeAddDto noticeAddDto = new NoticeAddDto();
+        noticeAddDto.setDisplayYn("N");
+        return noticeAddDto;
     }
 }
