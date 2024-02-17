@@ -1,6 +1,7 @@
 package com.example.demo.admin.domain.customer.controller;
 
 import com.example.demo.admin.domain.customer.domain.NoticeFile;
+import com.example.demo.admin.domain.customer.exception.NoticeDuplicateException;
 import com.example.demo.admin.domain.customer.service.NoticeFileService;
 import com.example.demo.admin.global.common.constant.PageConstant;
 import com.example.demo.admin.global.common.constant.ViewConstant;
@@ -11,6 +12,7 @@ import com.example.demo.admin.domain.customer.dto.NoticeSearchDto;
 import com.example.demo.admin.domain.customer.service.NoticeService;
 import com.example.demo.admin.domain.customer.validator.NoticeSearchValidator;
 import com.example.demo.admin.global.common.define.FileUploadType;
+import com.example.demo.admin.global.error.exception.FileUploadException;
 import com.example.demo.admin.global.util.ErrorUtil;
 import com.example.demo.admin.global.common.PaginationDto;
 import lombok.RequiredArgsConstructor;
@@ -22,6 +24,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -31,6 +34,9 @@ import java.net.MalformedURLException;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 
+/**
+ * PRG(Post-Redirect-Get) pattern
+ */
 @Slf4j
 @Controller
 @RequestMapping("/customer/notices")
@@ -88,8 +94,19 @@ public class NoticeController {
             return ViewConstant.CUSTOMER_NOTICE_ADD_FORM;
         }
 
-        Notice notice = noticeService.save(noticeAddDto);
-        redirectAttributes.addAttribute("noticeNo", notice.getNoticeNo());
+        try {
+            Notice notice = noticeService.save(noticeAddDto);
+            redirectAttributes.addAttribute("noticeNo", notice.getNoticeNo());
+        } catch (NoticeDuplicateException ex) {
+            bindingResult.addError(new FieldError("noticeAddDto", "title", noticeAddDto.getTitle(), false, null, null, ex.getMessage()));
+        } catch (FileUploadException ex) {
+            bindingResult.addError(new FieldError("noticeAddDto", "uploadFiles", ex.getMessage()));
+        }
+
+        if (bindingResult.hasErrors()) {
+            log.info("errors = {}", bindingResult);
+            return ViewConstant.CUSTOMER_NOTICE_ADD_FORM;
+        }
 
         return "redirect:/customer/notices/{noticeNo}";
     }
@@ -104,14 +121,27 @@ public class NoticeController {
     @PostMapping("/{noticeNo}/edit")
     public String edit(@PathVariable("noticeNo") Integer noticeNo,
                        @Validated @ModelAttribute("noticeEditDto") NoticeEditDto noticeEditDto,
-                       BindingResult bindingResult) {
-
+                       BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             log.info("errors = {}", bindingResult);
+            model.addAttribute("noticeFiles", noticeFileService.findItems(noticeNo));
             return ViewConstant.CUSTOMER_NOTICE_EDIT_FORM;
         }
 
-        noticeService.update(noticeNo, noticeEditDto);
+        try {
+            noticeService.update(noticeNo, noticeEditDto);
+        } catch (NoticeDuplicateException ex) {
+            bindingResult.addError(new FieldError("noticeEditDto", "title", noticeEditDto.getTitle(), false, null, null, ex.getMessage()));
+        } catch (FileUploadException ex) {
+            bindingResult.addError(new FieldError("noticeEditDto", "uploadFiles", ex.getMessage()));
+        }
+
+        if (bindingResult.hasErrors()) {
+            log.info("errors = {}", bindingResult);
+            model.addAttribute("noticeFiles", noticeFileService.findItems(noticeNo));
+            return ViewConstant.CUSTOMER_NOTICE_EDIT_FORM;
+        }
+
         return "redirect:/customer/notices/{noticeNo}";
     }
 

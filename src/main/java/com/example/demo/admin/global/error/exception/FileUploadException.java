@@ -11,6 +11,10 @@ public class FileUploadException extends BusinessException {
         super(message);
     }
 
+    public FileUploadException(Throwable cause) {
+        super(DEFAULT_MESSAGE, cause);
+    }
+
     public FileUploadException(String message, Throwable cause) {
         super(message, cause);
     }

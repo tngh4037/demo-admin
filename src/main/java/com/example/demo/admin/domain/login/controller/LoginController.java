@@ -13,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 
 @Slf4j
@@ -34,6 +35,7 @@ public class LoginController {
                         HttpServletRequest request) {
 
         if (bindingResult.hasErrors()) {
+            log.info("errors = {}", bindingResult);
             return ViewConstant.LOGIN_LOGIN_FORM;
         }
 
@@ -41,8 +43,8 @@ public class LoginController {
         try {
             loginAdmin = loginService.login(adminLoginDto.getAdminId(), adminLoginDto.getAdminPwd());
         } catch (LoginFailException ex) {
+            bindingResult.addError(new ObjectError("adminLoginDto", ex.getMessage()));
             log.info("errors = {}", bindingResult);
-            bindingResult.reject("loginFail", ex.getMessage());
             return ViewConstant.LOGIN_LOGIN_FORM;
         }
 

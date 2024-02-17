@@ -67,7 +67,7 @@ const NoticeEditFormModule = (function() {
         processData: false,
         success: function(response) {
           alert(response.message || '정상적으로 처리되었습니다.')
-          window.location.reload()
+          $('button[data-notice-no=' + noticeNo + ']').remove()
         },
         error: function(response) {
           if (response.responseJSON === undefined ||
