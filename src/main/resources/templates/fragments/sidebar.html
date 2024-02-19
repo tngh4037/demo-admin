@@ -11,6 +11,8 @@
             <use th:attr="'xlink:href'=@{/coreui/dist/assets/brand/coreui.svg#signet}"></use>
         </svg>
     </div>
+
+    <!-- // a.nav-link 태그 활성화 조건에 여러 url 경로가 있는 경우 data-multi-page 속성 적용 -->
     <ul class="sidebar-nav" data-coreui="navigation" data-simplebar="">
         <li class="nav-item"><a class="nav-link" th:href="@{/}">
             <svg class="nav-icon">
@@ -23,11 +25,11 @@
                     <use th:attr="'xlink:href'=@{/coreui/dist/vendors/@coreui/icons/svg/free.svg#cil-notes}"></use>
                 </svg> 고객센터</a>
             <ul class="nav-group-items">
-                <li class="nav-item"><a class="nav-link" href="/customer/notices"><span class="nav-icon"></span> 공지사항</a></li>
-                <li class="nav-item"><a class="nav-link" href="/customer/faqs"><span class="nav-icon"></span> 자주하는질문</a></li>
+                <li class="nav-item"><a class="nav-link" href="/customer/notices" data-multi-page><span class="nav-icon"></span> 공지사항</a></li>
+                <li class="nav-item"><a class="nav-link" href="/customer/faqs" data-multi-page><span class="nav-icon"></span> 자주하는질문</a></li>
             </ul>
         </li>
-        <li class="nav-item"><a class="nav-link" th:href="@{/admins}">
+        <li class="nav-item"><a class="nav-link" th:href="@{/admins}" data-multi-page>
             <svg class="nav-icon">
                 <use th:attr="'xlink:href'=@{/coreui/dist/vendors/@coreui/icons/svg/free.svg#cil-https}"></use>
             </svg> 어드민 관리</a>
