@@ -1,8 +1,8 @@
 package com.example.demo.admin.domain.admin.exception;
 
-import com.example.demo.admin.global.error.exception.BusinessException;
+import com.example.demo.admin.global.error.exception.DataNotFoundException;
 
-public class AdminNotFoundException extends BusinessException {
+public class AdminNotFoundException extends DataNotFoundException {
     private static final String DEFAULT_MESSAGE = "대상 관리자 계정이 존재하지 않습니다.";
 
     public AdminNotFoundException() {

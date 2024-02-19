@@ -13,12 +13,11 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 /**
- * API 예외의 경우 GlobalExceptionHandler(@RestControllerAdvice)에서 공통으로 응답 처리하고,
- * 그 외의 경우(화면 처리)는 스프링 부트 기본 오류 처리 매커니즘(BasicErrorController)를 따른다.
+ * API 예외의 경우 ApiExceptionHandler(@RestControllerAdvice)에서 공통으로 응답 처리한다.
  */
 @Slf4j
 @RestControllerAdvice(annotations = RestController.class)
-public class GlobalExceptionHandler {
+public class ApiExceptionHandler {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     protected ResponseEntity<ErrorResponse> handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {

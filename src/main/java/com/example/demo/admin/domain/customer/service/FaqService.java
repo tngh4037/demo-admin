@@ -5,10 +5,10 @@ import com.example.demo.admin.domain.customer.domain.Faq;
 import com.example.demo.admin.domain.customer.dto.FaqAddDto;
 import com.example.demo.admin.domain.customer.dto.FaqEditDto;
 import com.example.demo.admin.domain.customer.dto.FaqSearchDto;
+import com.example.demo.admin.domain.customer.exception.FaqNotFoundException;
 import com.example.demo.admin.domain.customer.exception.FaqPolicyException;
 import com.example.demo.admin.domain.customer.repository.FaqRepository;
 import com.example.demo.admin.global.common.define.Yn;
-import com.example.demo.admin.global.error.exception.DataNotFoundException;
 import com.example.demo.admin.global.common.PaginationDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -37,7 +37,7 @@ public class FaqService {
     }
 
     public Faq findById(Integer faqNo) {
-        return faqRepository.findById(faqNo).orElseThrow(DataNotFoundException::new);
+        return faqRepository.findById(faqNo).orElseThrow(FaqNotFoundException::new);
     }
 
     public Faq save(FaqAddDto faqAddDto) {

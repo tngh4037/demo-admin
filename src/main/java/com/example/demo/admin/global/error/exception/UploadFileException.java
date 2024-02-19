@@ -1,21 +1,21 @@
 package com.example.demo.admin.global.error.exception;
 
-public class FileUploadException extends BusinessException {
+public class UploadFileException extends BusinessException {
     private static final String DEFAULT_MESSAGE = "파일 업로드 처리에 실패했습니다.";
 
-    public FileUploadException() {
+    public UploadFileException() {
         super(DEFAULT_MESSAGE);
     }
 
-    public FileUploadException(String message) {
+    public UploadFileException(String message) {
         super(message);
     }
 
-    public FileUploadException(Throwable cause) {
+    public UploadFileException(Throwable cause) {
         super(DEFAULT_MESSAGE, cause);
     }
 
-    public FileUploadException(String message, Throwable cause) {
+    public UploadFileException(String message, Throwable cause) {
         super(message, cause);
     }
 }

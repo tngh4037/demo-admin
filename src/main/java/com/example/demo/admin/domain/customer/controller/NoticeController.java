@@ -12,7 +12,7 @@ import com.example.demo.admin.domain.customer.dto.NoticeSearchDto;
 import com.example.demo.admin.domain.customer.service.NoticeService;
 import com.example.demo.admin.domain.customer.validator.NoticeSearchValidator;
 import com.example.demo.admin.global.common.define.FileUploadType;
-import com.example.demo.admin.global.error.exception.FileUploadException;
+import com.example.demo.admin.global.error.exception.UploadFileException;
 import com.example.demo.admin.global.util.ErrorUtil;
 import com.example.demo.admin.global.common.PaginationDto;
 import lombok.RequiredArgsConstructor;
@@ -99,7 +99,7 @@ public class NoticeController {
             redirectAttributes.addAttribute("noticeNo", notice.getNoticeNo());
         } catch (NoticeDuplicateException ex) {
             bindingResult.addError(new FieldError("noticeAddDto", "title", noticeAddDto.getTitle(), false, null, null, ex.getMessage()));
-        } catch (FileUploadException ex) {
+        } catch (UploadFileException ex) {
             bindingResult.addError(new FieldError("noticeAddDto", "uploadFiles", ex.getMessage()));
         }
 
@@ -132,7 +132,7 @@ public class NoticeController {
             noticeService.update(noticeNo, noticeEditDto);
         } catch (NoticeDuplicateException ex) {
             bindingResult.addError(new FieldError("noticeEditDto", "title", noticeEditDto.getTitle(), false, null, null, ex.getMessage()));
-        } catch (FileUploadException ex) {
+        } catch (UploadFileException ex) {
             bindingResult.addError(new FieldError("noticeEditDto", "uploadFiles", ex.getMessage()));
         }
 

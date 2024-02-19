@@ -1,8 +1,8 @@
 package com.example.demo.admin.domain.login.exception;
 
-import com.example.demo.admin.global.error.exception.BusinessException;
+import com.example.demo.admin.global.error.exception.InvalidValueException;
 
-public class LoginFailException extends BusinessException {
+public class LoginFailException extends InvalidValueException {
     private static final String DEFAULT_MESSAGE = "로그인에 실패했습니다. 다시 시도해 주세요.";
 
     public LoginFailException() {

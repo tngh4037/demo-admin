@@ -4,7 +4,7 @@ import com.example.demo.admin.domain.admin.domain.Admin;
 import com.example.demo.admin.domain.admin.dto.AdminAddDto;
 import com.example.demo.admin.domain.admin.dto.AdminEditDto;
 import com.example.demo.admin.domain.admin.dto.AdminSearchDto;
-import com.example.demo.admin.domain.admin.exception.AdminAlreadyExistException;
+import com.example.demo.admin.domain.admin.exception.AdminDuplicateException;
 import com.example.demo.admin.domain.admin.exception.AdminNotFoundException;
 import com.example.demo.admin.domain.admin.exception.PasswordPolicyException;
 import com.example.demo.admin.domain.admin.repository.AdminRepository;
@@ -94,7 +94,7 @@ public class AdminService {
 
     private void checkAlreadyExistId(String adminId) {
         adminRepository.findByAdminId(adminId).ifPresent(m -> {
-            throw new AdminAlreadyExistException();
+            throw new AdminDuplicateException();
         });
     }
 }

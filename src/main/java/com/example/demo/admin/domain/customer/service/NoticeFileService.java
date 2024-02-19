@@ -1,11 +1,10 @@
 package com.example.demo.admin.domain.customer.service;
 
 import com.example.demo.admin.domain.customer.domain.NoticeFile;
-import com.example.demo.admin.domain.customer.exception.NoticeFileException;
+import com.example.demo.admin.domain.customer.exception.NoticeFileNotFoundException;
 import com.example.demo.admin.domain.customer.repository.NoticeFileRepository;
 import com.example.demo.admin.global.common.UploadFile;
 import com.example.demo.admin.global.common.define.FileUploadType;
-import com.example.demo.admin.global.error.exception.DataNotFoundException;
 import com.example.demo.admin.global.util.CommonUtil;
 import com.example.demo.admin.global.util.FileUtil;
 import lombok.RequiredArgsConstructor;
@@ -30,7 +29,7 @@ public class NoticeFileService {
         return findItems(noticeNo).stream()
                 .filter(s -> s.getNoticeFileNo().equals(noticeFileNo))
                 .findFirst()
-                .orElseThrow(DataNotFoundException::new);
+                .orElseThrow(NoticeFileNotFoundException::new);
     }
 
     public void saveFiles(Integer noticeNo, List<MultipartFile> uploadFiles) {
@@ -65,7 +64,7 @@ public class NoticeFileService {
             if (!CommonUtil.isEmpty(uploadedFiles)) {
                 uploadedFiles.forEach(v -> FileUtil.deleteFile(v.getStorePath()));
             }
-            throw new NoticeFileException(e);
+            throw e;
         }
     }
 

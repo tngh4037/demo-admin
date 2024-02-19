@@ -2,7 +2,7 @@ package com.example.demo.admin.global.util;
 
 import com.example.demo.admin.global.common.UploadFile;
 import com.example.demo.admin.global.common.define.FileUploadType;
-import com.example.demo.admin.global.error.exception.FileUploadException;
+import com.example.demo.admin.global.error.exception.UploadFileException;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
@@ -15,7 +15,7 @@ public class FileUtil {
      */
     public static List<UploadFile> uploadFiles(List<MultipartFile> uploadFiles, FileUploadType fileUploadType) {
         if (isEmpty(uploadFiles)) {
-            throw new FileUploadException("파일이 존재하지 않습니다.");
+            throw new UploadFileException("파일이 존재하지 않습니다.");
         }
 
         List<UploadFile> result = new ArrayList<>();
@@ -28,7 +28,7 @@ public class FileUtil {
                 createDirectory(fileUploadType.getFileDir());
                 uploadFile.transferTo(new File(storePath));
             } catch (IOException | IllegalStateException e) {
-                throw new FileUploadException(e);
+                throw new UploadFileException(e);
             }
 
             result.add(new UploadFile(originalFilename, storeFileName, storePath));
@@ -59,11 +59,11 @@ public class FileUtil {
             totalFileSize += uploadFile.getSize();
         }
         if (totalFileSize > fileUploadType.getMaxSize()) {
-            throw new FileUploadException("첨부 가능한 파일 용량을 초과했습니다.");
+            throw new UploadFileException("첨부 가능한 파일 용량을 초과했습니다.");
         }
         totalFileCount = uploadFiles.size();
         if (totalFileCount > fileUploadType.getMaxCount()) {
-            throw new FileUploadException("첨부 가능한 파일 개수를 초과했습니다.");
+            throw new UploadFileException("첨부 가능한 파일 개수를 초과했습니다.");
         }
     }
 
@@ -82,11 +82,11 @@ public class FileUtil {
                 totalFileSize += new File(fileUploadType.getStorePath(orgUploadedFile)).length();
             }
             if (totalFileSize > fileUploadType.getMaxSize()) {
-                throw new FileUploadException("첨부 가능한 파일 용량을 초과했습니다.");
+                throw new UploadFileException("첨부 가능한 파일 용량을 초과했습니다.");
             }
             totalFileCount = orgUploadedFiles.size();
             if (totalFileCount > fileUploadType.getMaxCount()) {
-                throw new FileUploadException("첨부 가능한 파일 개수를 초과했습니다.");
+                throw new UploadFileException("첨부 가능한 파일 개수를 초과했습니다.");
             }
         }
 
@@ -98,11 +98,11 @@ public class FileUtil {
             totalFileSize += uploadFile.getSize();
         }
         if (totalFileSize > fileUploadType.getMaxSize()) {
-            throw new FileUploadException("첨부 가능한 파일 용량을 초과했습니다.");
+            throw new UploadFileException("첨부 가능한 파일 용량을 초과했습니다.");
         }
         totalFileCount += uploadFiles.size();
         if (totalFileCount > fileUploadType.getMaxCount()) {
-            throw new FileUploadException("첨부 가능한 파일 개수를 초과했습니다.");
+            throw new UploadFileException("첨부 가능한 파일 개수를 초과했습니다.");
         }
     }
 
@@ -116,7 +116,7 @@ public class FileUtil {
                 return;
             }
         }
-        throw new FileUploadException("첨부 가능한 파일 확장자가 아닙니다.");
+        throw new UploadFileException("첨부 가능한 파일 확장자가 아닙니다.");
     }
 
     /**

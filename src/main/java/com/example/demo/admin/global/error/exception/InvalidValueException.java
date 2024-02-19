@@ -11,6 +11,10 @@ public class InvalidValueException extends BusinessException {
         super(message);
     }
 
+    public InvalidValueException(Throwable cause) {
+        super(DEFAULT_MESSAGE, cause);
+    }
+
     public InvalidValueException(String message, Throwable cause) {
         super(message, cause);
     }

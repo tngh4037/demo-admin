@@ -5,7 +5,7 @@ import com.example.demo.admin.domain.customer.domain.Notice;
 import com.example.demo.admin.domain.customer.dto.NoticeAddDto;
 import com.example.demo.admin.domain.customer.dto.NoticeEditDto;
 import com.example.demo.admin.domain.customer.exception.NoticeDuplicateException;
-import com.example.demo.admin.global.error.exception.DataNotFoundException;
+import com.example.demo.admin.domain.customer.exception.NoticeNotFoundException;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -65,7 +65,7 @@ class NoticeServiceTest {
 
         // when & then
         Assertions.assertThatThrownBy(() -> noticeService.findById(noticeNo))
-                .isInstanceOf(DataNotFoundException.class);
+                .isInstanceOf(NoticeNotFoundException.class);
     }
 
     @Test
@@ -128,6 +128,6 @@ class NoticeServiceTest {
 
         // then
         Assertions.assertThatThrownBy(() -> noticeService.findById(notice.getNoticeNo()))
-                .isInstanceOf(DataNotFoundException.class);
+                .isInstanceOf(NoticeNotFoundException.class);
     }
 }

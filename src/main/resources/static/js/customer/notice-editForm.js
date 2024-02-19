@@ -67,7 +67,7 @@ const NoticeEditFormModule = (function() {
         processData: false,
         success: function(response) {
           alert(response.message || '정상적으로 처리되었습니다.')
-          $('button[data-notice-no=' + noticeNo + ']').remove()
+          $('button[data-notice-file-no=' + noticeFileNo + ']').remove()
         },
         error: function(response) {
           if (response.responseJSON === undefined ||

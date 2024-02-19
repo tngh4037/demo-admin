@@ -4,9 +4,9 @@ import com.example.demo.admin.domain.customer.define.FaqType;
 import com.example.demo.admin.domain.customer.domain.Faq;
 import com.example.demo.admin.domain.customer.dto.FaqAddDto;
 import com.example.demo.admin.domain.customer.dto.FaqEditDto;
+import com.example.demo.admin.domain.customer.exception.FaqNotFoundException;
 import com.example.demo.admin.domain.customer.exception.FaqPolicyException;
 import com.example.demo.admin.global.common.define.Yn;
-import com.example.demo.admin.global.error.exception.DataNotFoundException;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -69,7 +69,7 @@ class FaqServiceTest {
 
         // when & then
         Assertions.assertThatThrownBy(() -> faqService.findById(faqNo))
-                .isInstanceOf(DataNotFoundException.class);
+                .isInstanceOf(FaqNotFoundException.class);
     }
 
     @Test
@@ -138,6 +138,6 @@ class FaqServiceTest {
 
         // then
         Assertions.assertThatThrownBy(() -> faqService.findById(faq.getFaqNo()))
-                .isInstanceOf(DataNotFoundException.class);
+                .isInstanceOf(FaqNotFoundException.class);
     }
 }

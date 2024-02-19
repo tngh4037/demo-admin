@@ -4,8 +4,8 @@ import com.example.demo.admin.domain.customer.dto.NoticeAddDto;
 import com.example.demo.admin.domain.customer.dto.NoticeEditDto;
 import com.example.demo.admin.domain.customer.dto.NoticeSearchDto;
 import com.example.demo.admin.domain.customer.exception.NoticeDuplicateException;
+import com.example.demo.admin.domain.customer.exception.NoticeNotFoundException;
 import com.example.demo.admin.domain.customer.repository.NoticeRepository;
-import com.example.demo.admin.global.error.exception.DataNotFoundException;
 import com.example.demo.admin.global.common.PaginationDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -36,7 +36,7 @@ public class NoticeService {
     }
 
     public Notice findById(Integer noticeNo) {
-        return noticeRepository.findById(noticeNo).orElseThrow(DataNotFoundException::new);
+        return noticeRepository.findById(noticeNo).orElseThrow(NoticeNotFoundException::new);
     }
 
     @Transactional
