@@ -6,7 +6,7 @@ import com.example.demo.admin.domain.admin.service.AdminService;
 import com.example.demo.admin.global.common.PaginationDto;
 import com.example.demo.admin.global.common.constant.PageConstant;
 import com.example.demo.admin.global.common.constant.ViewConstant;
-import com.example.demo.admin.global.util.ErrorUtil;
+import com.example.demo.admin.global.util.MessageHelper;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -33,7 +33,7 @@ public class AdminController {
 
         if (bindingResult.hasErrors()) {
             log.info("errors = {}", bindingResult);
-            model.addAttribute("msg", ErrorUtil.getBindingMessage(bindingResult));
+            model.addAttribute("msg", MessageHelper.getBindingErrorMessage(bindingResult));
             model.addAttribute("url", "/admins");
             return ViewConstant.COMMON_REDIRECT;
         }

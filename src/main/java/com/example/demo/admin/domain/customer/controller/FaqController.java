@@ -6,7 +6,7 @@ import com.example.demo.admin.domain.customer.domain.Faq;
 import com.example.demo.admin.domain.customer.dto.FaqAddDto;
 import com.example.demo.admin.domain.customer.dto.FaqSearchDto;
 import com.example.demo.admin.domain.customer.service.FaqService;
-import com.example.demo.admin.global.util.ErrorUtil;
+import com.example.demo.admin.global.util.MessageHelper;
 import com.example.demo.admin.global.common.PaginationDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -33,7 +33,7 @@ public class FaqController {
 
         if (bindingResult.hasErrors()) {
             log.info("errors = {}", bindingResult);
-            model.addAttribute("msg", ErrorUtil.getBindingMessage(bindingResult));
+            model.addAttribute("msg", MessageHelper.getBindingErrorMessage(bindingResult));
             model.addAttribute("url", "/customer/faqs");
             return ViewConstant.COMMON_REDIRECT;
         }

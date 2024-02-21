@@ -5,7 +5,7 @@ import com.example.demo.admin.domain.admin.domain.Admin;
 import com.example.demo.admin.domain.admin.repository.AdminRepository;
 import com.example.demo.admin.domain.login.exception.LoginFailException;
 import com.example.demo.admin.global.common.constant.SecurityConstant;
-import com.example.demo.admin.global.util.MessageSourceUtil;
+import com.example.demo.admin.global.util.MessageHelper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -16,7 +16,6 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class LoginService {
 
-    private final MessageSourceUtil messageSource;
     private final AdminRepository adminRepository;
 
     public Admin login(String adminId, String adminPwd) {
@@ -27,23 +26,23 @@ public class LoginService {
 
     private Admin validateAndGet(String adminId, String adminPwd) {
         Admin admin = adminRepository.findByAdminId(adminId)
-                .orElseThrow(() -> new LoginFailException(messageSource.getMessage("login.invalid.member.not.match")));
+                .orElseThrow(() -> new LoginFailException(MessageHelper.getMessage("login.invalid.member.not.match")));
 
         if (!admin.getAdminPwd().equals(adminPwd)) {
             adminRepository.updateFailCnt(admin.getAdminNo(), 1);
-            throw new LoginFailException(messageSource.getMessage("login.invalid.adminPwd.not.match"));
+            throw new LoginFailException(MessageHelper.getMessage("login.invalid.adminPwd.not.match"));
         }
 
         if (admin.getAdminStatus().isStop()) {
-            throw new LoginFailException(messageSource.getMessage("login.invalid.adminStatus", new Object[]{AdminStatus.STOP.getTitle()}));
+            throw new LoginFailException(MessageHelper.getMessage("login.invalid.adminStatus", new Object[]{AdminStatus.STOP.getTitle()}));
         }
 
         if (admin.isFailCntInitTarget()) {
-            throw new LoginFailException(messageSource.getMessage("login.invalid.fail.cnt.target", new Object[]{SecurityConstant.MAX_PWD_FAIL_CNT}));
+            throw new LoginFailException(MessageHelper.getMessage("login.invalid.fail.cnt.target", new Object[]{SecurityConstant.MAX_PWD_FAIL_CNT}));
         }
 
         if (admin.isLockTarget()) {
-            throw new LoginFailException(messageSource.getMessage("login.invalid.lock.target", new Object[]{SecurityConstant.LOCK_TARGET_DAYS}));
+            throw new LoginFailException(MessageHelper.getMessage("login.invalid.lock.target", new Object[]{SecurityConstant.LOCK_TARGET_DAYS}));
         }
 
         return admin;

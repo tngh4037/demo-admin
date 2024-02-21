@@ -13,7 +13,7 @@ import com.example.demo.admin.domain.customer.service.NoticeService;
 import com.example.demo.admin.domain.customer.validator.NoticeSearchValidator;
 import com.example.demo.admin.global.common.define.FileUploadType;
 import com.example.demo.admin.global.error.exception.UploadFileException;
-import com.example.demo.admin.global.util.ErrorUtil;
+import com.example.demo.admin.global.util.MessageHelper;
 import com.example.demo.admin.global.common.PaginationDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -55,7 +55,7 @@ public class NoticeController {
         noticeSearchValidator.validate(noticeSearchDto, bindingResult);
         if (bindingResult.hasErrors()) {
             log.info("errors = {}", bindingResult);
-            model.addAttribute("msg", ErrorUtil.getBindingMessage(bindingResult));
+            model.addAttribute("msg", MessageHelper.getBindingErrorMessage(bindingResult));
             model.addAttribute("url", "/customer/notices");
             return ViewConstant.COMMON_REDIRECT;
         }

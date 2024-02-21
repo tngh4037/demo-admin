@@ -10,7 +10,7 @@ import com.example.demo.admin.domain.customer.exception.FaqPolicyException;
 import com.example.demo.admin.domain.customer.repository.FaqRepository;
 import com.example.demo.admin.global.common.define.Yn;
 import com.example.demo.admin.global.common.PaginationDto;
-import com.example.demo.admin.global.util.MessageSourceUtil;
+import com.example.demo.admin.global.util.MessageHelper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,7 +25,6 @@ public class FaqService {
     private static final int ACTIVE_DISPLAY_TOP_MAX_COUNT = 3;
 
     private final FaqRepository faqRepository;
-    private final MessageSourceUtil messageSource;
 
     public List<Faq> findItems(FaqSearchDto faqSearchDto, PaginationDto paginationDto) {
         List<Faq> faqs = new ArrayList<>();
@@ -58,7 +57,7 @@ public class FaqService {
 
         int count = faqRepository.countForActiveDisplayTop(faqNo, faqType);
         if (count >= ACTIVE_DISPLAY_TOP_MAX_COUNT) {
-            throw new FaqPolicyException(messageSource.getMessage("customer.faq.invalid.active.display.max.count",
+            throw new FaqPolicyException(MessageHelper.getMessage("customer.faq.invalid.active.display.max.count",
                     new Object[]{ACTIVE_DISPLAY_TOP_MAX_COUNT}));
         }
     }

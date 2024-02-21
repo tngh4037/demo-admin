@@ -1,6 +1,6 @@
 package com.example.demo.admin.global.error;
 
-import com.example.demo.admin.global.util.ErrorUtil;
+import com.example.demo.admin.global.util.MessageHelper;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -42,7 +42,7 @@ public class ErrorResponse {
     }
 
     public static ErrorResponse of(final int status, final BindingResult bindingResult) {
-        return new ErrorResponse(status, ErrorUtil.getBindingMessage(bindingResult), FieldError.of(bindingResult));
+        return new ErrorResponse(status, MessageHelper.getBindingErrorMessage(bindingResult), FieldError.of(bindingResult));
     }
 
     @Getter
@@ -70,7 +70,7 @@ public class ErrorResponse {
                     .map(error -> new FieldError(
                             error.getField(),
                             error.getRejectedValue() == null ? "" : error.getRejectedValue().toString(),
-                            error.getDefaultMessage()))
+                            MessageHelper.getBindingErrorMessage(error)))
                     .collect(Collectors.toList());
         }
     }
