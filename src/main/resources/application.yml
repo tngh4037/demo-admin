@@ -31,3 +31,4 @@ server:
   error:
     whitelabel:
       enabled: false # not use spring boot default error page
+# spring.messages.basename=messages
