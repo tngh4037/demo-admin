@@ -13,6 +13,22 @@ const FaqAddFormModule = (function() {
   }
 
   const init = function() {
+    let myEditor;
+
+    ClassicEditor
+    .create(document.querySelector('#answer'), {
+      ckfinder: {
+        uploadUrl : '/customer/faqs/images/upload'
+      }
+    })
+    .then(editor => {
+      myEditor = editor;
+      console.log('Editor was initialized');
+    })
+    .catch(error => {
+      console.error(error);
+    });
+
     bind()
   }
 
