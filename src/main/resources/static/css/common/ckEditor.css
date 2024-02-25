@@ -1,3 +1,6 @@
 .ck-editor__editable {
     height: 300px;
 }
+.ck .ck-editor__main > .ck-editor__editable.ck-read-only {
+    background: #d8dbe0;
+}

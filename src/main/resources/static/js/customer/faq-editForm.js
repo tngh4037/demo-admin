@@ -9,7 +9,8 @@ const FaqEditFormModule = (function() {
     },
     $button: {
       edit: $('#btnEdit')
-    }
+    },
+    $answerEditor: null
   }
 
   const init = function() {
@@ -19,13 +20,27 @@ const FaqEditFormModule = (function() {
   const bind = function() {
 
     /**
+     * editor init
+     */
+    ClassicEditor.create(document.querySelector('#answer'), {
+      ckfinder: {
+        uploadUrl: '/customer/faqs/images/upload'
+      }
+    }).then(editor => {
+      settings.$answerEditor = editor
+      console.log('ckEditor was initialized')
+    }).catch(error => {
+      console.error(error)
+    })
+
+    /**
      * edit
      */
     settings.$button.edit.on('click', function(event) {
       event.preventDefault()
       let faqNo = settings.$form.editForm.find('#faqNo').val()
       let $question = settings.$form.editForm.find('#question'), questionVal = $.trim($question.val()) || ''
-      let $answer = settings.$form.editForm.find('#answer'), answerVal = $.trim($answer.val()) || ''
+      let $answer = settings.$answerEditor, answerVal = $.trim($answer.getData()) || ''
       let $faqType = settings.$form.editForm.find('#faqType'), faqTypeVal = $.trim($faqType.find('option:selected').val()) || ''
       let displayYnVal = settings.$form.editForm.find('input[name=displayYn]:checked').val() || ''
       let displayTopYnVal = settings.$form.editForm.find('input[name=displayTopYn]:checked').val() || ''

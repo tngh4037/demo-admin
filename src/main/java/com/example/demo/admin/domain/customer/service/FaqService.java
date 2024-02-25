@@ -50,6 +50,7 @@ public class FaqService {
         findById(faqNo);
         checkActiveDisplayTopMaxCount(faqNo, faqEditDto.getDisplayTopYn(), faqEditDto.getFaqType());
         faqRepository.update(faqNo, faqEditDto.toEntity());
+        // TODO :: remove before upload file
     }
 
     private void checkActiveDisplayTopMaxCount(Integer faqNo, Yn displayTopYn, FaqType faqType) {
@@ -66,6 +67,7 @@ public class FaqService {
     public void remove(List<Integer> faqNos) {
         for (Integer faqNo : faqNos) {
             faqRepository.deleteById(faqNo);
+            // TODO :: remove before upload file
         }
     }
 }
