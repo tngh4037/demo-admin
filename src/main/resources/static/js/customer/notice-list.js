@@ -15,7 +15,8 @@ const NoticeListModule = (function() {
     },
     $checkbox: {
       chkAll: $('#chkAll'),
-      chkEle: $('input:checkbox[name="chkEle"]')
+      chkEle: $('input:checkbox[name="chkEle"]'),
+      chkDisplay: $('.demo-chk')
     },
     $nav: {
       pageArea: $('#pageArea')
@@ -66,6 +67,16 @@ const NoticeListModule = (function() {
     })
 
     /**
+     * edit display
+     */
+    settings.$checkbox.chkDisplay.on('click', function(event) {
+      event.preventDefault()
+      if (confirm('노출 여부를 변경하시겠습니까?')) {
+        API.EDIT_DISPLAY($(this).data('noticeNo'), $(this).data('displayYn') === 'Y' ? 'N' : 'Y')
+      }
+    })
+
+    /**
      * remove
      */
     settings.$button.remove.on('click', function(event) {
@@ -102,7 +113,33 @@ const NoticeListModule = (function() {
     })
   }
 
-  const API = {}
+  const API = {
+    EDIT_DISPLAY: function(noticeNo, displayYn) {
+      $.ajax({
+        type: 'POST',
+        url: '/customer/notices/' + noticeNo + '/edit/display',
+        headers: {'Accept': 'application/json'},
+        contentType: 'application/json',
+        data: displayYn,
+        dataType: 'json',
+        processData: false,
+        success: function(response) {
+          alert(response.message || '정상적으로 처리되었습니다.')
+          window.location.reload()
+        },
+        error: function(response) {
+          if (response.responseJSON === undefined || !response.responseJSON.hasOwnProperty('message')) {
+            alert('처리에 실패했습니다. 다시 시도해 주세요.')
+          } else {
+            alert(response.responseJSON.message)
+          }
+          return false
+        },
+        complete: function() {
+        }
+      })
+    }
+  }
 
   return {
     init: init

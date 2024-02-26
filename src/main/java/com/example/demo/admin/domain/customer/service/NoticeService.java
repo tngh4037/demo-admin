@@ -7,6 +7,7 @@ import com.example.demo.admin.domain.customer.exception.NoticeDuplicateException
 import com.example.demo.admin.domain.customer.exception.NoticeNotFoundException;
 import com.example.demo.admin.domain.customer.repository.NoticeRepository;
 import com.example.demo.admin.global.common.PaginationDto;
+import com.example.demo.admin.global.common.define.Yn;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -53,6 +54,10 @@ public class NoticeService {
         checkDuplicate(noticeNo, noticeEditDto.getTitle());
         noticeRepository.update(noticeNo, noticeEditDto.toEntity());
         noticeFileService.updateFiles(noticeNo, noticeEditDto.getUploadFiles());
+    }
+
+    public void updateDisplayYn(Integer noticeNo, Yn displayYn) {
+        noticeRepository.updateDisplayYn(noticeNo, displayYn);
     }
 
     private void checkDuplicate(Integer noticeNo, String title) {

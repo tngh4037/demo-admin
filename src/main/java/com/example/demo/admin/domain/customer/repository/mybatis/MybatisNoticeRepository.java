@@ -4,6 +4,7 @@ import com.example.demo.admin.domain.customer.domain.Notice;
 import com.example.demo.admin.domain.customer.dto.NoticeSearchDto;
 import com.example.demo.admin.domain.customer.repository.NoticeRepository;
 import com.example.demo.admin.global.common.PaginationDto;
+import com.example.demo.admin.global.common.define.Yn;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -45,6 +46,11 @@ public class MybatisNoticeRepository implements NoticeRepository {
     @Override
     public void update(Integer noticeNo, Notice notice) {
         noticeMapper.update(noticeNo, notice);
+    }
+
+    @Override
+    public void updateDisplayYn(Integer noticeNo, Yn displayYn) {
+        noticeMapper.updateDisplayYn(noticeNo, displayYn);
     }
 
     @Override

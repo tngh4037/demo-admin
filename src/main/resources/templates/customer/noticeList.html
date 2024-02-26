@@ -90,10 +90,11 @@
                                 <td th:text="${notice.noticeType.title}"></td>
                                 <td th:text="${notice.title}"></td>
                                 <td>
-                                    <h5>
-                                        <th:block th:if="${notice.displayYn eq 'Y'}"><span class="badge me-1 bg-success">노출</span></th:block>
-                                        <th:block th:unless="${notice.displayYn eq 'Y'}"><span class="badge me-1 bg-secondary">비노출</span></th:block>
-                                    </h5>
+                                    <input type="checkbox" class="demo-chk" th:id="|${'chk1' + noticeStat.count}|"
+                                           th:data-notice-no="${notice.noticeNo}"
+                                           th:data-display-yn="${notice.displayYn}"
+                                           th:checked="${notice.displayYn eq 'Y'}"/>
+                                    <label class="demo-toggle" th:for="|${'chk1' + noticeStat.count}|"></label>
                                 </td>
                                 <td th:text="${#temporals.format(notice.regDt, 'yyyy-MM-dd HH:mm:ss')}"></td>
                                 <td>

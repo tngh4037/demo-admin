@@ -52,10 +52,14 @@
     <!-- 각 페이지의 css가 작성될 위치 -->
     <th:block layout:fragment="css"></th:block>
 
-    <!-- 공통 js 추가 -->
+    <!-- [ 공통 js/css 추가 ] -->
+    <!-- 1) jquery -->
     <script defer="defer" th:src="@{/js/common/jquery/jquery-3.7.1.min.js}"></script>
+    <!-- 2) editor (ckEditor) -->
     <script defer="defer" th:src="@{/js/common/ckEditor/ckeditor.js}"></script>
     <link th:href="@{/css/common/ckEditor.css}" rel="stylesheet">
+    <!-- 3) demo service -->
+    <link th:href="@{/css/common/demo-switch.css}" rel="stylesheet">
     <script defer="defer" th:src="@{/js/common/demo-common.js}"></script>
     <script defer="defer" th:src="@{/js/common/demo-sidebar.js}"></script>
 </head>

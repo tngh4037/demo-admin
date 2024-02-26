@@ -66,6 +66,13 @@
         WHERE NOTICE_NO = #{noticeNo}
     </update>
 
+    <update id="updateDisplayYn">
+        UPDATE CUSTOMER_NOTICE
+        SET DISPLAY_YN = #{displayYn},
+            MOD_DT = NOW()
+        WHERE NOTICE_NO = #{noticeNo}
+    </update>
+
     <delete id="deleteById">
         DELETE FROM CUSTOMER_NOTICE
         WHERE NOTICE_NO = #{noticeNo}

@@ -3,6 +3,7 @@ package com.example.demo.admin.domain.customer.repository.mybatis;
 import com.example.demo.admin.domain.customer.domain.Notice;
 import com.example.demo.admin.domain.customer.dto.NoticeSearchDto;
 import com.example.demo.admin.global.common.PaginationDto;
+import com.example.demo.admin.global.common.define.Yn;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -17,5 +18,6 @@ public interface NoticeMapper {
     boolean isDuplicate(@Param("noticeNo") Integer noticeNo, @Param("title") String title);
     void save(Notice notice);
     void update(@Param("noticeNo") Integer noticeNo, @Param("notice") Notice notice);
+    void updateDisplayYn(@Param("noticeNo") Integer noticeNo, @Param("displayYn") Yn displayYn);
     void deleteById(Integer noticeNo);
 }
