@@ -3,11 +3,17 @@ package com.example.demo.admin.global.util;
 import com.example.demo.admin.global.common.UploadFile;
 import com.example.demo.admin.global.common.define.FileUploadType;
 import com.example.demo.admin.global.error.exception.UploadFileException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.*;
 
+@Slf4j
 public class FileUtil {
 
     /**
@@ -133,9 +139,26 @@ public class FileUtil {
      * delete file
      */
     public static void deleteFile(String filePath) {
-        File file = new File(filePath);
-        if (file.exists() && file.isFile()) {
-            file.delete();
+        try {
+            Files.deleteIfExists(Paths.get(filePath));
+        } catch (IOException e) {
+            log.error("file delete error", e);
+        }
+    }
+
+    /**
+     * copy file
+     */
+    public static Path copyFile(String orgFile, String path) {
+        Path originalFile = Paths.get(orgFile);
+        Path targetFile = Paths.get(path + originalFile.getFileName().toString());
+
+        try {
+            createDirectory(targetFile.toString());
+            return Files.copy(originalFile, targetFile, StandardCopyOption.REPLACE_EXISTING);
+        } catch (IOException e) {
+            log.error("file copy error", e);
+            throw new UploadFileException(e);
         }
     }
 
