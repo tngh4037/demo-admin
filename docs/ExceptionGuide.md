@@ -14,7 +14,7 @@
 
 
 ## 2) 예외 처리
-### API 예외 처리를 위한 클래스: GlobalExceptionHandler(@RestControllerAdvice)
+### ① API 예외 처리를 위한 클래스: GlobalExceptionHandler(@RestControllerAdvice)
 - API 예외의 경우 ApiExceptionHandler(@RestControllerAdvice)에서 공통으로 응답 처리한다.
 ```java
 @Slf4j
@@ -66,7 +66,7 @@ public class ApiExceptionHandler {
 }
 ```
 
-### HTML 화면 제공 처리 과정에서의 예외 처리를 위한 클래스: ViewExceptionHandler(@ControllerAdvice)
+### ② HTML 화면 제공 처리 과정에서의 예외 처리를 위한 클래스: ViewExceptionHandler(@ControllerAdvice)
 - HTML 화면 제공 처리 과정에서의 예외는 ViewExceptionHandler(@ControllerAdvice)에서 응답 처리한다.
 - 단, ViewExceptionHandler 에서 다루지 않는 예외의 경우는 스프링 부트 기본 오류 처리 매커니즘(BasicErrorController)를 따른다.
 ```java
@@ -92,5 +92,45 @@ public class ViewExceptionHandler {
 - (참고) ViewExceptionHandler 에서는 내부 비즈니스 예외 발생의 경우(BusinessException)에 한해서 정상적으로 응답 처리되도록 한다. 응답 처리 과정은 다음과 같다.
   - 응답 처리: 내부 redirct 페이지로 이동하여 예외 메시지를 alert 출력한 후, 메인 페이지로 이동한다.
 
-### API 공통 응답 포맷: ErrorResponse
-- 작성중
+### 참고) API 오류 공통 응답 포맷: ErrorResponse
+- ErrorResponse 는 API 오류 시 항상 동일한 형태의 응답 포맷을 전달하기 위한 객체 입니다.
+- 예시) ErrorResponse 에서 응답하는 JSON 정보는 아래와 같습니다.
+```json
+{
+  "status": 400,
+  "message": "노출 여부를 선택해 주세요.",
+  "errors": [
+    {
+      "field": "displayYn",
+      "value": "",
+      "reason": "노출 여부를 선택해 주세요."
+    },
+    {
+      "field": "faqType",
+      "value": "",
+      "reason": "질문 유형을 선택해 주세요."
+    },
+    {
+      "field": "answer",
+      "value": "",
+      "reason": "답변을 입력해 주세요."
+    },
+    {
+      "field": "displayTopYn",
+      "value": "",
+      "reason": "상단 노출 여부를 선택해 주세요."
+    },
+    {
+      "field": "question",
+      "value": "",
+      "reason": "질문을 입력해 주세요."
+    }
+  ]
+}
+```
+  - `message` : 오류에 대한 대표 메세지 정보입니다.
+  - `status` : HTTP status code 입니다.
+  - `errors` : 클라이언트 요청 값에 대한 오류 정보입니다. 일반적으로 BiningResult에 대한 검증 오류 정보를 나타냅니다. ( 만약, errors에 바인딩된 결과가 없는 경우, 빈 배열(`[]`)을 리턴 합니다. )
+    - field : 오류 컬럼
+    - value : 오류 값
+    - reason : 오류 원인
