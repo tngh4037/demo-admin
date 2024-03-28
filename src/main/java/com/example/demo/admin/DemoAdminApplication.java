@@ -5,6 +5,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Profile;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @SpringBootApplication
 public class DemoAdminApplication {
@@ -15,7 +16,7 @@ public class DemoAdminApplication {
 
 	@Bean
 	@Profile("local")
-	public DataInit dataInit(AdminRepository adminRepository) {
-		return new DataInit(adminRepository);
+	public DataInit dataInit(AdminRepository adminRepository, PasswordEncoder passwordEncoder) {
+		return new DataInit(adminRepository, passwordEncoder);
 	}
 }

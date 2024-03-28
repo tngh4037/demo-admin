@@ -1,4 +1,15 @@
 /**
+ * set csrfToken for ajax request
+ */
+$.ajaxSetup({
+  beforeSend: function(xhr) {
+    let csrfHeader = $('meta[name="_csrf_header"]').attr('content')
+    let csrfToken = $('meta[name="_csrf"]').attr('content')
+    xhr.setRequestHeader(csrfHeader, csrfToken)
+  }
+})
+
+/**
  * Demo Admin 공통 스크립트
  */
 const DA = {}

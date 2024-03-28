@@ -8,21 +8,24 @@ import com.example.demo.admin.domain.admin.repository.AdminRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Slf4j
 public class DataInit {
 
     private final AdminRepository adminRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    public DataInit(AdminRepository adminRepository) {
+    public DataInit(AdminRepository adminRepository, PasswordEncoder passwordEncoder) {
         this.adminRepository = adminRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @EventListener(ApplicationReadyEvent.class)
     public void initData() {
         AdminAddDto adminAddDto = new AdminAddDto();
         adminAddDto.setAdminId("test");
-        adminAddDto.setAdminPwd("test!");
+        adminAddDto.setAdminPwd(passwordEncoder.encode("test!"));
         adminAddDto.setAdminAuth(AdminAuth.MASTER);
         adminAddDto.setAdminStatus(AdminStatus.ACTIVE);
 

@@ -19,7 +19,8 @@
                                             <use th:attr="'xlink:href'=@{/coreui/dist/vendors/@coreui/icons/svg/free.svg#cil-user}"></use>
                                         </svg>
                                     </span>
-                                    <input class="form-control" type="text" name="adminId" placeholder="아이디" autocomplete="off" maxlength="16">
+                                    <input class="form-control" type="text" id="adminId" name="adminId"
+                                           placeholder="아이디" autocomplete="off" maxlength="16" autofocus>
                                 </div>
                                 <div class="input-group mb-4">
                                     <span class="input-group-text">
@@ -27,11 +28,17 @@
                                             <use th:attr="'xlink:href'=@{/coreui/dist/vendors/@coreui/icons/svg/free.svg#cil-lock-locked}"></use>
                                         </svg>
                                     </span>
-                                    <input class="form-control" type="password" name="adminPwd" placeholder="비밀번호" maxlength="16">
+                                    <input class="form-control" type="password" id="adminPwd" name="adminPwd"
+                                           placeholder="비밀번호" maxlength="16">
                                 </div>
+                                <th:block th:if="${param.error}">
+                                    <p class="text-center text-danger" th:text="${exception}">아이디 혹은 비밀번호를 다시 확인해 주세요.</p>
+                                </th:block>
                                 <div class="row">
                                     <div class="col-12 text-end">
-                                        <button id="btnLogin" class="btn btn-primary px-4" type="submit">로그인</button>
+                                        <button type="button" onclick="loginSubmit();" class="btn btn-primary px-4">
+                                            로그인
+                                        </button>
                                     </div>
                                 </div>
                             </form>
@@ -42,5 +49,33 @@
         </div>
     </div>
 </div>
+<script type="text/javascript">
+  document.addEventListener("keyup", function(event) {
+    if (event.keyCode === 13) {
+      loginSubmit()
+    }
+  })
+
+  function loginSubmit() {
+    let $adminId = $('#adminId'), adminVal = $.trim($adminId.val())
+    let $adminPwd = $('#adminPwd'), adminPwdVal = $.trim($adminPwd.val())
+
+    if (adminVal === '') {
+      alert('아이디를 입력해 주세요.')
+      $adminId.focus()
+      return false
+    }
+
+    if (adminPwdVal === '') {
+      alert('비밀번호를 입력해 주세요.')
+      $adminPwd.focus()
+      return false
+    }
+
+    $adminId.val(adminVal)
+    $adminPwd.val(adminPwdVal)
+    $('#loginForm').submit()
+  }
+</script>
 </body>
 </html>

@@ -7,12 +7,12 @@ import lombok.RequiredArgsConstructor;
 @Getter
 @RequiredArgsConstructor
 public enum AdminAuth implements EnumMapperType {
-    MASTER("01", "마스터 관리자"),
-    DEVELOPER("02", "개발 담당자"),
-    MANAGER("03", "서비스 운영자"),
-    FINANCIAL("04", "회계 담당자"),
-    SALES("05", "영업 담당자"),
-    CUSTOMER("06", "고객 담당자");
+    MASTER("ROLE_MASTER", "마스터 관리자"),
+    DEVELOPER("ROLE_DEVELOPER", "개발 담당자"),
+    MANAGER("ROLE_MANAGER", "운영 담당자"),
+    FINANCIAL("ROLE_FINANCIAL", "회계 담당자"),
+    SALES("ROLE_SALES", "영업 담당자"),
+    CUSTOMER("ROLE_CUSTOMER", "고객 담당자");
 
     private final String code;
     private final String title;
