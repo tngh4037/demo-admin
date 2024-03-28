@@ -10,7 +10,7 @@
                 <div class="card-group d-block d-md-flex row">
                     <div class="card col-md-12 p-4 mb-0">
                         <div class="card-body">
-                            <form id="loginForm" name="loginForm" th:action th:object="${adminLoginDto}" method="POST">
+                            <form id="loginForm" name="loginForm" th:action method="POST">
                                 <h1>관리자 로그인</h1>
                                 <p class="text-medium-emphasis">Demo 관리자 사이트에 오신 것을 환영합니다.</p>
                                 <div class="input-group mb-3">
@@ -19,9 +19,7 @@
                                             <use th:attr="'xlink:href'=@{/coreui/dist/vendors/@coreui/icons/svg/free.svg#cil-user}"></use>
                                         </svg>
                                     </span>
-                                    <input class="form-control" type="text" placeholder="아이디"
-                                           th:field="*{adminId}" th:errorclass="is-invalid" autocomplete="off" maxlength="16">
-                                    <div th:errors="*{adminId}" class="invalid-feedback"></div>
+                                    <input class="form-control" type="text" name="adminId" placeholder="아이디" autocomplete="off" maxlength="16">
                                 </div>
                                 <div class="input-group mb-4">
                                     <span class="input-group-text">
@@ -29,15 +27,8 @@
                                             <use th:attr="'xlink:href'=@{/coreui/dist/vendors/@coreui/icons/svg/free.svg#cil-lock-locked}"></use>
                                         </svg>
                                     </span>
-                                    <input class="form-control" type="password" placeholder="비밀번호"
-                                           th:field="*{adminPwd}" th:errorclass="is-invalid" maxlength="16">
-                                    <div th:errors="*{adminPwd}" class="invalid-feedback"></div>
+                                    <input class="form-control" type="password" name="adminPwd" placeholder="비밀번호" maxlength="16">
                                 </div>
-                                <th:block th:if="${#fields.hasGlobalErrors()}">
-                                    <p class="text-center text-danger"
-                                       th:each="err : ${#fields.globalErrors()}"
-                                       th:text="${err}"></p>
-                                </th:block>
                                 <div class="row">
                                     <div class="col-12 text-end">
                                         <button id="btnLogin" class="btn btn-primary px-4" type="submit">로그인</button>
