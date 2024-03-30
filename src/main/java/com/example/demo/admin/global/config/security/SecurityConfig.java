@@ -71,9 +71,9 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests((authorizeRequests) -> authorizeRequests
                         .requestMatchers("/login*").permitAll()
-                        .requestMatchers("/users/**").hasAnyRole("MASTER", "MANAGER", "CUSTOMER")
+                        .requestMatchers("/users/**").hasAnyRole("MASTER", "DEVELOPER", "MANAGER", "CUSTOMER")
                         .requestMatchers("/goods/**").hasAnyRole("MASTER", "DEVELOPER", "MANAGER")
-                        .requestMatchers("/sales/**").hasAnyRole("MASTER", "DEVELOPER", "FINANCIAL", "SALES")
+                        .requestMatchers("/sales/**").hasAnyRole("MASTER", "DEVELOPER", "MANAGER", "FINANCIAL", "SALES")
                         .requestMatchers("/customer/**").hasAnyRole("MASTER", "DEVELOPER", "MANAGER", "CUSTOMER")
                         .requestMatchers("/admins/**").hasRole("MASTER")
                         .anyRequest().authenticated());

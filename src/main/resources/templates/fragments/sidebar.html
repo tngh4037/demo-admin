@@ -22,7 +22,7 @@
                 </svg> 공통 레이아웃
             </a>
         </li>
-        <li class="nav-item" sec:authorize="hasAnyRole('MASTER', 'MANAGER', 'CUSTOMER')">
+        <li class="nav-item" sec:authorize="hasAnyRole('MASTER', 'DEVELOPER', 'MANAGER', 'CUSTOMER')">
             <a class="nav-link" th:href="@{/users}">
                 <svg class="nav-icon">
                     <use th:attr="'xlink:href'=@{/coreui/dist/vendors/@coreui/icons/svg/free.svg#cil-user}"></use>
@@ -36,7 +36,7 @@
                 </svg> 상품 관리
             </a>
         </li>
-        <li class="nav-item" sec:authorize="hasAnyRole('MASTER', 'DEVELOPER', 'FINANCIAL', 'SALES')">
+        <li class="nav-item" sec:authorize="hasAnyRole('MASTER', 'DEVELOPER', 'MANAGER', 'FINANCIAL', 'SALES')">
             <a class="nav-link" th:href="@{/sales}">
                 <svg class="nav-icon">
                     <use th:attr="'xlink:href'=@{/coreui/dist/vendors/@coreui/icons/svg/free.svg#cil-money}"></use>

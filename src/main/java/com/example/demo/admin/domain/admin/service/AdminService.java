@@ -13,6 +13,7 @@ import com.example.demo.admin.global.util.MessageHelper;
 import com.example.demo.admin.global.util.RegExpPattern;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -24,6 +25,7 @@ import java.util.regex.Pattern;
 @RequiredArgsConstructor
 public class AdminService {
 
+    private final PasswordEncoder passwordEncoder;
     private final AdminRepository adminRepository;
 
     public List<Admin> findAll(AdminSearchDto adminSearchDto, PaginationDto paginationDto) {
@@ -45,6 +47,7 @@ public class AdminService {
     public Admin save(AdminAddDto adminAddDto) {
         checkPwdInput(adminAddDto.getAdminPwd(), adminAddDto.getAdminRePwd());
         checkAlreadyExistId(adminAddDto.getAdminId());
+        adminAddDto.setAdminPwd(passwordEncoder.encode(adminAddDto.getAdminPwd()));
         return adminRepository.save(adminAddDto.toEntity());
     }
 
@@ -53,7 +56,8 @@ public class AdminService {
         if (adminEditDto.isModifyPwd()) {
             checkPwdInput(adminEditDto.getAdminPwd(), adminEditDto.getAdminRePwd());
             checkPwdPattern(adminEditDto.getAdminPwd());
-            checkBeforePwd(admin.getAdminPwd(), adminEditDto.getAdminPwd());
+            checkBeforePwd(adminEditDto.getAdminPwd(), admin.getAdminPwd());
+            adminEditDto.setAdminPwd(passwordEncoder.encode(adminEditDto.getAdminPwd()));
         }
 
         adminRepository.update(adminNo, adminEditDto.toEntity());
@@ -87,8 +91,8 @@ public class AdminService {
         }
     }
 
-    private void checkBeforePwd(String beforePwd, String pwd) {
-        if (beforePwd.equals(pwd)) {
+    private void checkBeforePwd(String rawPassword, String encodedPassword) {
+        if (passwordEncoder.matches(rawPassword, encodedPassword)) {
             throw new PasswordPolicyException(MessageHelper.getMessage("admin.invalid.adminPwd.same.before"));
         }
     }
