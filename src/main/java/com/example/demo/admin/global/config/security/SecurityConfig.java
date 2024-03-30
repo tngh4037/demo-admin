@@ -11,7 +11,9 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
@@ -24,6 +26,12 @@ public class SecurityConfig {
 
     @Autowired
     private AuthenticationFailureHandler customAuthenticationFailureHandler;
+
+    @Autowired
+    private AuthenticationEntryPoint customAuthenticationEntryPoint;
+
+    @Autowired
+    private AccessDeniedHandler customAccessDeniedHandler;
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -45,11 +53,7 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
-        http
-                .authorizeHttpRequests((authorizeRequests) -> authorizeRequests
-                        .requestMatchers("/login*").permitAll()
-                        .anyRequest().authenticated());
-
+        // Authentication
         http
                 .formLogin((formLogin) -> formLogin
                         .loginPage("/login")
@@ -62,6 +66,23 @@ public class SecurityConfig {
                 .logout((logout) -> logout
                         .logoutUrl("/logout")
                         .logoutSuccessUrl("/login"));
+
+        // Authorization
+        http
+                .authorizeHttpRequests((authorizeRequests) -> authorizeRequests
+                        .requestMatchers("/login*").permitAll()
+                        .requestMatchers("/users/**").hasAnyRole("MASTER", "MANAGER", "CUSTOMER")
+                        .requestMatchers("/goods/**").hasAnyRole("MASTER", "DEVELOPER", "MANAGER")
+                        .requestMatchers("/sales/**").hasAnyRole("MASTER", "DEVELOPER", "FINANCIAL", "SALES")
+                        .requestMatchers("/customer/**").hasAnyRole("MASTER", "DEVELOPER", "MANAGER", "CUSTOMER")
+                        .requestMatchers("/admins/**").hasRole("MASTER")
+                        .anyRequest().authenticated());
+
+        // ExceptionHandling
+        http
+                .exceptionHandling((exceptionHandling) -> exceptionHandling
+                        .authenticationEntryPoint(customAuthenticationEntryPoint)
+                        .accessDeniedHandler(customAccessDeniedHandler));
 
         return http.build();
     }

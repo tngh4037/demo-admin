@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="ko"
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 
 <div th:fragment="SidebarFragment" class="sidebar sidebar-dark sidebar-fixed" id="sidebar">
     <div class="sidebar-brand d-none d-md-flex">
@@ -14,25 +15,51 @@
 
     <!-- // a.nav-link 태그 활성화 조건에 여러 url 경로가 있는 경우 data-multi-page 속성 적용 -->
     <ul class="sidebar-nav" data-coreui="navigation" data-simplebar="">
-        <li class="nav-item"><a class="nav-link" th:href="@{/}">
-            <svg class="nav-icon">
-                <use th:attr="'xlink:href'=@{/coreui/dist/vendors/@coreui/icons/svg/free.svg#cil-speedometer}"></use>
-            </svg> 공통 레이아웃</a>
+        <li class="nav-item" sec:authorize="isAuthenticated()">
+            <a class="nav-link" th:href="@{/}">
+                <svg class="nav-icon">
+                    <use th:attr="'xlink:href'=@{/coreui/dist/vendors/@coreui/icons/svg/free.svg#cil-speedometer}"></use>
+                </svg> 공통 레이아웃
+            </a>
         </li>
-        <li class="nav-group">
+        <li class="nav-item" sec:authorize="hasAnyRole('MASTER', 'MANAGER', 'CUSTOMER')">
+            <a class="nav-link" th:href="@{/users}">
+                <svg class="nav-icon">
+                    <use th:attr="'xlink:href'=@{/coreui/dist/vendors/@coreui/icons/svg/free.svg#cil-user}"></use>
+                </svg> 회원 관리
+            </a>
+        </li>
+        <li class="nav-item" sec:authorize="hasAnyRole('MASTER', 'DEVELOPER', 'MANAGER')">
+            <a class="nav-link" th:href="@{/goods}">
+                <svg class="nav-icon">
+                    <use th:attr="'xlink:href'=@{/coreui/dist/vendors/@coreui/icons/svg/free.svg#cil-gift}"></use>
+                </svg> 상품 관리
+            </a>
+        </li>
+        <li class="nav-item" sec:authorize="hasAnyRole('MASTER', 'DEVELOPER', 'FINANCIAL', 'SALES')">
+            <a class="nav-link" th:href="@{/sales}">
+                <svg class="nav-icon">
+                    <use th:attr="'xlink:href'=@{/coreui/dist/vendors/@coreui/icons/svg/free.svg#cil-money}"></use>
+                </svg> 매출 관리
+            </a>
+        </li>
+        <li class="nav-group" sec:authorize="hasAnyRole('MASTER', 'DEVELOPER', 'MANAGER', 'CUSTOMER')">
             <a class="nav-link nav-group-toggle" href="#">
                 <svg class="nav-icon">
                     <use th:attr="'xlink:href'=@{/coreui/dist/vendors/@coreui/icons/svg/free.svg#cil-notes}"></use>
-                </svg> 고객센터</a>
+                </svg> 고객센터
+            </a>
             <ul class="nav-group-items">
                 <li class="nav-item"><a class="nav-link" href="/customer/notices" data-multi-page><span class="nav-icon"></span> 공지사항</a></li>
                 <li class="nav-item"><a class="nav-link" href="/customer/faqs" data-multi-page><span class="nav-icon"></span> 자주하는질문</a></li>
             </ul>
         </li>
-        <li class="nav-item"><a class="nav-link" th:href="@{/admins}" data-multi-page>
-            <svg class="nav-icon">
-                <use th:attr="'xlink:href'=@{/coreui/dist/vendors/@coreui/icons/svg/free.svg#cil-https}"></use>
-            </svg> 어드민 관리</a>
+        <li class="nav-item" sec:authorize="hasAnyRole('MASTER')">
+            <a class="nav-link" th:href="@{/admins}" data-multi-page>
+                <svg class="nav-icon">
+                    <use th:attr="'xlink:href'=@{/coreui/dist/vendors/@coreui/icons/svg/free.svg#cil-https}"></use>
+                </svg> 어드민 관리
+            </a>
         </li>
     </ul>
     <button class="sidebar-toggler" type="button" data-coreui-toggle="unfoldable"></button>

@@ -82,6 +82,11 @@ const AdminEditFormModule = (function() {
           } else {
             alert(response.responseJSON.message)
           }
+
+          if (response.status === 401) {
+            window.location.href = "/login"
+          }
+
           return false
         },
         complete: function() {

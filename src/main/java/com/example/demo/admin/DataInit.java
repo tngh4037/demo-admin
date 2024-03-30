@@ -23,15 +23,18 @@ public class DataInit {
 
     @EventListener(ApplicationReadyEvent.class)
     public void initData() {
-        AdminAddDto adminAddDto = new AdminAddDto();
-        adminAddDto.setAdminId("test");
-        adminAddDto.setAdminPwd(passwordEncoder.encode("test!"));
-        adminAddDto.setAdminAuth(AdminAuth.MASTER);
-        adminAddDto.setAdminStatus(AdminStatus.ACTIVE);
+        for (AdminAuth adminAuth : AdminAuth.values()) {
+            AdminAddDto adminAddDto = new AdminAddDto();
+            adminAddDto.setAdminId(adminAuth.name().toLowerCase());
+            adminAddDto.setAdminPwd(passwordEncoder.encode("test!"));
+            adminAddDto.setAdminAuth(adminAuth);
+            adminAddDto.setAdminStatus(AdminStatus.ACTIVE);
 
-        Admin admin = adminRepository.findByAdminId(adminAddDto.getAdminId())
-                .orElseGet(() -> adminRepository.save(adminAddDto.toEntity()));
-        log.info("관리자 계정 생성 [아이디: {}], [패스워드: {}], [권한: {}], [상태: {}]",
-                admin.getAdminId(), admin.getAdminPwd(), admin.getAdminAuth(), admin.getAdminStatus());
+            Admin admin = adminRepository.findByAdminId(adminAddDto.getAdminId())
+                    .orElseGet(() -> adminRepository.save(adminAddDto.toEntity()));
+
+            log.info("관리자 계정 생성 [아이디: {}], [패스워드: {}], [권한: {}], [상태: {}]",
+                    admin.getAdminId(), admin.getAdminPwd(), admin.getAdminAuth(), admin.getAdminStatus());
+        }
     }
 }

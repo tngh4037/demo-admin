@@ -13,7 +13,22 @@ public class ViewConstant {
     public static final String LOGIN_LOGIN_FORM = "login/loginForm";
 
     /**
-     * 고객센터
+     * 회원 관리
+     */
+    public static final String USER_LIST = "user/userList";
+
+    /**
+     * 상품 관리
+     */
+    public static final String GOODS_LIST = "goods/goodsList";
+
+    /**
+     * 매출 관리
+     */
+    public static final String SALES_LIST = "sales/salesList";
+
+    /**
+     * 고객 센터
      */
     public static final String CUSTOMER_NOTICE_LIST = "customer/noticeList";
     public static final String CUSTOMER_NOTICE_DETAIL = "customer/noticeDetail";

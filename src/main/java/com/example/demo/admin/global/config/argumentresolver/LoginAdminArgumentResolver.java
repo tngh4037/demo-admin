@@ -2,12 +2,11 @@ package com.example.demo.admin.global.config.argumentresolver;
 
 import com.example.demo.admin.domain.admin.domain.Admin;
 import com.example.demo.admin.global.util.CommonUtil;
+import com.example.demo.admin.global.util.SecurityUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.BeansException;
 import org.springframework.core.MethodParameter;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.support.WebDataBinderFactory;
 import org.springframework.web.context.request.NativeWebRequest;
@@ -32,12 +31,11 @@ public class LoginAdminArgumentResolver implements HandlerMethodArgumentResolver
                                   WebDataBinderFactory binderFactory) throws Exception {
 
         try {
-            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-            if (!(authentication instanceof UsernamePasswordAuthenticationToken)) {
+            if (!SecurityUtil.isAuthenticated()) {
                 return null;
             }
 
-            Admin admin = (Admin) authentication.getPrincipal();
+            Admin admin = (Admin) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             String field = Objects.requireNonNull(parameter.getParameterAnnotation(LoginAdmin.class)).field();
 
             if (CommonUtil.isEmpty(field)) {
