@@ -26,5 +26,15 @@
 2. `[Edit Configurations...] - 자바 시스템 속성 설정 (프로필 지정)`
 ![프로필 설정](./images/EnvironmentProfile.png)
 3. `Run DemoAdminApplication`
-4. `http://localhost:8080 실행 (* 초기 관리자 계정: [아이디(test), 패스워드(test!)])`
+4. `http://localhost:8080 실행`
 ![로그인](./images/Access.png)
+
+
+## 3) 관리자 계정 정보
+- `아이디` : master, `패스워드` : !test2024!, `권한` : ROLE_MASTER
+- `아이디` : developer, `패스워드` : !test2024!, `권한` : ROLE_DEVELOPER
+- `아이디` : manager, `패스워드` : !test2024!, `권한` : ROLE_MANAGER
+- `아이디` : financial, `패스워드` : !test2024!, `권한` : ROLE_FINANCIAL
+- `아이디` : sales, `패스워드` : !test2024!, `권한` : ROLE_SALES
+- `아이디` : customer, `패스워드` : !test2024!, `권한` : ROLE_CUSTOMER
+- 참고) 관리자 권한 별 접근 가능한 메뉴: [[보안 정책]](../docs/SecurityGuide.md) 참고
