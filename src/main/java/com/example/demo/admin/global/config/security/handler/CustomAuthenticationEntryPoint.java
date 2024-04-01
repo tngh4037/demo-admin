@@ -1,12 +1,12 @@
 package com.example.demo.admin.global.config.security.handler;
 
 import com.example.demo.admin.global.error.ErrorResponse;
+import com.example.demo.admin.global.util.WebUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
@@ -19,14 +19,11 @@ import java.nio.charset.StandardCharsets;
 @Component
 public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint {
 
-    private static final String AJAX_HEADER_NAME = "X-Requested-With";
-    private static final String AJAX_HEADER_VALUE = "XMLHttpRequest";
-
     @Override
     public void commence(HttpServletRequest request,
                          HttpServletResponse response,
                          AuthenticationException authException) throws IOException, ServletException {
-        if (isAjaxRequest(request)) {
+        if (WebUtil.isAjaxRequest(request)) {
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             response.setContentType(MediaType.APPLICATION_JSON_VALUE);
             response.setCharacterEncoding(StandardCharsets.UTF_8.name());
@@ -41,11 +38,5 @@ public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint 
         } else {
             response.sendRedirect("/login");
         }
-    }
-
-    private boolean isAjaxRequest(HttpServletRequest request) {
-        String header = request.getHeader(AJAX_HEADER_NAME);
-        String acceptHeader = request.getHeader(HttpHeaders.ACCEPT);
-        return AJAX_HEADER_VALUE.equals(header) || MediaType.APPLICATION_JSON_VALUE.equals(acceptHeader);
     }
 }
