@@ -15,6 +15,8 @@ spring:
     url: jdbc:mysql://127.0.0.1:3306/demo_schema
     username: demo_user
     password: pwd2024!!
+  messages:
+    basename: messages,errors
 mybatis:
   mapper-locations: classpath:/mybatis/mappers/**/*.xml # mapper file location
   configuration:
@@ -34,4 +36,3 @@ server:
   servlet:
     session:
       persistent: false
-# spring.messages.basename=messages
