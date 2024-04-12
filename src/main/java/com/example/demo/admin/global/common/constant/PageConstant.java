@@ -1,6 +1,7 @@
 package com.example.demo.admin.global.common.constant;
 
-public class PageConstant {
+public final class PageConstant {
+    private PageConstant() {}
 
     /**
      * 공통

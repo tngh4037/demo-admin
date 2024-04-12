@@ -1,6 +1,7 @@
 package com.example.demo.admin.global.common.constant;
 
-public class SecurityConstant {
+public final class SecurityConstant {
+    private SecurityConstant() {}
 
     /**
      * 패스워드 정책 관련 상수

@@ -36,3 +36,5 @@ server:
   servlet:
     session:
       persistent: false
+      tracking-modes: cookie
+      timeout: 600

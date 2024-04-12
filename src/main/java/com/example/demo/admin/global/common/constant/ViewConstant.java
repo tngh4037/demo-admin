@@ -1,6 +1,7 @@
 package com.example.demo.admin.global.common.constant;
 
-public class ViewConstant {
+public final class ViewConstant {
+    private ViewConstant() {}
 
     /**
      * 공통
