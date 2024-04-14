@@ -1,4 +1,4 @@
-package com.example.demo.admin.global.error;
+package com.example.demo.admin.global.error.advice;
 
 import com.example.demo.admin.global.error.exception.BusinessException;
 import lombok.extern.slf4j.Slf4j;

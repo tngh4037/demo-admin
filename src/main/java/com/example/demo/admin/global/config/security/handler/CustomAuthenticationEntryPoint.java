@@ -1,6 +1,6 @@
 package com.example.demo.admin.global.config.security.handler;
 
-import com.example.demo.admin.global.error.ErrorResponse;
+import com.example.demo.admin.global.error.advice.ErrorResponse;
 import com.example.demo.admin.global.util.WebUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.ServletException;

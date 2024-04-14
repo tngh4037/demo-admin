@@ -1,4 +1,4 @@
-package com.example.demo.admin.global.error;
+package com.example.demo.admin.global.error.advice;
 
 import com.example.demo.admin.global.util.MessageHelper;
 import lombok.AccessLevel;
