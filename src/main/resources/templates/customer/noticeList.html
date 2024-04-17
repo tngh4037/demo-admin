@@ -96,7 +96,7 @@
                                            th:checked="${notice.displayYn eq 'Y'}"/>
                                     <label class="demo-toggle" th:for="|${'chk1' + noticeStat.count}|"></label>
                                 </td>
-                                <td th:text="${#temporals.format(notice.regDt, 'yyyy-MM-dd HH:mm:ss')}"></td>
+                                <td th:text="${{notice.regDt}}"></td>
                                 <td>
                                     <div class="d-grid gap-2">
                                         <button class="btn btn-outline-info" type="button"
@@ -142,7 +142,7 @@
     </div>
 
     <!-- 삭제 대상 게시글 번호 set -->
-    <form id="removeForm" name="removeForm" method="POST" action="/customer/notices/remove" style="display: none;">
+    <form id="removeForm" name="removeForm" method="POST" th:action="@{/customer/notices/remove}" style="display: none;">
         <input type="hidden" id="searchParams" name="searchParams" value="">
         <input type="hidden" id="noticeNos" name="noticeNos" value="">
     </form>

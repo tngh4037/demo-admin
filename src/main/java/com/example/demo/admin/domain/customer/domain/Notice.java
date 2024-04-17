@@ -2,6 +2,7 @@ package com.example.demo.admin.domain.customer.domain;
 
 import lombok.*;
 import com.example.demo.admin.domain.customer.define.NoticeType;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
 
@@ -14,6 +15,8 @@ public class Notice {
     private NoticeType noticeType;
     private String displayYn;
     private Integer hits;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime regDt;
     private LocalDateTime modDt;
 
