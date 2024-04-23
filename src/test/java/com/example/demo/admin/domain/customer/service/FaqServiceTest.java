@@ -21,7 +21,6 @@ import java.util.List;
 
 @SpringBootTest
 @Transactional
-@ActiveProfiles(profiles = "local")
 class FaqServiceTest {
 
     private final int ACTIVE_DISPLAY_TOP_MAX_COUNT = 3;

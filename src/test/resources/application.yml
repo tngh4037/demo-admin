@@ -1,17 +1,6 @@
 spring:
-#  profiles:
-#    active: local
-  config:
-    activate:
-      on-profile: local
-  devtools:
-    livereload:
-      enabled: true
-    restart:
-      enabled: false
-  thymeleaf:
-    cache: false
-    enabled: true
+  profiles:
+    active: test
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://127.0.0.1:3306/demo_schema
@@ -31,12 +20,3 @@ logging:
       customer.repository.mybatis: trace
       admin.repository.mybatis: trace
       login.repository.mybatis: trace
-server:
-  error:
-    whitelabel:
-      enabled: false # not use spring boot default error page
-  servlet:
-    session:
-      persistent: false
-      tracking-modes: cookie
-      timeout: 600

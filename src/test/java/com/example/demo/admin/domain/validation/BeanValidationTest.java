@@ -6,11 +6,13 @@ import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validation;
 import jakarta.validation.Validator;
 import jakarta.validation.ValidatorFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.Set;
 
+@Slf4j
 public class BeanValidationTest {
 
     @Test
@@ -26,8 +28,8 @@ public class BeanValidationTest {
 
         Set<ConstraintViolation<NoticeAddDto>> violations = validator.validate(noticeAddDto);
         for (ConstraintViolation<NoticeAddDto> violation : violations) {
-            System.out.println("violation = " + violation);
-            System.out.println("violation = " + violation.getMessage());
+            log.info("violation = {}", violation);
+            log.info("violation.getMessage = {}", violation.getMessage());
 
             Assertions.assertThat(violation.getMessage()).isEqualTo("제목을 입력해 주세요.");
         }

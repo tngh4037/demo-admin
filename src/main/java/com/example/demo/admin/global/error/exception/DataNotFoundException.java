@@ -11,6 +11,10 @@ public class DataNotFoundException extends BusinessException {
         super(message);
     }
 
+    public DataNotFoundException(Throwable cause) {
+        super(DEFAULT_MESSAGE, cause);
+    }
+
     public DataNotFoundException(String message, Throwable cause) {
         super(message, cause);
     }

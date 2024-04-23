@@ -6,10 +6,12 @@ import com.example.demo.admin.domain.customer.dto.NoticeAddDto;
 import com.example.demo.admin.domain.customer.dto.NoticeEditDto;
 import com.example.demo.admin.domain.customer.exception.NoticeDuplicateException;
 import com.example.demo.admin.domain.customer.exception.NoticeNotFoundException;
+import lombok.extern.slf4j.Slf4j;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.springframework.aop.support.AopUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
@@ -17,9 +19,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 
+import static org.assertj.core.api.Assertions.*;
+
+@Slf4j
 @SpringBootTest
 @Transactional
-@ActiveProfiles(profiles = "local")
 class NoticeServiceTest {
 
     private final String title = LocalDateTime.now().toString();
@@ -54,7 +58,7 @@ class NoticeServiceTest {
         Notice findNotice = noticeService.findById(notice.getNoticeNo());
 
         // then
-        Assertions.assertThat(findNotice.getNoticeNo()).isNotNull().isGreaterThan(0);
+        assertThat(findNotice.getNoticeNo()).isNotNull().isGreaterThan(0);
     }
 
     @Test
@@ -64,7 +68,7 @@ class NoticeServiceTest {
         int noticeNo = 0;
 
         // when & then
-        Assertions.assertThatThrownBy(() -> noticeService.findById(noticeNo))
+        assertThatThrownBy(() -> noticeService.findById(noticeNo))
                 .isInstanceOf(NoticeNotFoundException.class);
     }
 
@@ -75,7 +79,7 @@ class NoticeServiceTest {
         Notice save = noticeService.save(noticeAddDto);
 
         // then
-        Assertions.assertThat(save.getNoticeNo()).isNotNull().isGreaterThan(0);
+        assertThat(save.getNoticeNo()).isNotNull().isGreaterThan(0);
     }
 
     @Test
@@ -85,7 +89,7 @@ class NoticeServiceTest {
         noticeService.save(noticeAddDto);
 
         // then
-        Assertions.assertThatThrownBy(() -> noticeService.save(noticeAddDto))
+        assertThatThrownBy(() -> noticeService.save(noticeAddDto))
                 .isInstanceOf(NoticeDuplicateException.class);
     }
 
@@ -99,7 +103,7 @@ class NoticeServiceTest {
         noticeService.update(notice.getNoticeNo(), noticeEditDto);
 
         // then
-        Assertions.assertThat(noticeService.findById(notice.getNoticeNo()).getNoticeType()).isEqualTo(NoticeType.USER);
+        assertThat(noticeService.findById(notice.getNoticeNo()).getNoticeType()).isEqualTo(NoticeType.USER);
     }
 
     @Test
@@ -112,7 +116,7 @@ class NoticeServiceTest {
 
         // when & then
         noticeEditDto.setTitle(title);
-        Assertions.assertThatThrownBy(() -> noticeService.update(notice2.getNoticeNo(), noticeEditDto))
+        assertThatThrownBy(() -> noticeService.update(notice2.getNoticeNo(), noticeEditDto))
                 .isInstanceOf(NoticeDuplicateException.class);
     }
 
@@ -127,7 +131,13 @@ class NoticeServiceTest {
         noticeService.remove(noticeNos);
 
         // then
-        Assertions.assertThatThrownBy(() -> noticeService.findById(notice.getNoticeNo()))
+        assertThatThrownBy(() -> noticeService.findById(notice.getNoticeNo()))
                 .isInstanceOf(NoticeNotFoundException.class);
+    }
+
+    @Test
+    void AopCheck() {
+        log.info("noticeService class={}", noticeService.getClass());
+        assertThat(AopUtils.isAopProxy(noticeService)).isTrue();
     }
 }
