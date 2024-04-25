@@ -9,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.transaction.annotation.Transactional;
 
 @Slf4j
 public class DataInit {
@@ -22,6 +23,7 @@ public class DataInit {
     }
 
     @EventListener(ApplicationReadyEvent.class)
+    @Transactional
     public void initData() {
         for (AdminAuth adminAuth : AdminAuth.values()) {
             AdminAddDto adminAddDto = new AdminAddDto();

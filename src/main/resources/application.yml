@@ -31,6 +31,13 @@ logging:
       customer.repository.mybatis: trace
       admin.repository.mybatis: trace
       login.repository.mybatis: trace
+    org:
+      springframework:
+        transaction:
+          interceptor: trace # spring transaction proxy logging
+        jdbc:
+          support:
+            JdbcTransactionManager: debug # JdbcTransactionManager logging
 server:
   error:
     whitelabel:

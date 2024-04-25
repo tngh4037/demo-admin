@@ -138,6 +138,6 @@ class NoticeServiceTest {
     @Test
     void AopCheck() {
         log.info("noticeService class={}", noticeService.getClass());
-        assertThat(AopUtils.isAopProxy(noticeService)).isTrue();
+        assertThat(AopUtils.isAopProxy(noticeService)).isTrue(); // 스프링 aop 프록시 적용 여부 체크
     }
 }
