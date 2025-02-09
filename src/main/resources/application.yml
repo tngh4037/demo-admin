@@ -19,31 +19,40 @@ spring:
     password: pwd2024!!
   messages:
     basename: messages,errors
+#  mvc:
+#    static-path-pattern: /static-content/**  # http://localhost:8080/hello.txt (X) -> http://localhost:8080/static-content/hello.txt (O)
+#  web:
+#    resources:
+#      static-locations: file:/C:/            # classpath:/my_file/
 mybatis:
   mapper-locations: classpath:/mybatis/mappers/**/*.xml # mapper file location
   configuration:
-    map-underscore-to-camel-case: true # convert snake_case to camelCase
+    map-underscore-to-camel-case: true # convert snake_case to camelCase ( ex. db column: "item_name" -> object field: "itemName" ) ( default: false )
     default-enum-type-handler: com.example.demo.admin.global.config.define.EnumTypeHandler # define defaultEnumTypeHandler
-  type-aliases-package: com.example.demo.admin.domain.*.domain # define package path in mapper file
+  type-aliases-package: com.example.demo.admin.domain.*.domain # define package path in mapper file ( 원래는 쿼리 작성시 parameter/resultType 에 패키지명까지 정의해줘야 하지만, 자동으로 기본적인 패키지 경로를 인식하도록 지정, ( ex. <select id=".." resultType="com.itemservice.domain.Item"> -> <select id=".." resultType="Item"> ) )
 logging:
   level:
     com.example.demo.admin.domain:
-      customer.repository.mybatis: trace
+      customer.repository.mybatis: trace # executed sql query logging in MyBatis
       admin.repository.mybatis: trace
       login.repository.mybatis: trace
     org:
       springframework:
         transaction:
-          interceptor: trace # spring transaction proxy logging
+          interceptor: trace # spring transaction proxy logging ( 트랜잭션 프록시에서 트랜잭션의 시작과 종료를 로그로 확인, ex) Getting Transaction for [트랜잭션 이름] ~~ Completing transaction for [트랜잭션 이름] ) => 트랜잭션 프록시가 트랜잭션을 시작하고 완료한 내용을 확인할 수 있다. ( 트랜잭션 프록시가 트랜잭션을 적용한 것을 확인할 수 있다. )  | 참고) TransactionLoggingLevel.png
         jdbc:
           support:
-            JdbcTransactionManager: debug # JdbcTransactionManager logging
+            JdbcTransactionManager: debug # JdbcTransactionManager logging ( 위 spring transaction proxy logging 에서는, 트랜잭션 시작 ~ 종료 로그는 남지만, 트랜잭션 종료가 커밋으로 종료 되었는지 롤백으로 종료되었는지는 로그에 남지 않는다. 이를 로그로 확인하기 위한 설정이다. ) => 트랜잭션이 커밋되었는지 롤백 되었는지 로그로 확인 | 참고) TransactionLoggingLevel.png
 server:
   error:
     whitelabel:
-      enabled: false # not use spring boot default error page
+      enabled: false # not use SpringBoot default error page
+    #include-exception: true # #server.error.include-* : 예외 발생시 WAS까지 전달되면, WAS에서 request 에 attribute 에 예외 관련 정보를 담아주는데 그거 노출할건지 설정. ( BasicErrorController 가 만들어주는 api 나 html 을 통해서 확인 가능 )
+    #include-message: always
+    #include-stacktrace: always
+    #include-binding-errors: always
   servlet:
     session:
       persistent: false
-      tracking-modes: cookie
-      timeout: 600
+      tracking-modes: cookie # not use /;jsessionid=738596A2EC984A05DDB6F7326B818838 ( 서버에서는 클라이언트가 쿠키 미지원하는 경우인지를 모르기에, 최초에는 url과 응답헤더에 같이 내려 주려 시도 )
+      timeout: 600 # session timeout set

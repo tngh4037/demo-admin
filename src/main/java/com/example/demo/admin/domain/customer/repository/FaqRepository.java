@@ -8,6 +8,7 @@ import com.example.demo.admin.global.common.PaginationDto;
 import java.util.List;
 import java.util.Optional;
 
+// 참고) 데이터 접근 기술을 Mybatis 로만 사용하고 확장계획이 없다면, 굳이 이 인터페이스(FaqRepository, NoticeRepository, ...)는 필요없을 듯 하다.
 public interface FaqRepository {
     int count(FaqSearchDto faqSearchDto);
     List<Faq> findAll(FaqSearchDto faqSearchDto, PaginationDto paginationDto);

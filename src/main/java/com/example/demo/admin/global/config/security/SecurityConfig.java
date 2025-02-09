@@ -88,3 +88,16 @@ public class SecurityConfig {
     }
 
 }
+
+// 참고)
+// SessionManagement
+// https://docs.spring.io/spring-security/reference/servlet/authentication/session-management.html
+/*
+http
+		.sessionManagement((sessionManagement) -> sessionManagement
+				.sessionFixation().changeSessionId()
+				.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
+				.maximumSessions(1)
+				.maxSessionsPreventsLogin(true)
+				.expiredUrl("/expired"));
+*/

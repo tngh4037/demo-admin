@@ -117,7 +117,7 @@ const NoticeListModule = (function() {
     EDIT_DISPLAY: function(noticeNo, displayYn) {
       $.ajax({
         type: 'POST',
-        url: '/customer/notices/' + noticeNo + '/edit/display',
+        url: '/customer/notices/' + noticeNo + '/edit/display', // https://www.inflearn.com/api/mentors?page=1 => occurred CORS issue !
         headers: {'Accept': 'application/json'},
         contentType: 'application/json',
         data: displayYn,

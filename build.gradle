@@ -22,25 +22,34 @@ repositories {
 }
 
 dependencies {
-	// spring web, spring security, mybatis, thymeleaf, lombok, validation
-	implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect'
+	// === WEB MVC ===
+	// spring web, thymeleaf, validation
+    implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
-	implementation 'org.springframework.boot:spring-boot-starter-security'
-	implementation 'org.springframework.boot:spring-boot-starter-web'
-	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
+    implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect'
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
+
+    // === SECURITY ===
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
+
+	// === DATABASE ===
 	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.3'
-	compileOnly 'org.projectlombok:lombok'
 	runtimeOnly 'com.mysql:mysql-connector-j'
+
+	// === ETC ===
+	// lombok
+	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
+	// 개발 편의를 위한 모듈 추가
+	developmentOnly("org.springframework.boot:spring-boot-devtools")
+
+	// === TEST ===
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter-test:3.0.3'
 	testImplementation 'org.springframework.security:spring-security-test'
 
-	// 개발 편의를 위한 모듈 추가
-	developmentOnly("org.springframework.boot:spring-boot-devtools")
-
-	// 테스트에서 lombok 사용
+    // 테스트에서 lombok 사용
 	testCompileOnly 'org.projectlombok:lombok'
 	testAnnotationProcessor 'org.projectlombok:lombok'
 }

@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -16,7 +17,8 @@ import org.springframework.web.method.annotation.MethodArgumentTypeMismatchExcep
  * API 예외의 경우 ApiExceptionHandler(@RestControllerAdvice)에서 공통으로 응답 처리한다.
  */
 @Slf4j
-@RestControllerAdvice(annotations = RestController.class)
+// @RestControllerAdvice(annotations = RestController.class)
+@ControllerAdvice(annotations = RestController.class)
 public class ApiExceptionHandler {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)

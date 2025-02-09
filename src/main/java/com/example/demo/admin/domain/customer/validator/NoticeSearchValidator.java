@@ -6,6 +6,7 @@ import org.apache.logging.log4j.util.Strings;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
+import org.springframework.validation.ValidationUtils;
 
 @Component
 public class NoticeSearchValidator implements Validator {
@@ -22,5 +23,7 @@ public class NoticeSearchValidator implements Validator {
                 !searchDto.getDisplayYn().equals("Y") && !searchDto.getDisplayYn().equals("N")) {
             errors.reject("customer.notice.invalid.search.displayYn");
         }
+
+        // ValidationUtils.rejectIfEmptyOrWhitespace(errors, "itemName", "required");
     }
 }
