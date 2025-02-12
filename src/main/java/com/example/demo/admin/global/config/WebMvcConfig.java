@@ -3,9 +3,6 @@ package com.example.demo.admin.global.config;
 import com.example.demo.admin.global.config.argumentresolver.LoginAdminArgumentResolver;
 import com.example.demo.admin.global.config.converter.StringToEnumConverterFactory;
 import com.example.demo.admin.global.config.define.EnumMapperType;
-import com.example.demo.admin.global.config.filter.MDCLogFilter;
-import jakarta.servlet.Filter;
-import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.convert.converter.ConverterFactory;
@@ -43,14 +40,5 @@ public class WebMvcConfig implements WebMvcConfigurer {
     @Bean
     public MappingJackson2JsonView jsonView() {
         return new MappingJackson2JsonView();
-    }
-
-    @Bean
-    public FilterRegistrationBean<Filter> mdcLogFilter() {
-        FilterRegistrationBean<Filter> filterFilterRegistrationBean = new FilterRegistrationBean<>();
-        filterFilterRegistrationBean.setFilter(new MDCLogFilter());
-        filterFilterRegistrationBean.setOrder(1);
-        filterFilterRegistrationBean.addUrlPatterns("/*");
-        return filterFilterRegistrationBean;
     }
 }
