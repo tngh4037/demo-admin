@@ -103,7 +103,7 @@ public class FaqService {
         List<String> srcPath = ImageUtil.getSrcPath(answer);
         for (String path : srcPath) {
             try {
-                Path copyPath = FileUtil.copyFile(path, "/DemoResource/customer/faq/");
+                Path copyPath = FileUtil.copyFile(path, "/DemoAdminResource/customer/faq/");
                 answer = answer.replace(path, copyPath.toString());
             } catch (UploadFileException e) {
                 log.error("faq file copy error", e);

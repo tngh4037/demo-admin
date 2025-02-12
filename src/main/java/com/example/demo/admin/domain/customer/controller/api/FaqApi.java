@@ -56,7 +56,7 @@ public class FaqApi {
         try {
             uploadFile = FileUtil.uploadFile(request.getFile("upload"), FileUploadType.CUSTOMER_TEMP);
             mav.addObject("uploaded", true);
-            mav.addObject("url", "/DemoResource/customer/temp/" + uploadFile.getStoreFileName());
+            mav.addObject("url", "/DemoAdminResource/customer/temp/" + uploadFile.getStoreFileName());
         } catch (UploadFileException e) {
             log.error("faq file upload error", e);
             mav.addObject("uploaded", false);

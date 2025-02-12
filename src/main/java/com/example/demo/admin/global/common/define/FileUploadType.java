@@ -9,9 +9,9 @@ import lombok.RequiredArgsConstructor;
 @Getter
 @RequiredArgsConstructor
 public enum FileUploadType {
-    CUSTOMER_NOTICE("C:/DemoResource/customer/notice/", 3, 1048576L, new String[]{"pdf", "xls", "xlsx", "jpg", "jpeg", "png"}),
-    CUSTOMER_FAQ("C:/DemoResource/customer/faq/", Integer.MAX_VALUE, Long.MAX_VALUE, new String[]{"jpg", "jpeg", "png"}),
-    CUSTOMER_TEMP("C:/DemoResource/customer/temp/", Integer.MAX_VALUE, Long.MAX_VALUE, new String[]{"jpg", "jpeg", "png"})
+    CUSTOMER_NOTICE("C:/DemoAdminResource/customer/notice/", 3, 1048576L, new String[]{"pdf", "xls", "xlsx", "jpg", "jpeg", "png"}),
+    CUSTOMER_FAQ("C:/DemoAdminResource/customer/faq/", Integer.MAX_VALUE, Long.MAX_VALUE, new String[]{"jpg", "jpeg", "png"}),
+    CUSTOMER_TEMP("C:/DemoAdminResource/customer/temp/", Integer.MAX_VALUE, Long.MAX_VALUE, new String[]{"jpg", "jpeg", "png"})
     ;
 
     private final String fileDir;
