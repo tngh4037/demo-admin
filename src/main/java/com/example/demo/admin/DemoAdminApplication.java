@@ -15,7 +15,7 @@ public class DemoAdminApplication {
 	}
 
 	@Bean
-	@Profile("local") // 프로필에 따른 선택적 조건 빈 등록
+	@Profile("default") // 프로필에 따른 선택적 조건 빈 등록
 	public DataInit dataInit(AdminRepository adminRepository, PasswordEncoder passwordEncoder) {
 		return new DataInit(adminRepository, passwordEncoder);
 	}

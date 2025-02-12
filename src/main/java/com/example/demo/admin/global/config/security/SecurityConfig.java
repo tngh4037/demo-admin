@@ -43,12 +43,14 @@ public class SecurityConfig {
         return new CustomAuthenticationProvider();
     }
 
+    /* // not recommand -> .requestMatchers(getResourceOpenPath()).permitAll()
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
         return (web) -> web.ignoring()
                 .requestMatchers(PathRequest.toStaticResources().atCommonLocations())
                 .requestMatchers("/coreui/**", "/*-icon-*");
     }
+    */
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -70,6 +72,7 @@ public class SecurityConfig {
         // Authorization
         http
                 .authorizeHttpRequests((authorizeRequests) -> authorizeRequests
+                        .requestMatchers(getResourceOpenPath()).permitAll()
                         .requestMatchers("/login*").permitAll()
                         .requestMatchers("/users/**").hasAnyRole("MASTER", "DEVELOPER", "MANAGER", "CUSTOMER")
                         .requestMatchers("/goods/**").hasAnyRole("MASTER", "DEVELOPER", "MANAGER")
@@ -85,6 +88,16 @@ public class SecurityConfig {
                         .accessDeniedHandler(customAccessDeniedHandler));
 
         return http.build();
+    }
+
+    private String[] getResourceOpenPath() {
+        return new String[]{
+                "/coreui/**",
+                "/css/**",
+                "/images/**",
+                "/js/common/**",
+                "/*-icon-*",
+                "/favicon.*"};
     }
 
 }

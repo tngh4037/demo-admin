@@ -1,9 +1,4 @@
 spring:
-#  profiles:
-#    active: local
-  config:
-    activate:
-      on-profile: local
   devtools:
     livereload:
       enabled: true
@@ -56,3 +51,24 @@ server:
       persistent: false
       tracking-modes: cookie # not use /;jsessionid=738596A2EC984A05DDB6F7326B818838 ( 서버에서는 클라이언트가 쿠키 미지원하는 경우인지를 모르기에, 최초에는 url과 응답헤더에 같이 내려 주려 시도 )
       timeout: 600 # session timeout set
+---
+spring:
+  config:
+    activate:
+      on-profile: dev
+#logging:
+#  config: classpath:logback-spring-dev.xml # 참고) logging.config 설정을 하지 않아도, Spring Boot는 활성화된 프로필에 맞는 logback-spring-{profile}.xml 파일을 자동으로 로드한다. ( default: logback-spring.xml )
+---
+spring:
+  config:
+    activate:
+      on-profile: stg
+#logging:
+#  config: classpath:logback-spring-stg.xml
+---
+spring:
+  config:
+    activate:
+      on-profile: prod
+#logging:
+#  config: classpath:logback-spring-prod.xml

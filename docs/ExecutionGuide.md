@@ -23,10 +23,8 @@
 
 ## 2) 애플리케이션 실행
 1. `git clone https://github.com/tngh4037/demo-admin.git`
-2. `[Edit Configurations...] - 자바 시스템 속성 설정 (프로필 지정)`
-![프로필 설정](./images/EnvironmentProfile.png)
-3. `Run DemoAdminApplication`
-4. `http://localhost:8080 실행`
+2. `Run DemoAdminApplication`
+3. `http://localhost:8080 실행`
 ![로그인](./images/Access.png)
 
 
