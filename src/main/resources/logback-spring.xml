@@ -21,9 +21,52 @@
         </encoder>
     </appender>
 
+    <!-- slowQuery 를 위한 APPENDER 정의 -->
+    <appender name="SLOW_QUERY_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_PATH}/slowQuery/execution.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_PATH}/slowQuery/execution.%d{yyyy-MM-dd}.log.gz</fileNamePattern>
+            <maxHistory>7</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level [%thread] %X{transId} %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- slowQuery 를 위한 Logger 설정 -->
+    <logger name="com.example.demo.admin.global.config.aop.QueryExecutionTimeAspect" level="info" additivity="false"> <!-- additivity="false": ROOT 로거 상속받지 않도록 설정 -->
+        <appender-ref ref="SLOW_QUERY_FILE"/>
+    </logger>
+
     <!-- Logger 설정 -->
     <root level="info"> <!-- 참고) 만일 application.yml에 별도로 특정 패키지에 대한 logging level 을 지정했다면, application.yml 이 우선한다. -->
         <appender-ref ref="CONSOLE" />
         <appender-ref ref="FILE" />
     </root>
 </configuration>
+
+<!--
+[ <root>로 전체 기본 설정을 하고, <logger>로 개별 설정 ]
+- 참고로, 기본적으로 모든 개별 로거(<logger>)들은 루트 로거(<root>)를 상속받는다. ( * default: additivity="true" )
+  ㄴ 즉, 위 작성된 설정으로 보면, root logger 에서 설정된 CONSOLE, FILE 등의 appender 들이 개별 logger 에도 영향을 미친다.
+  ㄴ 따라서, 상속받지 않도록 하려면 additivity="false" 로 설정하면 된다. 그러면 QueryExecutionTimeAspect 의 로그가 root logger를 상속받지 않게 되어, root logger 에서 정의된 CONSOLE과 FILE appender가 영향을 미치지 않는다.
+
+[ 예시 참고 ]
+<root level="info"> // 루트 로거(<root>)는 콘솔에만 출력하도록 설정 ( 아래 개별 로거(<logger>) 설정으로 인해, com.yourpackage 외의 모든 패키지는 콘솔만 출력 )
+    <appender-ref ref="CONSOLE" />
+</root>
+
+// com.yourpackage 패키지에 대한 로그는 파일에만 기록되도록 설정 ( com.yourpackage 패키지의 로그는 파일로만 기록하고, 콘솔에는 출력하지 않도록 설정 )
+// ㄴ additivity="false"로 설정하면 해당 logger는 root logger로부터 상속받지 않고, 자신이 명시적으로 설정한 appender만 사용한다. ( 루트 로거의 설정이 이 패키지에는 영향을 미치지 않는다.)
+<logger name="com.yourpackage" level="info" additivity="false">
+    <appender-ref ref="FILE"/>
+</logger>
+
+[ 설명 ]
+- <root> 태그로 설정한 내용은 애플리케이션 전체의 기본 로깅 설정을 담당합니다.
+- <logger> 태그로 설정한 내용은 특정 패키지나 클래스에 대해 개별적인 설정을 제공하며, 필요에 따라 루트 로거 설정을 덮어쓸 수 있습니다.
+
+[ 참고 ]
+- <appender> 정의는 <logger> 태그 외부에서 해야 한다. ( <appender> 태그는 root logger 또는 개별 logger가 사용하는 로그 출력 방식을 정의 )
+- <appender-ref/> : 로거에 대한 로그 출력 설정을 연결 ( <logger>는 필요한 appender를 appender-ref를 통해 참조 )
+-->
