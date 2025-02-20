@@ -169,6 +169,6 @@ gradle-app.setting
 
 ### Application ###
 # coreui
-src/main/resources/static/coreui/
+# src/main/resources/static/coreui/
 
 # End of https://www.toptal.com/developers/gitignore/api/intellij,java,gradle
