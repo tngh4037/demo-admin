@@ -1,3 +1,5 @@
+'use strict'
+
 /**
  * set csrfToken for ajax request
  */
