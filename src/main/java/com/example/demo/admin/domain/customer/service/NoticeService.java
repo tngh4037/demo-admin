@@ -10,6 +10,7 @@ import com.example.demo.admin.global.common.PaginationDto;
 import com.example.demo.admin.global.common.define.Yn;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import com.example.demo.admin.domain.customer.domain.Notice;
 import org.springframework.transaction.annotation.Transactional;
@@ -34,6 +35,12 @@ public class NoticeService {
         }
 
         return notices;
+    }
+
+    @Cacheable(value = "noticeFooterList",
+            key = "T(java.time.LocalDateTime).now().format(T(java.time.format.DateTimeFormatter).ofPattern('yyyyMMdd'))")
+    public List<Notice> findFooterItems() {
+        return noticeRepository.findAll(new NoticeSearchDto(), null);
     }
 
     public Notice findById(Integer noticeNo) {

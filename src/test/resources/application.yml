@@ -8,6 +8,9 @@ spring:
     password: ENC(ZsOmQH1pzx5/TugBam9aUpBd4RxxlnXK)
   messages:
     basename: messages,errors
+  cache:
+    jcache:
+      config: classpath:ehcache.xml
 mybatis:
   mapper-locations: classpath:/mybatis/mappers/**/*.xml # mapper file location
   configuration:

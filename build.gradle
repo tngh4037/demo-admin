@@ -47,6 +47,9 @@ dependencies {
 	developmentOnly("org.springframework.boot:spring-boot-devtools")
 	// 설정 파일(application.yml) 프로퍼티 암호화
 	implementation 'com.github.ulisesbocchio:jasypt-spring-boot-starter:3.0.5'
+	// cache
+	implementation 'org.springframework.boot:spring-boot-starter-cache'
+	implementation 'org.ehcache:ehcache:3.10.8:jakarta'
 
 	// ==================== [ TEST ] ====================
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'

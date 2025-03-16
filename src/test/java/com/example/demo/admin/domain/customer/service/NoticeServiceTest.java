@@ -14,10 +14,10 @@ import org.junit.jupiter.api.Test;
 import org.springframework.aop.support.AopUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.*;
 
@@ -46,6 +46,25 @@ class NoticeServiceTest {
         noticeEditDto.setContents("TEST");
         noticeEditDto.setDisplayYn("Y");
         noticeEditDto.setNoticeType(NoticeType.USER);
+    }
+
+    @Test
+    @DisplayName("공지글 조회 - 캐시")
+    void findFooterItems() throws InterruptedException {
+        // given
+        Notice notice = noticeService.save(noticeAddDto);
+
+        // when
+        List<Notice> notices = noticeService.findFooterItems();
+        noticeService.remove(new Integer[]{notice.getNoticeNo()});
+        Thread.sleep(3_000);
+        List<Notice> cacheNotices = noticeService.findFooterItems();
+
+        // then
+        assertThat(notices.size()).isEqualTo(cacheNotices.size());
+        Thread.sleep(3_000);
+        List<Notice> newCacheNotices = noticeService.findFooterItems();
+        assertThat(notices.size()).isNotEqualTo(newCacheNotices.size());
     }
 
     @Test

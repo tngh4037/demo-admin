@@ -1,0 +1,18 @@
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.ehcache.org/v3"
+        xsi:schemaLocation="http://www.ehcache.org/v3 http://www.ehcache.org/schema/ehcache-core-3.0.xsd">
+
+    <cache alias="noticeFooterList">
+        <key-type>java.lang.String</key-type>
+        <value-type>java.util.List</value-type>
+
+        <expiry>
+            <ttl unit="seconds">5</ttl> <!-- 5초 동안 캐시 유지 -->
+        </expiry>
+        <resources>
+            <heap unit="entries">3</heap> <!-- 1) 최대 3개의 엔트리(객체)를 Heap 메모리에 저장. 2) Heap에 저장되는 객체는 직렬화되지 않고 그대로 저장됨. 3) Heap이 가득 차면(3개 초과 시) Off-Heap으로 이동하거나, LRU 방식으로 데이터가 삭제됨. (Off-Heap으로 이동하려면 아래 설정을 추가해야 함) | 참고) 지금 설정에서는 Heap(3개 초과시 삭제)만 사용하고 Off-Heap은 비활성화된 상태 -->
+            <!-- <offheap unit="MB">100</offheap> --> <!-- 힙 메모리 가득찬 경우, Off-Heap(힙 외부, JVM 외부 네이티브 메모리)에 100MB까지 저장. ( Off-Heap에 저장되는 객체는 직렬화(Serialization)되어 저장함. 따라서 저장할 객체가 Serializable을 구현해야 함. ( NotSerializableException ) ) -->
+            <!-- 참고) 설정한 용량보다 커지는 경우, 오래된 데이터부터 제거됨 (LRU) -->
+        </resources>
+    </cache>
+</config>

@@ -14,6 +14,9 @@ spring:
     password: ENC(ZsOmQH1pzx5/TugBam9aUpBd4RxxlnXK)
   messages:
     basename: messages,errors
+  cache:
+    jcache:
+      config: classpath:ehcache.xml
 #  mvc:
 #    static-path-pattern: /static-content/**  # http://localhost:8080/hello.txt (X) -> http://localhost:8080/static-content/hello.txt (O)
 #  web:
