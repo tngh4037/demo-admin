@@ -71,6 +71,7 @@ public class SecurityConfig {
 
         // Authorization
         http
+                .csrf(csrf -> csrf.ignoringRequestMatchers("/customer/faqs/images/upload")) // ignore csrf ( for ckeditor image upload )
                 .authorizeHttpRequests((authorizeRequests) -> authorizeRequests
                         .requestMatchers(getResourceOpenPath()).permitAll()
                         .requestMatchers("/login*").permitAll()
